@@ -39,6 +39,7 @@
         <!-- Menu de Navegação Abaixo do Hero -->
         <nav class="max-w-4xl mx-auto w-full bg-gray-950/80 backdrop-blur border border-gray-800 rounded-2xl p-4 mt-8 flex flex-wrap justify-center gap-6 text-sm font-semibold text-gray-300">
             <a href="#sobre" class="hover:text-amber-400 transition">Sobre Mim</a>
+            <a href="#metodo" class="hover:text-amber-400 transition">O Método</a>
             <a href="#modalidades" class="hover:text-amber-400 transition">Modalidades</a>
             <a href="#depoimentos" class="hover:text-amber-400 transition">Relatos</a>
             <a href="https://wa.me/55SEUNUMERO?text=Olá%20Diego,%20gostaria%20de%20tirar%20dúvidas." target="_blank" class="text-amber-400 hover:underline">Tirar Dúvidas</a>
@@ -75,8 +76,45 @@
         </div>
     </section>
 
+    <!-- SEÇÃO: O Método (Carrossel com as Imagens do GitHub) -->
+    <section id="metodo" class="py-20 px-6 bg-gray-900">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-amber-400 font-semibold tracking-widest uppercase text-sm bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Metodologia Exclusiva</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">Conheça o Método Transformação de Elite</h2>
+            <p class="text-gray-400 max-w-xl mx-auto mb-10">Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento (passa sozinho a cada 4 segundos).</p>
+
+            <!-- Container do Carrossel -->
+            <div id="carouselContainer" class="relative max-w-sm mx-auto overflow-hidden rounded-3xl shadow-2xl border border-gray-800 bg-gray-950">
+                <div id="carouselTrack" class="flex transition-transform duration-500 ease-in-out">
+                    <div class="min-w-full"><img src="metodo-1.jpg" alt="Método 1" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-2.jpg" alt="Método 2" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-3.jpg" alt="Método 3" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-4.jpg" alt="Método 4" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-5.jpg" alt="Método 5" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-6.jpg" alt="Método 6" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-7.jpg" alt="Método 7" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-8.jpg" alt="Método 8" class="w-full h-auto object-contain"></div>
+                    <div class="min-w-full"><img src="metodo-9.jpg" alt="Método 9" class="w-full h-auto object-contain"></div>
+                </div>
+
+                <!-- Botões de Navegação (Setas) -->
+                <button onclick="prevSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition shadow-lg">&#10094;</button>
+                <button onclick="nextSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition shadow-lg">&#10095;</button>
+            </div>
+
+            <!-- Indicadores (Pontinhos) -->
+            <div id="dotsContainer" class="flex justify-center gap-2 mt-6">
+                <!-- Gerados por JS -->
+            </div>
+
+            <div class="mt-10">
+                <a href="https://wa.me/55SEUNUMERO?text=Olá%20Diego,%20quero%20começar%20minha%20Transformação%20de%20Elite!" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-10 py-3.5 rounded-xl transition shadow-xl text-base inline-block">Quero Fazer Parte da Elite</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Modalidades -->
-    <section id="modalidades" class="py-20 px-6 bg-gray-900">
+    <section id="modalidades" class="py-20 px-6 bg-gray-950">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Escolha Como Quer Treinar</h2>
@@ -84,7 +122,7 @@
             </div>
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Card 1 -->
-                <div class="bg-gray-950 p-8 rounded-2xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
                     <div>
                         <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Online</span>
                         <h3 class="text-2xl font-bold mt-4 mb-2">Consultoria Online</h3>
@@ -98,7 +136,7 @@
                     <a href="https://wa.me/55SEUNUMERO?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20a%20Consultoria%20Online." target="_blank" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3 rounded-xl text-center transition block">Consultar Valores e Vagas</a>
                 </div>
                 <!-- Card 2 -->
-                <div class="bg-gray-950 p-8 rounded-2xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
                     <div>
                         <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Presencial</span>
                         <h3 class="text-2xl font-bold mt-4 mb-2">Treinamento Presencial</h3>
@@ -116,19 +154,19 @@
     </section>
 
     <!-- Depoimentos (Relatos de Alunos) -->
-    <section id="depoimentos" class="py-20 px-6 bg-gray-950">
+    <section id="depoimentos" class="py-20 px-6 bg-gray-900">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-extrabold mb-4">Relatos de Alunas e Alunos</h2>
                 <p class="text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos.</p>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
+                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800">
                     <p class="text-gray-300 italic mb-4">"O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"</p>
                     <span class="font-bold text-amber-400 block">— Mariana S.</span>
                     <span class="text-xs text-gray-500">Consultoria Online</span>
                 </div>
-                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
+                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800">
                     <p class="text-gray-300 italic mb-4">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
                     <span class="font-bold text-amber-400 block">— Lucas & Camila</span>
                     <span class="text-xs text-gray-500">Treinamento Presencial</span>
@@ -138,7 +176,7 @@
     </section>
 
     <!-- CTA Final -->
-    <section class="py-20 px-6 bg-gradient-to-t from-gray-900 to-gray-950 text-center">
+    <section class="py-20 px-6 bg-gradient-to-t from-gray-950 to-gray-900 text-center">
         <div class="max-w-2xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Pronto para dar o próximo passo?</h2>
             <p class="text-gray-300 mb-8">Entre em contacto agora mesmo pelo WhatsApp para tirar dúvidas, verificar disponibilidade de horários e garantir a sua vaga.</p>
@@ -150,5 +188,61 @@
     <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-sm text-gray-500">
         <p>&copy; 2026 Diego Vasconcelos Personal Trainer. Todos os direitos reservados.</p>
     </footer>
+
+    <!-- Script do Carrossel (Com autoplay de 4 segundos) -->
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 9;
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const container = document.getElementById('carouselContainer');
+
+        // Criar os pontinhos indicadores dinamicamente
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
+            dot.onclick = () => {
+                goToSlide(i);
+                resetTimer();
+            };
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            const dots = dotsContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
+            }
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+            resetTimer();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Configurar Autoplay (4 segundos)
+        let slideInterval = setInterval(nextSlide, 4000);
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+
+        // Pausar o autoplay quando o mouse estiver em cima
+        container.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        container.addEventListener('mouseleave', () => resetTimer());
+    </script>
 </body>
 </html>
