@@ -103,7 +103,7 @@
             </div>
         </section>
 
-        <!-- ABA 2: GESTÃO DE CARROSSEL (MÚLTIPLOS CONJUNTOS MINIMIZADOS) -->
+        <!-- ABA 2: GESTÃO DE CARROSSEL -->
         <section id="section-carrossel" class="hidden space-y-8">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-950 border border-gray-800 p-6 sm:p-8 rounded-3xl">
                 <div>
@@ -339,7 +339,7 @@
             }
         }
 
-        // Gestão de Múltiplos Conjuntos de Carrosséis (Minimizados com Capa)
+        // Gestão de Múltiplos Conjuntos de Carrosséis
         async function loadCarouselContent() {
             try {
                 const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
@@ -381,13 +381,13 @@
             container.innerHTML = '';
 
             groups.forEach((group, gIndex) => {
-                appendGroupCard(group, gIndex, false);
+                const card = appendGroupCard(group, gIndex, false);
+                container.appendChild(card);
             });
             updateAllGroupBadges();
         }
 
         function appendGroupCard(group = { title: '', desc: '', items: [] }, gIndex = 0, startOpen = false) {
-            const container = document.getElementById('carouselGroupsContainer');
             const groupDiv = document.createElement('div');
             groupDiv.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 carousel-group-card";
             
@@ -413,7 +413,7 @@
                             </div>
                             <div class="flex gap-2 mt-4 pt-3 border-t border-gray-800">
                                 <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
-                                <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard);" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                                <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard); updateGroupCover(gCard);" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                             </div>
                         </div>
                     `;
@@ -485,7 +485,6 @@
             card.querySelector('.group-desc-display').textContent = descVal || 'Sem descrição';
         }
 
-        // Criar novo conjunto no INÍCIO (topo) da lista e aberto para edição imediata
         window.addNewCarouselGroup = function() {
             const container = document.getElementById('carouselGroupsContainer');
             const newCard = appendGroupCard({ title: '', desc: '', items: [] }, 0, true);
