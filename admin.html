@@ -105,13 +105,17 @@
                 <p class="text-sm text-gray-400 mb-6">Registe uma nova planilha pronta para disponibilizar aos alunos.</p>
                 
                 <form onsubmit="addNewSpreadsheet(event)" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome da Planilha</label>
-                            <input type="text" id="newSpreadsheetName" placeholder="Ex: Guia de Hipertrofia Avançada" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                            <input type="text" id="newSpreadsheetName" placeholder="Ex: Guia de Hipertrofia" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Ficheiro PDF da Planilha</label>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Valor (Ex: R$ 29,90)</label>
+                            <input type="text" id="newSpreadsheetValue" placeholder="R$ 29,90" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Ficheiro PDF</label>
                             <input type="file" id="newSpreadsheetFile" accept=".pdf" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-gray-950 hover:file:bg-amber-600 cursor-pointer">
                         </div>
                     </div>
@@ -209,9 +213,15 @@
             <h3 class="text-2xl font-bold mb-2 text-white">Editar Planilha de Treino</h3>
             <form onsubmit="saveEditedSpreadsheet(event)" class="space-y-4 mt-4">
                 <input type="hidden" id="editSpreadsheetId">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome da Planilha</label>
-                    <input type="text" id="editSpreadsheetName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome da Planilha</label>
+                        <input type="text" id="editSpreadsheetName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Valor</label>
+                        <input type="text" id="editSpreadsheetValue" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Substituir PDF (Opcional)</label>
@@ -393,19 +403,20 @@
                 querySnapshot.forEach((docSnap) => {
                     const s = docSnap.data();
                     const id = docSnap.id;
+                    const price = s.price || "R$ 29,90";
                     const cardHTML = `
                         <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl flex flex-col justify-between space-y-4 spreadsheet-card" data-id="${id}">
                             <div class="space-y-2">
                                 <div class="flex justify-between items-start gap-2">
                                     <h4 class="font-bold text-white text-base spreadsheet-name">${s.name}</h4>
-                                    <span class="bg-amber-400/10 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">PDF</span>
+                                    <span class="bg-amber-400/10 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">${price}</span>
                                 </div>
                                 <p class="text-gray-300 text-xs spreadsheet-desc leading-relaxed">${s.description}</p>
                             </div>
                             <div class="flex items-center justify-between pt-3 border-t border-gray-800">
                                 <a href="${s.fileUrl}" target="_blank" class="text-xs text-amber-400 hover:underline font-semibold flex items-center gap-1">Ver PDF 📄</a>
                                 <div class="flex gap-2">
-                                    <button type="button" onclick="openEditSpreadsheetModal('${id}', '${encodeURIComponent(s.name)}', '${encodeURIComponent(s.description)}', '${encodeURIComponent(s.fileUrl)}')" class="bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                                    <button type="button" onclick="openEditSpreadsheetModal('${id}', '${encodeURIComponent(s.name)}', '${encodeURIComponent(s.description)}', '${encodeURIComponent(s.fileUrl)}', '${encodeURIComponent(price)}')" class="bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
                                     <button type="button" onclick="deleteSpreadsheet('${id}', this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                                 </div>
                             </div>
@@ -422,6 +433,7 @@
         window.addNewSpreadsheet = async function(e) {
             e.preventDefault();
             const name = document.getElementById('newSpreadsheetName').value;
+            const price = document.getElementById('newSpreadsheetValue').value;
             const description = document.getElementById('newSpreadsheetDesc').value;
             const fileInput = document.getElementById('newSpreadsheetFile');
 
@@ -434,12 +446,14 @@
                 const fileUrl = await toBase64(fileInput.files[0]);
                 await addDoc(collection(db, "spreadsheets"), {
                     name,
+                    price,
                     description,
                     fileUrl,
                     createdAt: new Date().toISOString()
                 });
 
                 document.getElementById('newSpreadsheetName').value = '';
+                document.getElementById('newSpreadsheetValue').value = '';
                 document.getElementById('newSpreadsheetDesc').value = '';
                 fileInput.value = '';
 
@@ -463,9 +477,10 @@
             }
         }
 
-        window.openEditSpreadsheetModal = function(id, name, desc, url) {
+        window.openEditSpreadsheetModal = function(id, name, desc, url, price) {
             document.getElementById('editSpreadsheetId').value = id;
             document.getElementById('editSpreadsheetName').value = decodeURIComponent(name);
+            document.getElementById('editSpreadsheetValue').value = decodeURIComponent(price || "R$ 29,90");
             document.getElementById('editSpreadsheetDesc').value = decodeURIComponent(desc);
             document.getElementById('editSpreadsheetFile').value = '';
             document.getElementById('editSpreadsheetModal').classList.remove('hidden');
@@ -479,6 +494,7 @@
             e.preventDefault();
             const id = document.getElementById('editSpreadsheetId').value;
             const name = document.getElementById('editSpreadsheetName').value;
+            const price = document.getElementById('editSpreadsheetValue').value;
             const description = document.getElementById('editSpreadsheetDesc').value;
             const fileInput = document.getElementById('editSpreadsheetFile');
 
@@ -491,7 +507,7 @@
                     fileUrl = await toBase64(fileInput.files[0]);
                 }
 
-                await setDoc(docRef, { name, description, fileUrl }, { merge: true });
+                await setDoc(docRef, { name, price, description, fileUrl }, { merge: true });
                 closeEditSpreadsheetModal();
                 await loadSpreadsheets();
                 showToast();
