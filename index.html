@@ -107,7 +107,7 @@
                 </div>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Card 1: Consultoria Online -->
-                    <div class="bg-gray-950 p-8 rounded-3xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
+                    <div class="bg-gray-950 p-8 rounded-3xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition shadow-2xl">
                         <div>
                             <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-400/20">ON-LINE</span>
                             <h3 class="text-2xl font-bold mt-4 mb-2 text-white">Consultoria Online</h3>
@@ -121,7 +121,7 @@
                         <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20a%20Consultoria%20Online." target="_blank" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl text-center transition block shadow-lg text-sm">Tirar Dúvidas - Consultoria Online</a>
                     </div>
                     <!-- Card 2: Treinamento Presencial -->
-                    <div class="bg-gray-950 p-8 rounded-3xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
+                    <div class="bg-gray-950 p-8 rounded-3xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition shadow-2xl">
                         <div>
                             <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-400/20">PRESENCIAL</span>
                             <h3 class="text-2xl font-bold mt-4 mb-2 text-white">Treinamento Presencial</h3>
@@ -150,25 +150,25 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: RELATOS (Alinhada com o formato solicitado e últimos 30 comentários) -->
+        <!-- SECÇÃO: RELATOS (Alinhada com o estilo de cartões escuros e nomes em laranja) -->
         <section id="relatos" data-section-id="relatos" class="py-8 space-y-8">
-            <div class="max-w-3xl mx-auto space-y-6 text-center">
+            <div class="max-w-3xl mx-auto space-y-8 text-center">
                 <div class="space-y-2">
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-white">Relatos de Alunas e Alunos</h3>
-                    <p class="text-sm text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos.</p>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white leading-tight">Relatos de Alunas e<br>Alunos</h3>
+                    <p class="text-sm text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span).</p>
                 </div>
                 
-                <!-- Container do Carrossel de Relatos com Setas -->
-                <div class="relative bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-10 shadow-2xl min-h-[220px] flex flex-col justify-between">
+                <!-- Container do Carrossel de Relatos (Estilo Cartão Escuro com Borda e Detalhes Laranja) -->
+                <div class="relative bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 shadow-2xl min-h-[240px] flex flex-col justify-between text-left">
                     <!-- Botões de Navegação (Pular / Voltar) -->
                     <button type="button" onclick="changeTestimonialSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10094;</button>
                     <button type="button" onclick="changeTestimonialSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10095;</button>
 
-                    <div id="testimonialSlideContainer" class="px-8 space-y-4">
-                        <p class="text-xs text-gray-500 italic">A carregar relatos...</p>
+                    <div id="testimonialSlideContainer" class="px-6 sm:px-10 space-y-4">
+                        <p class="text-xs text-gray-500 italic text-center">A carregar relatos...</p>
                     </div>
 
-                    <div id="testimonialCounter" class="text-xs text-gray-500 pt-4">0 / 0</div>
+                    <div id="testimonialCounter" class="text-xs text-gray-500 pt-6 text-center">0 / 0</div>
                 </div>
 
                 <div class="pt-2">
@@ -563,7 +563,7 @@
                 renderTestimonialSlide();
             } catch (err) {
                 console.error("Erro ao carregar depoimentos públicos:", err);
-                container.innerHTML = '<p class="text-xs text-rose-500 italic">Erro ao carregar relatos.</p>';
+                container.innerHTML = '<p class="text-xs text-rose-500 italic text-center">Erro ao carregar relatos.</p>';
             }
         }
 
@@ -574,11 +574,11 @@
 
             const t = approvedTestimonials[currentTestimonialIndex];
             container.innerHTML = `
-                <div class="space-y-3">
-                    <p class="text-gray-200 italic text-base sm:text-lg">"${t.message}"</p>
-                    <div class="pt-2">
+                <div class="space-y-4">
+                    <p class="text-gray-200 italic text-base sm:text-lg leading-relaxed">"${t.message}"</p>
+                    <div class="pt-2 border-t border-gray-800/80">
                         <span class="font-bold text-amber-400 block text-base">— ${t.name}</span>
-                        <span class="text-xs text-gray-400">${t.service || 'Aluno(a)'}</span>
+                        <span class="text-xs text-gray-400 font-medium">${t.service || 'Aluno(a)'}</span>
                     </div>
                 </div>
             `;
