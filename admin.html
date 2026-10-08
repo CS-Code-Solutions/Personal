@@ -141,17 +141,18 @@
                 <p class="text-sm text-gray-400 mb-6">Gerencie as imagens exibidas no método do site.</p>
                 
                 <div id="carouselItemsList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between">
+                    <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card">
                         <div>
                             <div class="h-48 bg-black rounded-xl mb-4 flex items-center justify-center overflow-hidden border border-gray-800">
-                                <span class="text-xs text-amber-400 font-semibold">_metodo-1.jpg</span>
+                                <span class="text-xs text-amber-400 font-semibold carousel-img-name">_metodo-1.jpg</span>
                             </div>
-                            <h4 class="font-bold text-white text-base">Método 1 - Início</h4>
-                            <p class="text-xs text-gray-400 mt-1">Tempo: 6 segundos</p>
-                            <p class="text-xs text-gray-500 mt-1 italic">Preparação para romper insatisfações.</p>
+                            <h4 class="font-bold text-white text-base carousel-title">Método 1 - Início</h4>
+                            <p class="text-xs text-gray-400 mt-1">Tempo: <span class="carousel-time">6</span> segundos</p>
+                            <p class="text-xs text-gray-500 mt-1 italic carousel-desc">Preparação para romper insatisfações.</p>
                         </div>
                         <div class="flex gap-2 mt-4 pt-4 border-t border-gray-800">
-                            <button onclick="deleteItem(this)" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                            <button onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/25 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                            <button onclick="deleteItem(this)" class="w-1/2 bg-rose-500/25 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                         </div>
                     </div>
                 </div>
@@ -202,7 +203,6 @@
             <button onclick="closeEditModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
             <h3 class="text-2xl font-bold mb-2 text-white">Editar Depoimento</h3>
             <form onsubmit="saveEditedTestimonial(event)" class="space-y-4 mt-4">
-                <input type="hidden" id="editIndex">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome Completo</label>
                     <input type="text" id="editName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
@@ -217,6 +217,29 @@
                 <div>
                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Relato</label>
                     <textarea id="editMessage" required rows="4" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Guardar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE ITEM DO CARROSSEL -->
+    <div id="editCarouselModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeEditCarouselModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-white">Editar Item do Carrossel</h3>
+            <form onsubmit="saveEditedCarousel(event)" class="space-y-4 mt-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Bloco / Carrossel</label>
+                    <input type="text" id="editCarouselTitle" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
+                    <input type="number" id="editCarouselTime" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição Opcional</label>
+                    <input type="text" id="editCarouselDesc" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
                 </div>
                 <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Guardar Alterações</button>
             </form>
@@ -248,10 +271,7 @@
             badge.className = 'bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full';
             badge.textContent = 'Publicado';
             
-            // Mover para a lista de aprovados (simulação visual)
             document.getElementById('approvedList').appendChild(card);
-            
-            // Remover botão de aprovar e atualizar botões
             btn.remove();
             updateCounters();
         }
@@ -285,6 +305,36 @@
             closeEditModal();
         }
 
+        let currentCarouselEditing = null;
+
+        function openEditCarouselModal(btn) {
+            currentCarouselEditing = btn.closest('.carousel-item-card');
+            const title = currentCarouselEditing.querySelector('.carousel-title').textContent;
+            const time = currentCarouselEditing.querySelector('.carousel-time').textContent;
+            const desc = currentCarouselEditing.querySelector('.carousel-desc').textContent;
+
+            document.getElementById('editCarouselTitle').value = title;
+            document.getElementById('editCarouselTime').value = time;
+            document.getElementById('editCarouselDesc').value = desc !== 'Preparação para romper insatisfações.' && desc !== '' ? desc : '';
+
+            document.getElementById('editCarouselModal').classList.remove('hidden');
+        }
+
+        function closeEditCarouselModal() {
+            document.getElementById('editCarouselModal').classList.add('hidden');
+        }
+
+        function saveEditedCarousel(e) {
+            e.preventDefault();
+            if (currentCarouselEditing) {
+                currentCarouselEditing.querySelector('.carousel-title').textContent = document.getElementById('editCarouselTitle').value;
+                currentCarouselEditing.querySelector('.carousel-time').textContent = document.getElementById('editCarouselTime').value;
+                const descVal = document.getElementById('editCarouselDesc').value;
+                currentCarouselEditing.querySelector('.carousel-desc').textContent = descVal;
+            }
+            closeEditCarouselModal();
+        }
+
         function deleteItem(btn) {
             if (confirm('Tem certeza que deseja excluir este item?')) {
                 btn.closest('.bg-gray-900').remove();
@@ -315,7 +365,6 @@
                 reader.onload = function(event) {
                     const img = new Image();
                     img.onload = function() {
-                        // Canvas para redimensionar (Max width: 1000px, mantendo proporção)
                         const canvas = document.createElement('canvas');
                         const MAX_WIDTH = 1000;
                         let width = img.width;
@@ -331,24 +380,23 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
 
-                        // Compactar qualidade para 85% JPEG
                         const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
 
-                        // Adicionar na lista visual do painel
                         const list = document.getElementById('carouselItemsList');
                         const newItem = document.createElement('div');
-                        newItem.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between";
+                        newItem.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card";
                         newItem.innerHTML = `
                             <div>
                                 <div class="h-48 bg-black rounded-xl mb-4 flex items-center justify-center overflow-hidden border border-gray-800">
                                     <img src="${dataUrl}" class="max-h-full max-w-full object-contain">
                                 </div>
-                                <h4 class="font-bold text-white text-base">${title}</h4>
-                                <p class="text-xs text-gray-400 mt-1">Tempo: ${time} segundos</p>
-                                ${desc ? `<p class="text-xs text-gray-500 mt-1 italic">${desc}</p>` : ''}
+                                <h4 class="font-bold text-white text-base carousel-title">${title}</h4>
+                                <p class="text-xs text-gray-400 mt-1">Tempo: <span class="carousel-time">${time}</span> segundos</p>
+                                <p class="text-xs text-gray-500 mt-1 italic carousel-desc">${desc}</p>
                             </div>
                             <div class="flex gap-2 mt-4 pt-4 border-t border-gray-800">
-                                <button onclick="deleteItem(this)" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                                <button onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/25 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                                <button onclick="deleteItem(this)" class="w-1/2 bg-rose-500/25 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                             </div>
                         `;
                         list.appendChild(newItem);
