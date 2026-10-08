@@ -156,7 +156,7 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: RELATOS (Com carrossel para os últimos 30 comentários e botões pular/voltar) -->
+        <!-- SECÇÃO: RELATOS (Últimos 30 comentários com navegação pular/voltar) -->
         <section id="relatos" data-section-id="relatos" class="py-8 space-y-8">
             <div class="max-w-3xl mx-auto space-y-6 text-center">
                 <div class="space-y-2">
@@ -177,26 +177,27 @@
                     <div id="testimonialCounter" class="text-xs text-gray-500 pt-4">0 / 0</div>
                 </div>
 
-                <div class="text-pt-2">
+                <div class="pt-2">
                     <button onclick="openTestimonialModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer shadow-lg">Deixar meu Relato / Depoimento</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECÇÃO: TIRAR DÚVIDAS -->
-        <section id="duvidas" data-section-id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-10 space-y-6">
-            <div class="border-b border-gray-800 pb-4">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Suporte Direto</span>
-                <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Tirar Dúvidas</h3>
+        <!-- SECÇÃO: PRONTO PARA DAR O PRÓXIMO PASSO? -->
+        <section id="duvidas" data-section-id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 text-center space-y-8">
+            <div class="max-w-xl mx-auto space-y-4">
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Pronto para dar o próximo passo?</h3>
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    Entre em contato agora mesmo pelo WhatsApp para tirar dúvidas, verifique disponibilidade de horários e garanta a sua vaga.
+                </p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                    <p>Ficou com alguma dúvida sobre qual modalidade escolher, valores ou funcionamento da consultoria?</p>
-                    <p>Entre em contacto diretamente através do WhatsApp para um atendimento rápido e personalizado.</p>
-                </div>
-                <div class="text-center md:text-right">
-                    <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20tirar%20algumas%20dúvidas%20sobre%20os%20treinos." target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-extrabold px-8 py-4 rounded-2xl transition shadow-xl text-base">Falar no WhatsApp 📱</a>
-                </div>
+            <div class="max-w-md mx-auto space-y-4 pt-2">
+                <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20os%20treinos!" target="_blank" class="block w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-4 rounded-2xl transition shadow-xl text-base">
+                    Chamar no WhatsApp
+                </a>
+                <a href="https://www.instagram.com/diegopersonal_/" target="_blank" class="block w-full bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 text-white font-bold py-4 rounded-2xl transition shadow-xl text-base">
+                    Instagram Oficial
+                </a>
             </div>
         </section>
 
@@ -272,7 +273,7 @@
     <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-xs text-gray-500 space-y-2">
         <p>&copy; 2026 Diego Vasconcelos Personal Trainer. Todos os direitos reservados.</p>
-        <p class="text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
+        <p class="text-gray-600">Desenvolvido por <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
     </footer>
 
     <!-- Script Firebase e Lógica Pública -->
@@ -538,7 +539,6 @@
             document.getElementById('pixModal').classList.add('hidden');
         }
 
-        // Lógica de Depoimentos (Últimos 30 comentários com navegação pular/voltar)
         let approvedTestimonials = [];
         let currentTestimonialIndex = 0;
 
@@ -556,7 +556,6 @@
                     }
                 });
 
-                // Limitar aos últimos 30 comentários
                 approvedTestimonials = approvedTestimonials.slice(-30);
 
                 if (approvedTestimonials.length === 0) {
@@ -581,7 +580,7 @@
 
             const t = approvedTestimonials[currentTestimonialIndex];
             container.innerHTML = `
-                <div class="space-y-3 animate-fadeIn">
+                <div class="space-y-3">
                     <p class="text-gray-200 italic text-base sm:text-lg">"${t.message}"</p>
                     <div class="pt-2">
                         <span class="font-bold text-amber-400 block text-base">— ${t.name}</span>
