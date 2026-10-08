@@ -55,12 +55,12 @@
         </nav>
     </section>
 
-    <!-- Conteúdo Principal Dinâmico (Ordenação Gerida pelo Painel Admin) -->
-    <main id="mainSectionsContainer" class="max-w-7xl mx-auto w-full px-6 py-12 space-y-20 flex-grow">
+    <!-- Conteúdo Principal Dinâmico (Espaçamentos reduzidos) -->
+    <main id="mainSectionsContainer" class="max-w-7xl mx-auto w-full px-6 py-8 space-y-10 flex-grow">
 
         <!-- SECÇÃO: MINHA HISTÓRIA / QUEM SOU EU -->
-        <section id="historia" data-section-id="historia" class="py-10 bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12">
-            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <section id="historia" data-section-id="historia" class="py-8 bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12">
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
                 <div>
                     <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Minha Trajetória</span>
                     <h2 class="text-3xl font-bold mb-6 text-amber-400">Quem Sou Eu</h2>
@@ -91,21 +91,21 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: O MÉTODO (Carrosséis dinâmicos com setas e hold-to-pause) -->
-        <section id="metodo" data-section-id="metodo" class="py-10 space-y-12">
+        <!-- SECÇÃO: O MÉTODO -->
+        <section id="metodo" data-section-id="metodo" class="py-8 space-y-8">
             <div class="max-w-4xl mx-auto text-center space-y-3">
                 <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Metodologia Exclusiva</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white">O Método Transformação de Elite</h2>
                 <p class="text-gray-400 max-w-xl mx-auto text-sm">Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.</p>
             </div>
             
-            <div id="dynamicCarouselsContainer" class="space-y-16">
+            <div id="dynamicCarouselsContainer" class="space-y-10">
                 <!-- Preenchido via JavaScript -->
             </div>
         </section>
 
-        <!-- SECÇÃO: PLANILHAS DE TREINO (Posicionada logo abaixo do Método) -->
-        <section id="planilhas" data-section-id="planilhas" class="py-10 space-y-8 bg-gray-950/50 border border-gray-800/60 rounded-3xl p-8 sm:p-12">
+        <!-- SECÇÃO: PLANILHAS DE TREINO (Logo abaixo do Método) -->
+        <section id="planilhas" data-section-id="planilhas" class="py-8 space-y-6 bg-gray-950/50 border border-gray-800/60 rounded-3xl p-8 sm:p-12">
             <div class="text-center space-y-2">
                 <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Materiais Prontos</span>
                 <h3 class="text-3xl md:text-4xl font-extrabold text-white">Planilhas de Treino</h3>
@@ -116,11 +116,10 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: MODALIDADES -->
-        <section id="modalidades" data-section-id="modalidades" class="py-10 space-y-12">
+        <!-- SECÇÃO: MODALIDADES (Selo "Disponível" removido) -->
+        <section id="modalidades" data-section-id="modalidades" class="py-8 space-y-8">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16 space-y-2">
-                    <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Planos Disponíveis</span>
+                <div class="text-center mb-10 space-y-2">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white">Escolha Como Quer Treinar</h2>
                     <p class="text-gray-400 max-w-xl mx-auto text-sm">Opções flexíveis para se encaixar perfeitamente no seu estilo de vida e objetivos.</p>
                 </div>
@@ -158,8 +157,8 @@
         </section>
 
         <!-- SECÇÃO: RELATOS -->
-        <section id="relatos" data-section-id="relatos" class="py-10 space-y-8">
-            <div class="max-w-5xl mx-auto space-y-8">
+        <section id="relatos" data-section-id="relatos" class="py-8 space-y-8">
+            <div class="max-w-5xl mx-auto space-y-6">
                 <div class="text-center space-y-2">
                     <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Alunos Satisfeitos</span>
                     <h3 class="text-3xl md:text-4xl font-extrabold text-white">Relatos e Resultados</h3>
@@ -168,15 +167,15 @@
                 <div id="publicTestimonialsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Preenchido via JavaScript -->
                 </div>
-                <div class="text-center pt-4">
+                <div class="text-center pt-2">
                     <button onclick="openTestimonialModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer shadow-lg">Deixar meu Relato / Depoimento</button>
                 </div>
             </div>
         </section>
 
         <!-- SECÇÃO: TIRAR DÚVIDAS -->
-        <section id="duvidas" data-section-id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
-            <div class="border-b border-gray-800 pb-6">
+        <section id="duvidas" data-section-id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-10 space-y-6">
+            <div class="border-b border-gray-800 pb-4">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Suporte Direto</span>
                 <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Tirar Dúvidas</h3>
             </div>
@@ -253,7 +252,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Relato</label>
-                    <textarea id="clientMessage" required rows="4" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm resize-none" placeholder="Conte como foi a evolução..."></textarea>
+                    <textarea id="clientMessage" required rows="4" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm resize-none" placeholder="Conte como foi a sua evolução..."></textarea>
                 </div>
                 <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Enviar Depoimento</button>
             </form>
