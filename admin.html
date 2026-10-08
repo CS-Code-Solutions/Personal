@@ -112,7 +112,7 @@
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div>
                         <h3 class="text-xl font-bold text-white mb-1">Adicionar Imagens ao Carrossel</h3>
-                        <p class="text-sm text-gray-400">O sistema compacta e redimensiona automaticamente cada imagem enviada.</p>
+                        <p class="text-sm text-gray-400">Defina o título e a descrição geral da secção e adicione as imagens com respetivo tempo.</p>
                     </div>
                     <button type="button" onclick="addCarouselRow()" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-4 py-2.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer flex items-center gap-2">
                         <span>+ Nova Imagem</span>
@@ -120,9 +120,23 @@
                 </div>
                 
                 <form onsubmit="handleAddCarouselBatch(event)" class="space-y-6">
-                    <!-- Container dinâmico para os blocos de imagens -->
+                    <!-- Configurações Gerais do Carrossel (Título e Descrição Geral) -->
+                    <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl space-y-4">
+                        <span class="text-xs uppercase font-bold text-amber-400 block tracking-wider">Definições Gerais da Secção</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Título do Bloco / Secção</label>
+                                <input type="text" id="carouselMainTitle" value="Conheça o Método Transformação de Elite" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-1">Descrição Geral (Subtítulo)</label>
+                                <input type="text" id="carouselMainDesc" value="Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento." required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista Dinâmica de Imagens -->
                     <div id="batchCarouselRows" class="space-y-4">
-                        <!-- Linha inicial padrão -->
                         <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl space-y-4 relative batch-row">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -130,16 +144,8 @@
                                     <input type="file" accept="image/*" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-gray-950 hover:file:bg-amber-600 row-file">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Bloco / Carrossel</label>
-                                    <input type="text" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-title" placeholder="Ex: Antes e Depois / Método">
-                                </div>
-                                <div>
                                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
                                     <input type="number" value="6" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-time">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição Opcional</label>
-                                    <input type="text" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-desc" placeholder="Ex: Evolução após 90 dias">
                                 </div>
                             </div>
                         </div>
@@ -151,20 +157,25 @@
                 </form>
             </div>
 
-            <!-- Lista de Imagens Ativas no Carrossel -->
+            <!-- Lista de Imagens Ativas no Carrossel com Ordem na Fila -->
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
                 <h3 class="text-xl font-bold text-white mb-2">Imagens Ativas no Carrossel</h3>
-                <p class="text-sm text-gray-400 mb-6">Gerencie as imagens exibidas no método do site.</p>
+                <p class="text-sm text-gray-400 mb-6">Gerencie as imagens ativas e ajuste a fila de exibição utilizando os botões de posição (▲ / ▼).</p>
                 
                 <div id="carouselItemsList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card">
                         <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Posição: <span class="queue-pos">1</span></span>
+                                <div class="flex gap-1">
+                                    <button type="button" onclick="moveCarouselItem(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Subir na fila">▲</button>
+                                    <button type="button" onclick="moveCarouselItem(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Descer na fila">▼</button>
+                                </div>
+                            </div>
                             <div class="h-48 bg-black rounded-xl mb-4 flex items-center justify-center overflow-hidden border border-gray-800">
                                 <span class="text-xs text-amber-400 font-semibold carousel-img-name">_metodo-1.jpg</span>
                             </div>
-                            <h4 class="font-bold text-white text-base carousel-title">Método 1 - Início</h4>
-                            <p class="text-xs text-gray-400 mt-1">Tempo: <span class="carousel-time">6</span> segundos</p>
-                            <p class="text-xs text-gray-500 mt-1 italic carousel-desc">Preparação para romper insatisfações.</p>
+                            <p class="text-xs text-gray-400 mt-1">Tempo de Exibição: <span class="carousel-time">6</span> segundos</p>
                         </div>
                         <div class="flex gap-2 mt-4 pt-4 border-t border-gray-800">
                             <button onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/25 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
@@ -246,16 +257,8 @@
             <h3 class="text-2xl font-bold mb-2 text-white">Editar Item do Carrossel</h3>
             <form onsubmit="saveEditedCarousel(event)" class="space-y-4 mt-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Bloco / Carrossel</label>
-                    <input type="text" id="editCarouselTitle" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
-                </div>
-                <div>
                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
                     <input type="number" id="editCarouselTime" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição Opcional</label>
-                    <input type="text" id="editCarouselDesc" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
                 </div>
                 <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Guardar Alterações</button>
             </form>
@@ -280,7 +283,7 @@
             document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
         }
 
-        // Adicionar nova linha dinâmica para envio em lote de imagens
+        // Adicionar nova linha dinâmica contendo apenas Imagem e Tempo
         function addCarouselRow() {
             const container = document.getElementById('batchCarouselRows');
             const rowDiv = document.createElement('div');
@@ -293,34 +296,46 @@
                         <input type="file" accept="image/*" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-gray-950 hover:file:bg-amber-600 row-file">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Bloco / Carrossel</label>
-                        <input type="text" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-title" placeholder="Ex: Antes e Depois / Método">
-                    </div>
-                    <div>
                         <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
                         <input type="number" value="6" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-time">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição Opcional</label>
-                        <input type="text" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-desc" placeholder="Ex: Evolução após 90 dias">
                     </div>
                 </div>
             `;
             container.appendChild(rowDiv);
         }
 
+        // Mudar posição na fila de exibição (Subir / Descer)
+        function moveCarouselItem(btn, direction) {
+            const card = btn.closest('.carousel-item-card');
+            const parent = card.parentNode;
+            if (direction === -1 && card.previousElementSibling) {
+                parent.insertBefore(card, card.previousElementSibling);
+            } else if (direction === 1 && card.nextElementSibling) {
+                parent.insertBefore(card.nextElementSibling, card);
+            }
+            updateQueuePositions();
+        }
+
+        function updateQueuePositions() {
+            const cards = document.querySelectorAll('#carouselItemsList .carousel-item-card');
+            cards.forEach((card, index) => {
+                const posSpan = card.querySelector('.queue-pos');
+                if (posSpan) posSpan.textContent = index + 1;
+            });
+        }
+
         // Processar lote de imagens com redimensionamento e compactação automática
         function handleAddCarouselBatch(e) {
             e.preventDefault();
+            const mainTitle = document.getElementById('carouselMainTitle').value;
+            const mainDesc = document.getElementById('carouselMainDesc').value;
             const rows = document.querySelectorAll('.batch-row');
             const list = document.getElementById('carouselItemsList');
             let processedCount = 0;
 
             rows.forEach(row => {
                 const fileInput = row.querySelector('.row-file');
-                const title = row.querySelector('.row-title').value;
                 const time = row.querySelector('.row-time').value;
-                const desc = row.querySelector('.row-desc').value;
 
                 if (fileInput.files && fileInput.files[0]) {
                     const file = fileInput.files[0];
@@ -350,144 +365,7 @@
                             newItem.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card";
                             newItem.innerHTML = `
                                 <div>
-                                    <div class="h-48 bg-black rounded-xl mb-4 flex items-center justify-center overflow-hidden border border-gray-800">
-                                        <img src="${dataUrl}" class="max-h-full max-w-full object-contain">
-                                    </div>
-                                    <h4 class="font-bold text-white text-base carousel-title">${title}</h4>
-                                    <p class="text-xs text-gray-400 mt-1">Tempo: <span class="carousel-time">${time}</span> segundos</p>
-                                    ${desc ? `<p class="text-xs text-gray-500 mt-1 italic carousel-desc">${desc}</p>` : '<p class="text-xs text-gray-500 mt-1 italic carousel-desc"></p>'}
-                                </div>
-                                <div class="flex gap-2 mt-4 pt-4 border-t border-gray-800">
-                                    <button onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/25 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
-                                    <button onclick="deleteItem(this)" class="w-1/2 bg-rose-500/25 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
-                                </div>
-                            `;
-                            list.appendChild(newItem);
-                            processedCount++;
-
-                            if (processedCount === rows.length) {
-                                alert('Todas as imagens foram compactadas, redimensionadas e adicionadas com sucesso ao carrossel!');
-                                // Redefinir para 1 linha padrão
-                                document.getElementById('batchCarouselRows').innerHTML = `
-                                    <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl space-y-4 relative batch-row">
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Selecionar Imagem (JPG/PNG)</label>
-                                                <input type="file" accept="image/*" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-gray-950 hover:file:bg-amber-600 row-file">
-                                            </div>
-                                            <div>
-                                                <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Bloco / Carrossel</label>
-                                                <input type="text" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-title" placeholder="Ex: Antes e Depois / Método">
-                                            </div>
-                                            <div>
-                                                <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
-                                                <input type="number" value="6" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-time">
-                                            </div>
-                                            <div>
-                                                <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição Opcional</label>
-                                                <input type="text" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 row-desc" placeholder="Ex: Evolução após 90 dias">
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                            }
-                        }
-                        img.src = event.target.result;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        // Ações de Depoimentos
-        function approveTestimonial(btn) {
-            const card = btn.closest('.bg-gray-900');
-            const badge = card.querySelector('.bg-amber-500\\/20');
-            badge.className = 'bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full';
-            badge.textContent = 'Publicado';
-            
-            document.getElementById('approvedList').appendChild(card);
-            btn.remove();
-            updateCounters();
-        }
-
-        let currentCardEditing = null;
-
-        function openEditTestimonialModal(btn) {
-            currentCardEditing = btn.closest('.bg-gray-900');
-            const name = currentCardEditing.querySelector('.name-field').textContent;
-            const service = currentCardEditing.querySelector('.service-field').textContent;
-            const text = currentCardEditing.querySelector('.text-field').textContent.replace(/^"(.*)"$/, '$1');
-
-            document.getElementById('editName').value = name;
-            document.getElementById('editService').value = service;
-            document.getElementById('editMessage').value = text;
-
-            document.getElementById('editTestimonialModal').classList.remove('hidden');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editTestimonialModal').classList.add('hidden');
-        }
-
-        function saveEditedTestimonial(e) {
-            e.preventDefault();
-            if (currentCardEditing) {
-                currentCardEditing.querySelector('.name-field').textContent = document.getElementById('editName').value;
-                currentCardEditing.querySelector('.service-field').textContent = document.getElementById('editService').value;
-                currentCardEditing.querySelector('.text-field').textContent = `"${document.getElementById('editMessage').value}"`;
-            }
-            closeEditModal();
-        }
-
-        let currentCarouselEditing = null;
-
-        function openEditCarouselModal(btn) {
-            currentCarouselEditing = btn.closest('.carousel-item-card');
-            const title = currentCarouselEditing.querySelector('.carousel-title').textContent;
-            const time = currentCarouselEditing.querySelector('.carousel-time').textContent;
-            const desc = currentCarouselEditing.querySelector('.carousel-desc').textContent;
-
-            document.getElementById('editCarouselTitle').value = title;
-            document.getElementById('editCarouselTime').value = time;
-            document.getElementById('editCarouselDesc').value = desc;
-
-            document.getElementById('editCarouselModal').classList.remove('hidden');
-        }
-
-        function closeEditCarouselModal() {
-            document.getElementById('editCarouselModal').classList.add('hidden');
-        }
-
-        function saveEditedCarousel(e) {
-            e.preventDefault();
-            if (currentCarouselEditing) {
-                currentCarouselEditing.querySelector('.carousel-title').textContent = document.getElementById('editCarouselTitle').value;
-                currentCarouselEditing.querySelector('.carousel-time').textContent = document.getElementById('editCarouselTime').value;
-                currentCarouselEditing.querySelector('.carousel-desc').textContent = document.getElementById('editCarouselDesc').value;
-            }
-            closeEditCarouselModal();
-        }
-
-        function deleteItem(btn) {
-            if (confirm('Tem certeza que deseja excluir este item?')) {
-                btn.closest('.bg-gray-900').remove();
-                updateCounters();
-            }
-        }
-
-        function updateCounters() {
-            const pending = document.querySelectorAll('#pendingList .bg-gray-900').length;
-            const approved = document.querySelectorAll('#approvedList .bg-gray-900').length;
-            document.getElementById('pendingCount').textContent = pending;
-            document.getElementById('approvedCount').textContent = approved;
-            document.getElementById('totalCount').textContent = pending + approved;
-        }
-
-        function handleSaveContent(event) {
-            event.preventDefault();
-            alert('Conteúdo da secção "Quem Sou Eu" e textos do site guardados com sucesso!');
-        }
-    </script>
-</body>
-</html>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Posição: <span class="queue-pos">1</span></span>
+                                        <div class="flex gap-1">
+                                            <button type="button" onclick="move
