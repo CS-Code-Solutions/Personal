@@ -28,12 +28,12 @@
         </div>
     </header>
 
-    <!-- Navegação por Abas -->
-    <div class="bg-gray-950/50 border-b border-gray-800 px-6">
-        <div class="max-w-7xl mx-auto flex gap-4 overflow-x-auto">
-            <button onclick="switchTab('depoimentos')" id="tabBtn-depoimentos" class="py-4 px-4 font-bold text-sm border-b-2 border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer">Depoimentos</button>
-            <button onclick="switchTab('carrossel')" id="tabBtn-carrossel" class="py-4 px-4 font-semibold text-sm border-b-2 border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Gestão de Carrossel</button>
-            <button onclick="switchTab('conteudo')" id="tabBtn-conteudo" class="py-4 px-4 font-semibold text-sm border-b-2 border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Conteúdo do Site (Quem Sou Eu)</button>
+    <!-- Navegação por Abas (Corrigido o bug da linha cinza solta) -->
+    <div class="bg-gray-950/50 px-6">
+        <div class="max-w-7xl mx-auto flex gap-4 overflow-x-auto border-b border-gray-800">
+            <button onclick="switchTab('depoimentos')" id="tabBtn-depoimentos" class="py-4 px-4 font-bold text-sm border-b-2 -mb-[1px] border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer">Depoimentos</button>
+            <button onclick="switchTab('carrossel')" id="tabBtn-carrossel" class="py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Gestão de Carrossel</button>
+            <button onclick="switchTab('conteudo')" id="tabBtn-conteudo" class="py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Conteúdo do Site (Quem Sou Eu)</button>
         </div>
     </div>
 
@@ -211,10 +211,10 @@
         window.switchTab = function(tabName) {
             ['depoimentos', 'carrossel', 'conteudo'].forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
-                document.getElementById(`tabBtn-${t}`).className = "py-4 px-4 font-semibold text-sm border-b-2 border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer";
+                document.getElementById(`tabBtn-${t}`).className = "py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer";
             });
             document.getElementById(`section-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
+            document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 -mb-[1px] border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
         }
 
         // Depoimentos
