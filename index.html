@@ -56,11 +56,11 @@
         </div>
     </section>
 
-    <!-- Conteúdo Principal -->
-    <main class="max-w-7xl mx-auto w-full px-6 py-12 space-y-24 flex-grow">
+    <!-- Conteúdo Principal com Ordenação Dinâmica -->
+    <main id="mainSectionsContainer" class="max-w-7xl mx-auto w-full px-6 py-12 space-y-24 flex-grow">
 
         <!-- SECÇÃO: MINHA HISTÓRIA -->
-        <section id="historia" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
+        <section id="historia" data-section-id="historia" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
             <div class="border-b border-gray-800 pb-6">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Trajetória Real</span>
                 <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Quem Sou Eu</h3>
@@ -87,7 +87,7 @@
         </section>
 
         <!-- SECÇÃO: O MÉTODO (CARROSSÉIS DINÂMICOS DO FIREBASE) -->
-        <section id="metodo" class="space-y-12">
+        <section id="metodo" data-section-id="metodo" class="space-y-12">
             <div class="text-center space-y-2">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Passo a Passo</span>
                 <h3 class="text-3xl font-extrabold text-white">O Método Team Vasconcelos</h3>
@@ -101,7 +101,7 @@
         </section>
 
         <!-- SECÇÃO: MODALIDADES -->
-        <section id="modalidades" class="space-y-8">
+        <section id="modalidades" data-section-id="modalidades" class="space-y-8">
             <div class="text-center space-y-2">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Planos Disponíveis</span>
                 <h3 class="text-3xl font-extrabold text-white">Escolha a sua Modalidade</h3>
@@ -126,8 +126,8 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: PLANILHAS DE TREINO (NOVA) -->
-        <section id="planilhas" class="space-y-8">
+        <!-- SECÇÃO: PLANILHAS DE TREINO -->
+        <section id="planilhas" data-section-id="planilhas" class="space-y-8">
             <div class="text-center space-y-2">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Materiais Prontos</span>
                 <h3 class="text-3xl font-extrabold text-white">Planilhas de Treino</h3>
@@ -142,7 +142,7 @@
         </section>
 
         <!-- SECÇÃO: RELATOS (DEPOIMENTOS) -->
-        <section id="relatos" class="space-y-8">
+        <section id="relatos" data-section-id="relatos" class="space-y-8">
             <div class="text-center space-y-2">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Alunos Satisfeitos</span>
                 <h3 class="text-3xl font-extrabold text-white">Relatos e Resultados</h3>
@@ -161,7 +161,7 @@
         </section>
 
         <!-- SECÇÃO: TIRAR DÚVIDAS (FAQ & CONTACTO) -->
-        <section id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
+        <section id="duvidas" data-section-id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
             <div class="border-b border-gray-800 pb-6">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Suporte Direto</span>
                 <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Tirar Dúvidas</h3>
@@ -250,7 +250,27 @@
             await loadPublicCarousels();
             await loadPublicTestimonials();
             await loadPublicSpreadsheets();
+            await applySectionsOrder();
         });
+
+        // Aplicar Ordem das Secções Salva no Firebase
+        async function applySectionsOrder() {
+            try {
+                const docSnap = await getDoc(doc(db, "siteConfig", "sectionsOrder"));
+                if (docSnap.exists() && docSnap.data().order) {
+                    const order = docSnap.data().order;
+                    const container = document.getElementById('mainSectionsContainer');
+                    order.forEach(id => {
+                        const sectionEl = container.querySelector(`[data-section-id="${id}"]`);
+                        if (sectionEl) {
+                            container.appendChild(sectionEl);
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error("Erro ao aplicar ordem das secções:", err);
+            }
+        }
 
         // Carregar Bio
         async function loadPublicBio() {
