@@ -28,7 +28,7 @@
         </div>
     </header>
 
-    <!-- Navegação por Abas (Corrigido o bug da linha cinza solta) -->
+    <!-- Navegação por Abas -->
     <div class="bg-gray-950/50 px-6">
         <div class="max-w-7xl mx-auto flex gap-4 overflow-x-auto border-b border-gray-800">
             <button onclick="switchTab('depoimentos')" id="tabBtn-depoimentos" class="py-4 px-4 font-bold text-sm border-b-2 -mb-[1px] border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer">Depoimentos</button>
@@ -103,18 +103,18 @@
             </div>
         </section>
 
-        <!-- ABA 2: GESTÃO DE CARROSSEL (MÚLTIPLOS CONJUNTOS) -->
+        <!-- ABA 2: GESTÃO DE CARROSSEL (MÚLTIPLOS CONJUNTOS MINIMIZADOS) -->
         <section id="section-carrossel" class="hidden space-y-8">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-950 border border-gray-800 p-6 sm:p-8 rounded-3xl">
                 <div>
                     <h3 class="text-xl font-bold text-white mb-1">Conjuntos de Carrosséis do Site</h3>
-                    <p class="text-sm text-gray-400">Crie múltiplos blocos de carrosséis independentes, ordene-os acima ou abaixo e gerencie as imagens de cada um.</p>
+                    <p class="text-sm text-gray-400">Gerencie os blocos de carrosséis de forma minimizada. Clique em Editar para abrir as imagens.</p>
                 </div>
                 <button type="button" onclick="addNewCarouselGroup()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-5 py-3 rounded-xl text-sm transition shadow-lg cursor-pointer whitespace-nowrap">+ Novo Conjunto de Carrossel</button>
             </div>
 
             <!-- Contentor de Todos os Grupos de Carrossel -->
-            <div id="carouselGroupsContainer" class="space-y-8">
+            <div id="carouselGroupsContainer" class="space-y-6">
                 <!-- Preenchido Dinamicamente -->
             </div>
 
@@ -339,7 +339,7 @@
             }
         }
 
-        // Gestão de Múltiplos Conjuntos de Carrosséis
+        // Gestão de Múltiplos Conjuntos de Carrosséis (Minimizados com Capa)
         async function loadCarouselContent() {
             try {
                 const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
@@ -381,59 +381,78 @@
             container.innerHTML = '';
 
             groups.forEach((group, gIndex) => {
-                const groupDiv = document.createElement('div');
-                groupDiv.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 carousel-group-card";
-                
-                let itemsHTML = '';
-                if (group.items && group.items.length > 0) {
-                    group.items.forEach((item, iIndex) => {
-                        itemsHTML += `
-                            <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card" data-image="${item.image}">
-                                <div>
-                                    <div class="flex justify-between items-center mb-3">
-                                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">${iIndex + 1}</span></span>
-                                        <div class="flex gap-1">
-                                            <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
-                                            <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
-                                        </div>
-                                    </div>
-                                    <div class="h-44 bg-black rounded-xl mb-3 flex items-center justify-center overflow-hidden border border-gray-800">
-                                        <img src="${item.image}" class="max-h-full max-w-full object-contain item-img">
-                                    </div>
-                                    <p class="text-xs text-gray-400">Tempo: <span class="item-time">${item.time || 6}</span> seg</p>
-                                </div>
-                                <div class="flex gap-2 mt-4 pt-3 border-t border-gray-800">
-                                    <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
-                                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard);" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
-                                </div>
-                            </div>
-                        `;
-                    });
-                } else {
-                    itemsHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
-                }
+                appendGroupCard(group, gIndex, false);
+            });
+            updateAllGroupBadges();
+        }
 
-                groupDiv.innerHTML = `
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-gray-800">
-                        <div class="flex items-center gap-3">
-                            <span class="bg-amber-500 text-gray-950 font-extrabold w-8 h-8 rounded-xl flex items-center justify-center text-sm group-index-badge">${gIndex + 1}</span>
-                            <h4 class="text-lg font-bold text-white">Conjunto de Carrossel</h4>
+        function appendGroupCard(group = { title: '', desc: '', items: [] }, gIndex = 0, startOpen = false) {
+            const container = document.getElementById('carouselGroupsContainer');
+            const groupDiv = document.createElement('div');
+            groupDiv.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 carousel-group-card";
+            
+            const firstImg = (group.items && group.items.length > 0) ? group.items[0].image : 'logo.png';
+
+            let itemsHTML = '';
+            if (group.items && group.items.length > 0) {
+                group.items.forEach((item, iIndex) => {
+                    itemsHTML += `
+                        <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card" data-image="${item.image}">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">${iIndex + 1}</span></span>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
+                                        <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
+                                    </div>
+                                </div>
+                                <div class="h-44 bg-black rounded-xl mb-3 flex items-center justify-center overflow-hidden border border-gray-800">
+                                    <img src="${item.image}" class="max-h-full max-w-full object-contain item-img">
+                                </div>
+                                <p class="text-xs text-gray-400">Tempo: <span class="item-time">${item.time || 6}</span> seg</p>
+                            </div>
+                            <div class="flex gap-2 mt-4 pt-3 border-t border-gray-800">
+                                <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                                <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard);" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">▲ Posicionar Acima</button>
-                            <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">▼ Posicionar Abaixo</button>
-                            <button type="button" onclick="deleteCarouselGroup(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir Conjunto</button>
+                    `;
+                });
+            } else {
+                itemsHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
+            }
+
+            groupDiv.innerHTML = `
+                <!-- CABEÇALHO MINIMIZADO (CAPA) -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <span class="bg-amber-500 text-gray-950 font-extrabold w-8 h-8 rounded-xl flex items-center justify-center text-sm group-index-badge">1</span>
+                        <div class="w-16 h-16 bg-black rounded-xl overflow-hidden border border-gray-800 flex items-center justify-center flex-shrink-0">
+                            <img src="${firstImg}" class="max-h-full max-w-full object-contain group-cover-img">
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white group-title-display">${group.title || 'Conjunto de Carrossel'}</h4>
+                            <p class="text-xs text-gray-400 group-desc-display">${group.desc || 'Clique em Editar para configurar as imagens'}</p>
                         </div>
                     </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="toggleEditGroup(this)" class="bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold px-4 py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                        <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Acima">▲</button>
+                        <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Abaixo">▼</button>
+                        <button type="button" onclick="deleteCarouselGroup(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                    </div>
+                </div>
 
+                <!-- CORPO DE EDIÇÃO EXPANSÍVEL -->
+                <div class="group-editor-body ${startOpen ? '' : 'hidden'} space-y-6 pt-6 border-t border-gray-800">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Conjunto</label>
-                            <input type="text" value="${group.title || ''}" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-title-input">
+                            <input type="text" value="${group.title || ''}" oninput="updateGroupHeaderPreview(this)" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-title-input">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição / Subtítulo do Conjunto</label>
-                            <input type="text" value="${group.desc || ''}" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-desc-input">
+                            <input type="text" value="${group.desc || ''}" oninput="updateGroupHeaderPreview(this)" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-desc-input">
                         </div>
                     </div>
 
@@ -446,51 +465,31 @@
                             ${itemsHTML}
                         </div>
                     </div>
-                `;
-                container.appendChild(groupDiv);
-            });
-            updateAllGroupBadges();
-        }
-
-        window.addNewCarouselGroup = function() {
-            const container = document.getElementById('carouselGroupsContainer');
-            const groupDiv = document.createElement('div');
-            groupDiv.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 carousel-group-card";
-            groupDiv.innerHTML = `
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-gray-800">
-                    <div class="flex items-center gap-3">
-                        <span class="bg-amber-500 text-gray-950 font-extrabold w-8 h-8 rounded-xl flex items-center justify-center text-sm group-index-badge">1</span>
-                        <h4 class="text-lg font-bold text-white">Conjunto de Carrossel</h4>
-                    </div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">▲ Posicionar Acima</button>
-                        <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">▼ Posicionar Abaixo</button>
-                        <button type="button" onclick="deleteCarouselGroup(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir Conjunto</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Conjunto</label>
-                        <input type="text" placeholder="Ex: Transformações de Alunos" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-title-input">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição / Subtítulo do Conjunto</label>
-                        <input type="text" placeholder="Ex: Veja os resultados obtidos..." required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-desc-input">
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">Imagens deste Conjunto</span>
-                        <button type="button" onclick="addNewImageRowToGroup(this)" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer">+ Adicionar Imagem</button>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 group-items-grid">
-                        <p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>
-                    </div>
                 </div>
             `;
-            container.appendChild(groupDiv);
+
+            return groupDiv;
+        }
+
+        window.toggleEditGroup = function(btn) {
+            const card = btn.closest('.carousel-group-card');
+            const body = card.querySelector('.group-editor-body');
+            body.classList.toggle('hidden');
+        }
+
+        window.updateGroupHeaderPreview = function(input) {
+            const card = input.closest('.carousel-group-card');
+            const titleVal = card.querySelector('.group-title-input').value;
+            const descVal = card.querySelector('.group-desc-input').value;
+            card.querySelector('.group-title-display').textContent = titleVal || 'Conjunto de Carrossel';
+            card.querySelector('.group-desc-display').textContent = descVal || 'Sem descrição';
+        }
+
+        // Criar novo conjunto no INÍCIO (topo) da lista e aberto para edição imediata
+        window.addNewCarouselGroup = function() {
+            const container = document.getElementById('carouselGroupsContainer');
+            const newCard = appendGroupCard({ title: '', desc: '', items: [] }, 0, true);
+            container.prepend(newCard);
             updateAllGroupBadges();
         }
 
@@ -550,7 +549,7 @@
                     </div>
                 </div>
                 <div class="flex gap-2 mt-2 pt-2 border-t border-gray-800">
-                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard);" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Remover</button>
+                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard); updateGroupCover(gCard);" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Remover</button>
                 </div>
             `;
             grid.appendChild(tempDiv);
@@ -565,7 +564,9 @@
             } else if (direction === 1 && card.nextElementSibling) {
                 parent.insertBefore(card.nextElementSibling, card);
             }
-            updateGroupPositions(card.closest('.carousel-group-card'));
+            const groupCard = card.closest('.carousel-group-card');
+            updateGroupPositions(groupCard);
+            updateGroupCover(groupCard);
         }
 
         function updateGroupPositions(groupCard) {
@@ -575,6 +576,16 @@
                 const pos = card.querySelector('.item-pos');
                 if (pos) pos.textContent = index + 1;
             });
+        }
+
+        function updateGroupCover(groupCard) {
+            const firstCardImg = groupCard.querySelector('.carousel-item-card .item-img');
+            const coverImg = groupCard.querySelector('.group-cover-img');
+            if (firstImg && coverImg) {
+                coverImg.src = firstImg.src;
+            } else if (coverImg) {
+                coverImg.src = 'logo.png';
+            }
         }
 
         window.checkEmptyGroup = function(groupCard) {
@@ -612,6 +623,7 @@
                     const img = currentItemEditing.querySelector('.item-img');
                     if (img) img.src = base64;
                     currentItemEditing.dataset.image = base64;
+                    updateGroupCover(currentItemEditing.closest('.carousel-group-card'));
                 }
                 closeEditCarouselModal();
                 alert('Imagem atualizada com sucesso no painel!');
