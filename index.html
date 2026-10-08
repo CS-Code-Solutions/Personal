@@ -165,17 +165,7 @@
 
             <!-- Grelha dinamicamente preenchida -->
             <div id="depoimentosGrid" class="grid md:grid-cols-2 gap-8">
-                <!-- Depoimentos estáticos padrão caso o Firebase demore -->
-                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800">
-                    <p class="text-gray-300 italic mb-4">"O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"</p>
-                    <span class="font-bold text-amber-400 block">— Mariana S.</span>
-                    <span class="text-xs text-gray-500">Consultoria Online</span>
-                </div>
-                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800">
-                    <p class="text-gray-300 italic mb-4">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
-                    <span class="font-bold text-amber-400 block">— Lucas & Camila</span>
-                    <span class="text-xs text-gray-500">Treinamento Presencial</span>
-                </div>
+                <!-- Preenchido via Script -->
             </div>
 
             <!-- Botões de Navegação entre Páginas de Depoimentos -->
@@ -265,9 +255,22 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let allApprovedTestimonials = [];
+        // Array inicial contendo os 2 depoimentos falsos/padrão
+        let allApprovedTestimonials = [
+            {
+                name: "Mariana S.",
+                service: "Consultoria Online",
+                message: "O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"
+            },
+            {
+                name: "Lucas & Camila",
+                service: "Treinamento Presencial",
+                message: "Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."
+            }
+        ];
+
         let currentTestimonialPage = 0;
-        const testimonialsPerPage = 2; // Exibe 2 depoimentos por página (ou pode ajustar)
+        const testimonialsPerPage = 2;
 
         document.addEventListener("DOMContentLoaded", async function() {
             try {
@@ -307,22 +310,19 @@
                     if (bio.p2) document.getElementById('bioP2').textContent = bio.p2;
                 }
 
-                // 3. Carregar Depoimentos Aprovados (Últimos 30) do Firebase
+                // 3. Carregar Depoimentos Aprovados do Firebase e adicionar à lista
                 const q = query(collection(db, "testimonials"), where("status", "==", "aprovado"), limit(30));
                 const querySnapshot = await getDocs(q);
                 
-                let fetched = [];
                 querySnapshot.forEach((docSnap) => {
-                    fetched.push(docSnap.data());
+                    allApprovedTestimonials.push(docSnap.data());
                 });
-
-                if (fetched.length > 0) {
-                    allApprovedTestimonials = fetched;
-                    renderTestimonialsPage();
-                }
 
             } catch (err) {
                 console.error("Erro ao carregar dados do Firebase:", err);
+            } finally {
+                // Renderizar depoimentos independentemente de erro ou sucesso
+                renderTestimonialsPage();
             }
         });
 
