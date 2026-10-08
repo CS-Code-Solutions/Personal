@@ -45,15 +45,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
                     <span class="text-xs uppercase text-gray-400 font-semibold">Pendentes de Validação</span>
-                    <h2 class="text-3xl font-extrabold text-amber-400 mt-2" id="pendingCount">0</h2>
+                    <h2 class="text-3xl font-extrabold text-amber-400 mt-2" id="pendingCount">1</h2>
                 </div>
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
                     <span class="text-xs uppercase text-gray-400 font-semibold">Postados no Site</span>
-                    <h2 class="text-3xl font-extrabold text-emerald-400 mt-2" id="approvedCount">0</h2>
+                    <h2 class="text-3xl font-extrabold text-emerald-400 mt-2" id="approvedCount">1</h2>
                 </div>
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
                     <span class="text-xs uppercase text-gray-400 font-semibold">Total Registados</span>
-                    <h2 class="text-3xl font-extrabold text-blue-400 mt-2" id="totalCount">0</h2>
+                    <h2 class="text-3xl font-extrabold text-blue-400 mt-2" id="totalCount">2</h2>
                 </div>
             </div>
 
@@ -62,7 +62,22 @@
                 <h3 class="text-xl font-bold text-white mb-2">Relatos Pendentes</h3>
                 <p class="text-sm text-gray-400 mb-6">Aprove ou exclua os relatos enviados pelos alunos no site.</p>
                 <div id="pendingList" class="space-y-4">
-                    <p class="text-sm text-gray-500 italic">A carregar depoimentos pendentes...</p>
+                    <!-- Exemplo Falso Inicial -->
+                    <div class="bg-gray-900 border border-amber-500/30 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base">Carlos Alberto</span>
+                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Treinamento Presencial</span>
+                                <span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-0.5 rounded-full status-badge">Pendente</span>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"O Diego puxa mesmo nos treinos presenciais! A minha postura e força mudaram 100% em poucas semanas."</p>
+                            <span class="text-xs text-gray-500">Enviado em: 07/10/2026</span>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                            <button onclick="approveLocalTestimonial(this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer btn-approve">Aprovar</button>
+                            <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -71,7 +86,21 @@
                 <h3 class="text-xl font-bold text-white mb-2">Relatos Postados no Site</h3>
                 <p class="text-sm text-gray-400 mb-6">Depoimentos visíveis publicamente na landing page.</p>
                 <div id="approvedList" class="space-y-4">
-                    <p class="text-sm text-gray-500 italic">A carregar depoimentos aprovados...</p>
+                    <!-- Exemplo Falso Inicial -->
+                    <div class="bg-gray-900 border border-emerald-500/20 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base">Lucas & Camila</span>
+                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Consultoria Online</span>
+                                <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full status-badge">Publicado</span>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
+                            <span class="text-xs text-gray-500">Enviado em: 06/10/2026</span>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                            <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -171,7 +200,7 @@
     <!-- Script Firebase e Lógica Administrativa -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDsoyXz4x2BGXHmm-iPb56fn6K07AXOgSY",
@@ -185,11 +214,11 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Carregar dados iniciais do Firebase ao abrir o painel
         document.addEventListener("DOMContentLoaded", async function() {
-            await loadTestimonials();
             await loadBioContent();
             await loadCarouselContent();
+            // Carrega também os do Firebase se houver novos enviados pelos utilizadores
+            await loadFirebaseTestimonials();
         });
 
         window.switchTab = function(tabName) {
@@ -201,83 +230,88 @@
             document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
         }
 
-        // Gestão de Depoimentos do Firebase
-        async function loadTestimonials() {
-            const pendingList = document.getElementById('pendingList');
-            const approvedList = document.getElementById('approvedList');
-            
+        // Funções para gerir depoimentos locais e do Firebase
+        async function loadFirebaseTestimonials() {
             try {
                 const querySnapshot = await getDocs(collection(db, "testimonials"));
-                pendingList.innerHTML = '';
-                approvedList.innerHTML = '';
-                
-                let pendingCount = 0;
-                let approvedCount = 0;
-
                 querySnapshot.forEach((docSnap) => {
                     const t = docSnap.data();
                     const id = docSnap.id;
                     const isPending = (t.status === 'pendente' || !t.status);
 
                     const cardHTML = `
-                        <div class="bg-gray-900 border ${isPending ? 'border-amber-500/30' : 'border-emerald-500/20'} p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div class="bg-gray-900 border ${isPending ? 'border-amber-500/30' : 'border-emerald-500/20'} p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
                             <div class="space-y-1">
                                 <div class="flex items-center gap-2">
                                     <span class="font-bold text-white text-base">${t.name}</span>
                                     <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">${t.service}</span>
-                                    <span class="${isPending ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'} text-xs px-2.5 py-0.5 rounded-full">${isPending ? 'Pendente' : 'Publicado'}</span>
+                                    <span class="${isPending ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'} text-xs px-2.5 py-0.5 rounded-full status-badge">${isPending ? 'Pendente' : 'Publicado'}</span>
                                 </div>
                                 <p class="text-gray-300 text-sm italic">"${t.message}"</p>
                                 <span class="text-xs text-gray-500">Enviado em: ${t.date || 'Recente'}</span>
                             </div>
                             <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
-                                ${isPending ? `<button onclick="approveTestimonial('${id}')" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>` : ''}
-                                <button onclick="deleteTestimonial('${id}')" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                                ${isPending ? `<button onclick="approveFirebaseTestimonial('${id}', this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>` : ''}
+                                <button onclick="deleteFirebaseTestimonial('${id}', this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                             </div>
                         </div>
                     `;
 
                     if (isPending) {
-                        pendingList.innerHTML += cardHTML;
-                        pendingCount++;
+                        document.getElementById('pendingList').insertAdjacentHTML('beforeend', cardHTML);
                     } else {
-                        approvedList.innerHTML += cardHTML;
-                        approvedCount++;
+                        document.getElementById('approvedList').insertAdjacentHTML('beforeend', cardHTML);
                     }
                 });
-
-                if (pendingCount === 0) pendingList.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhum relato pendente no momento.</p>';
-                if (approvedCount === 0) approvedList.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhum relato publicado no momento.</p>';
-
-                document.getElementById('pendingCount').textContent = pendingCount;
-                document.getElementById('approvedCount').textContent = approvedCount;
-                document.getElementById('totalCount').textContent = pendingCount + approvedCount;
-
+                updateCounters();
             } catch (err) {
-                console.error("Erro ao carregar depoimentos:", err);
+                console.error("Erro ao carregar depoimentos do Firebase:", err);
             }
         }
 
-        window.approveTestimonial = async function(id) {
+        window.approveLocalTestimonial = function(btn) {
+            const card = btn.closest('.testimonial-card');
+            card.querySelector('.status-badge').className = "bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full status-badge";
+            card.querySelector('.status-badge').textContent = "Publicado";
+            document.getElementById('approvedList').appendChild(card);
+            btn.remove();
+            updateCounters();
+        }
+
+        window.approveFirebaseTestimonial = async function(id, btn) {
             try {
-                await updateDoc(doc(db, "testimonials", id), { status: 'aprovado' });
-                alert('Depoimento aprovado com sucesso!');
-                loadTestimonials();
+                await setDoc(doc(db, "testimonials", id), { status: 'aprovado' }, { merge: true });
+                approveLocalTestimonial(btn);
             } catch (err) {
                 alert('Erro ao aprovar: ' + err.message);
             }
         }
 
-        window.deleteTestimonial = async function(id) {
+        window.deleteLocalItem = function(btn) {
+            if (confirm('Tem certeza que deseja excluir este depoimento?')) {
+                btn.closest('.testimonial-card').remove();
+                updateCounters();
+            }
+        }
+
+        window.deleteFirebaseTestimonial = async function(id, btn) {
             if (confirm('Tem certeza que deseja excluir este depoimento?')) {
                 try {
                     await deleteDoc(doc(db, "testimonials", id));
-                    alert('Depoimento excluído com sucesso!');
-                    loadTestimonials();
+                    btn.closest('.testimonial-card').remove();
+                    updateCounters();
                 } catch (err) {
                     alert('Erro ao excluir: ' + err.message);
                 }
             }
+        }
+
+        function updateCounters() {
+            const pending = document.querySelectorAll('#pendingList .testimonial-card').length;
+            const approved = document.querySelectorAll('#approvedList .testimonial-card').length;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('approvedCount').textContent = approved;
+            document.getElementById('totalCount').textContent = pending + approved;
         }
 
         // Gestão de Conteúdo (Quem Sou Eu)
@@ -286,13 +320,12 @@
                 const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
                 if (bioDoc.exists()) {
                     const bio = bioDoc.data();
-                    if (bio.p1) document.getElementById('contentP1').value = bio.p1;
-                    if (bio.p2) document.getElementById('contentP2').value = bio.p2;
-                    if (bio.fisiculturismo) document.getElementById('contentFisiculturismo').value = bio.fisiculturismo;
-                    if (bio.peso) document.getElementById('contentPeso').value = bio.peso;
-                    if (bio.citacao) document.getElementById('contentCitacao').value = bio.citacao;
+                    document.getElementById('contentP1').value = bio.p1 || "";
+                    document.getElementById('contentP2').value = bio.p2 || "";
+                    document.getElementById('contentFisiculturismo').value = bio.fisiculturismo || "6 Anos";
+                    document.getElementById('contentPeso').value = bio.peso || "94kg → 68kg";
+                    document.getElementById('contentCitacao').value = bio.citacao || "";
                 } else {
-                    // Valores padrão caso ainda não exista no Firebase
                     document.getElementById('contentP1').value = "A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.";
                     document.getElementById('contentP2').value = "Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.";
                     document.getElementById('contentFisiculturismo').value = "6 Anos";
@@ -314,7 +347,7 @@
 
             try {
                 await setDoc(doc(db, "siteConfig", "bio"), { p1, p2, fisiculturismo, peso, citacao });
-                alert('Conteúdo da secção "Quem Sou Eu" guardado com sucesso no Firebase!');
+                alert('Conteúdo guardado com sucesso no Firebase!');
             } catch (error) {
                 alert('Erro ao guardar conteúdo: ' + error.message);
             }
@@ -371,7 +404,6 @@
             }
 
             try {
-                // Se houver novas imagens, atualiza ou adiciona
                 const docRef = doc(db, "siteConfig", "carousel");
                 const existing = await getDoc(docRef);
                 let finalItems = items;
