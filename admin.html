@@ -694,4 +694,303 @@
         }
 
         function appendGroupCard(group = { title: '', desc: '', items: [] }, gIndex = 0, startOpen = false) {
-            const group
+            const groupDiv = document.createElement('div');
+            groupDiv.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 carousel-group-card";
+            
+            const firstImg = (group.items && group.items.length > 0) ? group.items[0].image : 'logo.png';
+
+            let itemsHTML = '';
+            if (group.items && group.items.length > 0) {
+                group.items.forEach((item, iIndex) => {
+                    itemsHTML += `
+                        <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card" data-image="${item.image}">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">${iIndex + 1}</span></span>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
+                                        <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
+                                    </div>
+                                </div>
+                                <div class="h-44 bg-black rounded-xl mb-3 flex items-center justify-center overflow-hidden border border-gray-800">
+                                    <img src="${item.image}" class="max-h-full max-w-full object-contain item-img">
+                                </div>
+                                <p class="text-xs text-gray-400">Tempo: <span class="item-time">${item.time || 6}</span> seg</p>
+                            </div>
+                            <div class="flex gap-2 mt-4 pt-3 border-t border-gray-800">
+                                <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                                <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard); updateGroupCover(gCard); triggerAutoSaveCarousels();" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                itemsHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
+            }
+
+            groupDiv.innerHTML = `
+                <!-- CABEÇALHO MINIMIZADO (CAPA) -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <span class="bg-amber-500 text-gray-950 font-extrabold w-8 h-8 rounded-xl flex items-center justify-center text-sm group-index-badge">1</span>
+                        <div class="w-16 h-16 bg-black rounded-xl overflow-hidden border border-gray-800 flex items-center justify-center flex-shrink-0">
+                            <img src="${firstImg}" class="max-h-full max-w-full object-contain group-cover-img">
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white group-title-display">${group.title || 'Conjunto de Carrossel'}</h4>
+                            <p class="text-xs text-gray-400 group-desc-display">${group.desc || 'Clique em Editar para configurar as imagens'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="toggleEditGroup(this)" class="bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold px-4 py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                        <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Acima">▲</button>
+                        <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Abaixo">▼</button>
+                        <button type="button" onclick="deleteCarouselGroup(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">Excluir</button>
+                    </div>
+                </div>
+
+                <!-- CORPO DE EDIÇÃO EXPANSÍVEL -->
+                <div class="group-editor-body ${startOpen ? '' : 'hidden'} space-y-6 pt-6 border-t border-gray-800">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Conjunto</label>
+                            <input type="text" value="${group.title || ''}" oninput="updateGroupHeaderPreview(this)" onblur="triggerAutoSaveCarousels()" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-title-input">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição / Subtítulo do Conjunto</label>
+                            <input type="text" value="${group.desc || ''}" oninput="updateGroupHeaderPreview(this)" onblur="triggerAutoSaveCarousels()" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-desc-input">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">Imagens deste Conjunto</span>
+                            <button type="button" onclick="addNewImageRowToGroup(this)" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer">+ Adicionar Imagem</button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 group-items-grid">
+                            ${itemsHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return groupDiv;
+        }
+
+        window.toggleEditGroup = function(btn) {
+            const card = btn.closest('.carousel-group-card');
+            const body = card.querySelector('.group-editor-body');
+            body.classList.toggle('hidden');
+        }
+
+        window.updateGroupHeaderPreview = function(input) {
+            const card = input.closest('.carousel-group-card');
+            const titleVal = card.querySelector('.group-title-input').value;
+            const descVal = card.querySelector('.group-desc-input').value;
+            card.querySelector('.group-title-display').textContent = titleVal || 'Conjunto de Carrossel';
+            card.querySelector('.group-desc-display').textContent = descVal || 'Sem descrição';
+        }
+
+        window.addNewCarouselGroup = function() {
+            const container = document.getElementById('carouselGroupsContainer');
+            const newCard = appendGroupCard({ title: '', desc: '', items: [] }, 0, true);
+            container.prepend(newCard);
+            updateAllGroupBadges();
+            triggerAutoSaveCarousels();
+        }
+
+        window.deleteCarouselGroup = function(btn) {
+            if (confirm('Tem certeza que deseja excluir este conjunto de carrossel inteiro?')) {
+                btn.closest('.carousel-group-card').remove();
+                updateAllGroupBadges();
+                triggerAutoSaveCarousels();
+            }
+        }
+
+        window.moveCarouselGroup = function(btn, direction) {
+            const card = btn.closest('.carousel-group-card');
+            const parent = card.parentNode;
+            if (direction === -1 && card.previousElementSibling) {
+                parent.insertBefore(card, card.previousElementSibling);
+            } else if (direction === 1 && card.nextElementSibling) {
+                parent.insertBefore(card.nextElementSibling, card);
+            }
+            updateAllGroupBadges();
+            triggerAutoSaveCarousels();
+        }
+
+        function updateAllGroupBadges() {
+            const cards = document.querySelectorAll('#carouselGroupsContainer .carousel-group-card');
+            cards.forEach((card, index) => {
+                const badge = card.querySelector('.group-index-badge');
+                if (badge) badge.textContent = index + 1;
+            });
+        }
+
+        window.addNewImageRowToGroup = function(btn) {
+            const groupCard = btn.closest('.carousel-group-card');
+            const grid = groupCard.querySelector('.group-items-grid');
+            
+            const emptyMsg = grid.querySelector('.empty-msg');
+            if (emptyMsg) emptyMsg.remove();
+
+            const tempDiv = document.createElement('div');
+            tempDiv.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card";
+            tempDiv.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">1</span></span>
+                        <div class="flex gap-1">
+                            <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
+                            <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-3">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-amber-400 mb-1">Selecionar Ficheiro</label>
+                            <input type="file" accept="image/*" required onchange="triggerAutoSaveCarousels()" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-white text-xs new-file-input">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-amber-400 mb-1">Tempo (segundos)</label>
+                            <input type="number" value="6" min="2" max="30" required onblur="triggerAutoSaveCarousels()" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-white text-xs item-time-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-2 pt-2 border-t border-gray-800">
+                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard); updateGroupCover(gCard); triggerAutoSaveCarousels();" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Remover</button>
+                </div>
+            `;
+            grid.appendChild(tempDiv);
+            updateGroupPositions(groupCard);
+        }
+
+        window.moveCarouselItemWithinGroup = function(btn, direction) {
+            const card = btn.closest('.carousel-item-card');
+            const parent = card.parentNode;
+            if (direction === -1 && card.previousElementSibling) {
+                parent.insertBefore(card, card.previousElementSibling);
+            } else if (direction === 1 && card.nextElementSibling) {
+                parent.insertBefore(card.nextElementSibling, card);
+            }
+            const groupCard = card.closest('.carousel-group-card');
+            updateGroupPositions(groupCard);
+            updateGroupCover(groupCard);
+            triggerAutoSaveCarousels();
+        }
+
+        function updateGroupPositions(groupCard) {
+            if (!groupCard) return;
+            const cards = groupCard.querySelectorAll('.carousel-item-card');
+            cards.forEach((card, index) => {
+                const pos = card.querySelector('.item-pos');
+                if (pos) pos.textContent = index + 1;
+            });
+        }
+
+        function updateGroupCover(groupCard) {
+            const firstCardImg = groupCard.querySelector('.carousel-item-card .item-img');
+            const coverImg = groupCard.querySelector('.group-cover-img');
+            if (firstImg && coverImg) {
+                coverImg.src = firstImg.src;
+            } else if (coverImg) {
+                coverImg.src = 'logo.png';
+            }
+        }
+
+        window.checkEmptyGroup = function(groupCard) {
+            const grid = groupCard.querySelector('.group-items-grid');
+            const cards = grid.querySelectorAll('.carousel-item-card');
+            if (cards.length === 0) {
+                grid.innerHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
+            }
+        }
+
+        let currentItemEditing = null;
+        window.openEditCarouselModal = function(btn) {
+            currentItemEditing = btn.closest('.carousel-item-card');
+            const timeEl = currentItemEditing.querySelector('.item-time');
+            const time = timeEl ? timeEl.textContent : 6;
+            document.getElementById('editCarouselTime').value = time;
+            document.getElementById('editCarouselImageInput').value = '';
+            document.getElementById('editCarouselModal').classList.remove('hidden');
+        }
+
+        window.closeEditCarouselModal = function() {
+            document.getElementById('editCarouselModal').classList.add('hidden');
+        }
+
+        window.saveEditedCarouselItem = async function(e) {
+            e.preventDefault();
+            if (currentItemEditing) {
+                const time = document.getElementById('editCarouselTime').value;
+                const timeSpan = currentItemEditing.querySelector('.item-time');
+                if (timeSpan) timeSpan.textContent = time;
+
+                const fileInput = document.getElementById('editCarouselImageInput');
+                if (fileInput.files && fileInput.files[0]) {
+                    const base64 = await toBase64(fileInput.files[0]);
+                    const img = currentItemEditing.querySelector('.item-img');
+                    if (img) img.src = base64;
+                    currentItemEditing.dataset.image = base64;
+                    updateGroupCover(currentItemEditing.closest('.carousel-group-card'));
+                }
+                closeEditCarouselModal();
+                await triggerAutoSaveCarousels();
+                alert('Imagem atualizada e salva automaticamente!');
+            }
+        }
+
+        window.triggerAutoSaveCarousels = async function() {
+            const groupCards = document.querySelectorAll('.carousel-group-card');
+            let groups = [];
+
+            for (let gCard of groupCards) {
+                const titleInput = gCard.querySelector('.group-title-input');
+                const descInput = gCard.querySelector('.group-desc-input');
+                const title = titleInput ? titleInput.value : '';
+                const desc = descInput ? descInput.value : '';
+                
+                const itemCards = gCard.querySelectorAll('.carousel-item-card');
+                let items = [];
+
+                for (let iCard of itemCards) {
+                    const fileInput = iCard.querySelector('.new-file-input');
+                    const timeInput = iCard.querySelector('.item-time-input') || iCard.querySelector('.item-time');
+                    const time = timeInput ? parseInt(timeInput.value || timeInput.textContent || 6) : 6;
+
+                    if (fileInput && fileInput.files && fileInput.files[0]) {
+                        const base64 = await toBase64(fileInput.files[0]);
+                        items.push({ image: base64, time });
+                    } else {
+                        const img = iCard.querySelector('.item-img');
+                        const image = iCard.dataset.image || (img ? img.src : '');
+                        if (image) {
+                            items.push({ image, time });
+                        }
+                    }
+                }
+
+                if (items.length > 0) {
+                    groups.push({ title, desc, items });
+                }
+            }
+
+            try {
+                await setDoc(doc(db, "siteConfig", "carousel"), { groups });
+                showToast();
+            } catch (error) {
+                console.error('Erro ao auto-guardar carrosséis:', error.message);
+            }
+        }
+
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+    </script>
+</body>
+</html>
