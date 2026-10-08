@@ -80,38 +80,17 @@
         </div>
     </section>
 
-    <!-- SEÇÃO: O Método -->
+    <!-- SEÇÃO: Múltiplos Carrosséis Dinâmicos -->
     <section id="metodo" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-4xl mx-auto text-center">
+        <div class="max-w-4xl mx-auto text-center mb-12">
             <span class="text-amber-400 font-semibold tracking-widest uppercase text-sm bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Metodologia Exclusiva</span>
-            <h2 id="metodoTitle" class="text-3xl md:text-4xl font-extrabold mb-4 text-white">Conheça o Método Transformação de Elite</h2>
-            <p id="metodoDesc" class="text-gray-400 max-w-xl mx-auto mb-10">Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.</p>
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">Conheça o Método Transformação de Elite</h2>
+            <p class="text-gray-400 max-w-xl mx-auto">Acompanhe os carrosséis abaixo para entender como funciona o nosso método de acompanhamento e evoluções.</p>
+        </div>
 
-            <!-- Container do Carrossel com Altura Fixa -->
-            <div id="carouselContainer" class="relative max-w-sm mx-auto overflow-hidden rounded-3xl shadow-2xl border border-gray-800 bg-black">
-                <div id="carouselTrack" class="flex transition-transform duration-500 ease-in-out">
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-1.jpg" alt="Método 1" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-2.jpg" alt="Método 2" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-3.jpg" alt="Método 3" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-4.jpg" alt="Método 4" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-5.jpg" alt="Método 5" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-6.jpg" alt="Método 6" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-7.jpg" alt="Método 7" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-8.jpg" alt="Método 8" class="max-h-full max-w-full object-contain"></div>
-                    <div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="_metodo-9.jpg" alt="Método 9" class="max-h-full max-w-full object-contain"></div>
-                </div>
-
-                <!-- Botões de Navegação -->
-                <button onclick="prevSlide()" class="absolute left-4 bottom-6 bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl z-25 border border-amber-500/30">&#10094;</button>
-                <button onclick="nextSlide()" class="absolute right-4 bottom-6 bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl z-25 border border-amber-500/30">&#10095;</button>
-            </div>
-
-            <!-- Indicadores (Pontinhos) -->
-            <div id="dotsContainer" class="flex justify-center gap-2 mt-6"></div>
-
-            <div class="mt-10">
-                <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20dúvida%20sobre%20o%20Método%20Transformação%20de%20Elite!" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-10 py-3.5 rounded-xl transition shadow-xl text-base inline-block">Tirar Dúvidas sobre o Método</a>
-            </div>
+        <!-- Container onde todos os carrosséis serão injetados dinamicamente -->
+        <div id="carouselsWrapper" class="space-y-20 max-w-4xl mx-auto">
+            <!-- Renderizado dinamicamente via script -->
         </div>
     </section>
 
@@ -155,7 +134,7 @@
         </div>
     </section>
 
-    <!-- Depoimentos (Relatos de Alunos) com Paginação/Navegação -->
+    <!-- Depoimentos com Paginação e 2 Falsos Iniciais -->
     <section id="depoimentos" class="py-20 px-6 bg-gray-900">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
@@ -163,26 +142,23 @@
                 <p class="text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos.</p>
             </div>
 
-            <!-- Grelha dinamicamente preenchida -->
             <div id="depoimentosGrid" class="grid md:grid-cols-2 gap-8">
                 <!-- Preenchido via Script -->
             </div>
 
-            <!-- Botões de Navegação entre Páginas de Depoimentos -->
             <div id="testimonialNav" class="flex justify-center items-center gap-4 mt-10 hidden">
                 <button onclick="prevTestimonialPage()" class="bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl border border-amber-500/30 cursor-pointer">&#10094;</button>
                 <span id="testimonialPageIndicator" class="text-sm font-semibold text-gray-400">Página 1 de 1</span>
                 <button onclick="nextTestimonialPage()" class="bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl border border-amber-500/30 cursor-pointer">&#10095;</button>
             </div>
 
-            <!-- Botão para abrir o modal de Depoimento -->
             <div class="text-center mt-10">
                 <button onclick="openModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer">Deixar meu Relato / Depoimento</button>
             </div>
         </div>
     </section>
 
-    <!-- CTA Final com Botão Instagram (Cores Oficiais) -->
+    <!-- CTA Final -->
     <section class="py-20 px-6 bg-gradient-to-t from-gray-950 to-gray-900 text-center">
         <div class="max-w-2xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Pronto para dar o próximo passo?</h2>
@@ -196,21 +172,18 @@
         </div>
     </section>
 
-    <!-- Footer com Link exclusivo em CS code Solutions -->
+    <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-sm text-gray-500 space-y-2">
         <p>&copy; 2026 Diego Vasconcelos Personal Trainer. Todos os direitos reservados.</p>
         <p class="text-xs text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
     </footer>
 
-    <!-- JANELA FLUTUANTE (MODAL) DE DEPOIMENTO -->
+    <!-- MODAL DE DEPOIMENTO -->
     <div id="testimonialModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
-            <!-- Botão Fechar -->
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
-            
             <h3 class="text-2xl font-bold mb-2 text-white">Deixar o seu Relato</h3>
             <p class="text-gray-400 text-sm mb-6">Partilhe a sua experiência. O depoimento será analisado antes de aparecer no site.</p>
-            
             <form onsubmit="handleTestimonialSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome Completo</label>
@@ -233,12 +206,12 @@
         </div>
     </div>
 
-    <!-- MENSAGEM FLUTUANTE DE SUCESSO (TOAST) -->
+    <!-- TOAST -->
     <div id="toastNotification" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-500 text-gray-950 font-bold px-6 py-3.5 rounded-2xl shadow-2xl z-50 text-center text-sm md:text-base border border-amber-600 transition-all duration-300">
         Obrigado pelo depoimento, aguardando validação.
     </div>
 
-    <!-- Script de Integração com Firebase, Carrossel e Depoimentos Paginados -->
+    <!-- Script de Integração com Firebase e Carrosséis Dinâmicos Múltiplos -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, doc, getDoc, collection, getDocs, addDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -255,7 +228,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Array inicial contendo os 2 depoimentos falsos/padrão
         let allApprovedTestimonials = [
             {
                 name: "Mariana S.",
@@ -274,35 +246,38 @@
 
         document.addEventListener("DOMContentLoaded", async function() {
             try {
-                // 1. Carregar Carrossel e Títulos do Firebase
+                // 1. Carregar Conjuntos de Carrosséis do Firebase
                 const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
+                let groups = [];
+
                 if (carouselDoc.exists()) {
                     const data = carouselDoc.data();
-                    if (data.title) document.getElementById('metodoTitle').textContent = data.title;
-                    if (data.desc) document.getElementById('metodoDesc').textContent = data.desc;
-                    
-                    if (data.items && data.items.length > 0) {
-                        const track = document.getElementById('carouselTrack');
-                        const dotsContainer = document.getElementById('dotsContainer');
-                        track.innerHTML = '';
-                        dotsContainer.innerHTML = '';
-
-                        data.items.forEach((item, index) => {
-                            const slide = document.createElement('div');
-                            slide.className = 'min-w-full h-[450px] sm:h-[500px] flex items-center justify-center';
-                            slide.innerHTML = `<img src="${item.image}" alt="Método ${index + 1}" class="max-h-full max-w-full object-contain">`;
-                            track.appendChild(slide);
-
-                            const dot = document.createElement('button');
-                            dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
-                            dot.onclick = () => { goToSlide(index); resetTimer(); };
-                            dotsContainer.appendChild(dot);
-                        });
-                        totalSlides = data.items.length;
+                    if (data.groups && Array.isArray(data.groups)) {
+                        groups = data.groups;
+                    } else if (data.items) {
+                        groups = [{
+                            title: data.title || "Conheça o Método Transformação de Elite",
+                            desc: data.desc || "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
+                            items: data.items
+                        }];
                     }
                 }
 
-                // 2. Carregar Bio / Quem Sou Eu do Firebase
+                if (groups.length === 0) {
+                    let defaultItems = [];
+                    for (let i = 1; i <= 9; i++) {
+                        defaultItems.push({ image: `_metodo-${i}.jpg`, time: 6 });
+                    }
+                    groups.push({
+                        title: "Conheça o Método Transformação de Elite",
+                        desc: "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
+                        items: defaultItems
+                    });
+                }
+
+                renderAllCarrosselsOnSite(groups);
+
+                // 2. Carregar Bio
                 const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
                 if (bioDoc.exists()) {
                     const bio = bioDoc.data();
@@ -310,23 +285,117 @@
                     if (bio.p2) document.getElementById('bioP2').textContent = bio.p2;
                 }
 
-                // 3. Carregar Depoimentos Aprovados do Firebase e adicionar à lista
+                // 3. Carregar Depoimentos Aprovados do Firebase
                 const q = query(collection(db, "testimonials"), where("status", "==", "aprovado"), limit(30));
                 const querySnapshot = await getDocs(q);
-                
                 querySnapshot.forEach((docSnap) => {
                     allApprovedTestimonials.push(docSnap.data());
                 });
 
             } catch (err) {
                 console.error("Erro ao carregar dados do Firebase:", err);
+                // Renderizar padrão se falhar
+                let defaultItems = [];
+                for (let i = 1; i <= 9; i++) { defaultItems.push({ image: `_metodo-${i}.jpg`, time: 6 }); }
+                renderAllCarrosselsOnSite([{
+                    title: "Conheça o Método Transformação de Elite",
+                    desc: "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
+                    items: defaultItems
+                }]);
             } finally {
-                // Renderizar depoimentos independentemente de erro ou sucesso
                 renderTestimonialsPage();
             }
         });
 
-        // Função de Paginação dos Depoimentos
+        // Renderização Dinâmica de Múltiplos Carrosséis no Site
+        function renderAllCarrosselsOnSite(groups) {
+            const wrapper = document.getElementById('carouselsWrapper');
+            wrapper.innerHTML = '';
+
+            groups.forEach((group, index) => {
+                const blockId = `carouselBlock_${index}`;
+                const trackId = `track_${index}`;
+                const dotsId = `dots_${index}`;
+
+                let slidesHTML = '';
+                let dotsHTML = '';
+
+                if (group.items && group.items.length > 0) {
+                    group.items.forEach((item, i) => {
+                        slidesHTML += `<div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="${item.image}" alt="Slide ${i+1}" class="max-h-full max-w-full object-contain"></div>`;
+                        dotsHTML += `<button class="w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-6' : 'bg-gray-750'}" onclick="goToSpecificSlide(${index}, ${i})"></button>`;
+                    });
+                }
+
+                const groupContainer = document.createElement('div');
+                groupContainer.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-10 shadow-xl space-y-6";
+                groupContainer.innerHTML = `
+                    <div class="text-center max-w-xl mx-auto">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">${group.title || ''}</h3>
+                        <p class="text-sm text-gray-400">${group.desc || ''}</p>
+                    </div>
+
+                    <div id="${blockId}" class="relative max-w-sm mx-auto overflow-hidden rounded-3xl shadow-2xl border border-gray-800 bg-black carousel-widget" data-current="0" data-total="${group.items.length}">
+                        <div id="${trackId}" class="flex transition-transform duration-500 ease-in-out">
+                            ${slidesHTML}
+                        </div>
+                        <button onclick="changeSlide(${index}, -1)" class="absolute left-4 bottom-6 bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl z-25 border border-amber-500/30 cursor-pointer">&#10094;</button>
+                        <button onclick="changeSlide(${index}, 1)" class="absolute right-4 bottom-6 bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl z-25 border border-amber-500/30 cursor-pointer">&#10095;</button>
+                    </div>
+
+                    <div id="${dotsId}" class="flex justify-center gap-2 mt-4">
+                        ${dotsHTML}
+                    </div>
+                `;
+                wrapper.appendChild(groupContainer);
+
+                // Iniciar temporizador automático para cada carrossel
+                initAutoSlide(index, group.items.length);
+            });
+        }
+
+        // Lógica Global de Controlo dos Múltiplos Carrosséis
+        window.carouselStates = {};
+
+        function initAutoSlide(index, total) {
+            window.carouselStates[index] = { current: 0, total: total };
+            setInterval(() => {
+                changeSlide(index, 1, false);
+            }, 6000);
+        }
+
+        window.changeSlide = function(index, direction, resetTimer = true) {
+            const state = window.carouselStates[index];
+            if (!state || state.total === 0) return;
+
+            state.current = (state.current + direction + state.total) % state.total;
+            updateCarouselView(index);
+        }
+
+        window.goToSpecificSlide = function(index, slideIndex) {
+            const state = window.carouselStates[index];
+            if (!state) return;
+            state.current = slideIndex;
+            updateCarouselView(index);
+        }
+
+        function updateCarouselView(index) {
+            const state = window.carouselStates[index];
+            const track = document.getElementById(`track_${index}`);
+            const dotsContainer = document.getElementById(`dots_${index}`);
+            if (!track) return;
+
+            track.style.transform = `translateX(-${state.current * 100}%)`;
+
+            if (dotsContainer) {
+                const dots = dotsContainer.children;
+                for (let i = 0; i < dots.length; i++) {
+                    dots[i].className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === state.current ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
+                }
+            }
+        }
+
+        // Paginação de Depoimentos
         window.renderTestimonialsPage = function() {
             const grid = document.getElementById('depoimentosGrid');
             const nav = document.getElementById('testimonialNav');
@@ -367,7 +436,7 @@
                 currentTestimonialPage++;
                 renderTestimonialsPage();
             } else {
-                currentTestimonialPage = 0; // Volta ao início (Loop)
+                currentTestimonialPage = 0;
                 renderTestimonialsPage();
             }
         }
@@ -378,19 +447,13 @@
                 currentTestimonialPage--;
                 renderTestimonialsPage();
             } else {
-                currentTestimonialPage = totalPages - 1; // Vai para o último
+                currentTestimonialPage = totalPages - 1;
                 renderTestimonialsPage();
             }
         }
 
-        // Funções do Modal de Depoimento
-        window.openModal = function() {
-            document.getElementById('testimonialModal').classList.remove('hidden');
-        }
-
-        window.closeModal = function() {
-            document.getElementById('testimonialModal').classList.add('hidden');
-        }
+        window.openModal = function() { document.getElementById('testimonialModal').classList.remove('hidden'); }
+        window.closeModal = function() { document.getElementById('testimonialModal').classList.add('hidden'); }
 
         window.handleTestimonialSubmit = async function(e) {
             e.preventDefault();
@@ -400,78 +463,18 @@
 
             try {
                 await addDoc(collection(db, "testimonials"), {
-                    name,
-                    service,
-                    message,
+                    name, service, message,
                     status: 'pendente',
                     date: new Date().toLocaleDateString()
                 });
-
                 closeModal();
                 const toast = document.getElementById('toastNotification');
                 toast.classList.remove('hidden');
-                setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 6000);
+                setTimeout(() => { toast.classList.add('hidden'); }, 6000);
                 e.target.reset();
             } catch (error) {
                 alert('Erro ao enviar depoimento: ' + error.message);
             }
-        }
-
-        // Lógica do Carrossel
-        let currentSlide = 0;
-        let totalSlides = 9;
-        const track = document.getElementById('carouselTrack');
-        const dotsContainer = document.getElementById('dotsContainer');
-        const container = document.getElementById('carouselContainer');
-
-        if (dotsContainer && dotsContainer.children.length === 0) {
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('button');
-                dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
-                dot.onclick = () => { goToSlide(i); resetTimer(); };
-                dotsContainer.appendChild(dot);
-            }
-        }
-
-        window.updateCarousel = function() {
-            if (!track) return;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            if (dotsContainer && dotsContainer.children.length > 0) {
-                const dots = dotsContainer.children;
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
-                }
-            }
-        }
-
-        window.nextSlide = function() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }
-
-        window.prevSlide = function() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-            resetTimer();
-        }
-
-        window.goToSlide = function(index) {
-            currentSlide = index;
-            updateCarousel();
-        }
-
-        let slideInterval = setInterval(nextSlide, 6000);
-
-        window.resetTimer = function() {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 6000);
-        }
-
-        if (container) {
-            container.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            container.addEventListener('mouseleave', () => resetTimer());
         }
     </script>
 </body>
