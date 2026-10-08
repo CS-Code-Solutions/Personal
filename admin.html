@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo | Team Vasconcelos</title>
+    <!-- Ícone da Aba do Navegador -->
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -41,11 +42,36 @@
 
         <!-- ABA 1: DEPOIMENTOS -->
         <section id="section-depoimentos" class="space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
+                    <span class="text-xs uppercase text-gray-400 font-semibold">Pendentes de Validação</span>
+                    <h2 class="text-3xl font-extrabold text-amber-400 mt-2" id="pendingCount">0</h2>
+                </div>
+                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
+                    <span class="text-xs uppercase text-gray-400 font-semibold">Postados no Site</span>
+                    <h2 class="text-3xl font-extrabold text-emerald-400 mt-2" id="approvedCount">0</h2>
+                </div>
+                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
+                    <span class="text-xs uppercase text-gray-400 font-semibold">Total Registados</span>
+                    <h2 class="text-3xl font-extrabold text-blue-400 mt-2" id="totalCount">0</h2>
+                </div>
+            </div>
+
+            <!-- Bloco Pendentes -->
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
-                <h3 class="text-xl font-bold text-white mb-2">Relatos e Depoimentos</h3>
-                <p class="text-sm text-gray-400 mb-6">Gestão de relatos enviados pelos alunos via Firebase.</p>
+                <h3 class="text-xl font-bold text-white mb-2">Relatos Pendentes</h3>
+                <p class="text-sm text-gray-400 mb-6">Aprove ou exclua os relatos enviados pelos alunos no site.</p>
                 <div id="pendingList" class="space-y-4">
-                    <!-- Dinâmico via Firebase -->
+                    <p class="text-sm text-gray-500 italic">A carregar depoimentos pendentes...</p>
+                </div>
+            </div>
+
+            <!-- Bloco Postados -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Relatos Postados no Site</h3>
+                <p class="text-sm text-gray-400 mb-6">Depoimentos visíveis publicamente na landing page.</p>
+                <div id="approvedList" class="space-y-4">
+                    <p class="text-sm text-gray-500 italic">A carregar depoimentos aprovados...</p>
                 </div>
             </div>
         </section>
@@ -56,7 +82,7 @@
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div>
                         <h3 class="text-xl font-bold text-white mb-1">Adicionar Imagens ao Carrossel</h3>
-                        <p class="text-sm text-gray-400">O sistema compacta e envia diretamente para o Firebase Firestore.</p>
+                        <p class="text-sm text-gray-400">Defina o título, descrição geral e envie as imagens otimizadas para o Firebase.</p>
                     </div>
                     <button type="button" onclick="addCarouselRow()" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-4 py-2.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer">+ Nova Imagem</button>
                 </div>
@@ -92,35 +118,60 @@
                     </div>
 
                     <div class="pt-2">
-                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-sm cursor-pointer">Guardar Alterações no Firebase</button>
+                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-sm cursor-pointer">Guardar Carrossel no Firebase</button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- ABA 3: CONTEÚDO DO SITE -->
+        <!-- ABA 3: CONTEÚDO DO SITE (QUEM SOU EU & OUTROS) -->
         <section id="section-conteudo" class="hidden space-y-8">
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
-                <h3 class="text-xl font-bold text-white mb-2">Edição da Secção "Quem Sou Eu"</h3>
+                <h3 class="text-xl font-bold text-white mb-2">Edição Completa da Secção "Quem Sou Eu" e Textos do Site</h3>
+                <p class="text-sm text-gray-400 mb-6">Personalize toda a história, estatísticas e filosofia exibidas na landing page.</p>
+                
                 <form onsubmit="handleSaveContent(event)" class="space-y-6">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 1</label>
-                        <textarea id="contentP1" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">A minha história começou aos 31 anos...</textarea>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 1 (Início da Trajetória)</label>
+                        <textarea id="contentP1" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 2</label>
-                        <textarea id="contentP2" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm">Com muita persistência...</textarea>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 2 (Superação e Fisiculturismo)</label>
+                        <textarea id="contentP2" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
                     </div>
-                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition text-sm cursor-pointer">Guardar Conteúdo</button>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Anos no Fisiculturismo</label>
+                            <input type="text" id="contentFisiculturismo" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Evolução de Peso</label>
+                            <input type="text" id="contentPeso" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Filosofia de Treino (Citação)</label>
+                        <textarea id="contentCitacao" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-sm cursor-pointer">Guardar Conteúdo no Firebase</button>
+                    </div>
                 </form>
             </div>
         </section>
+
     </main>
 
-    <!-- Script Firebase e Lógica -->
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+        <p>&copy; 2026 Team Vasconcelos - Painel Administrativo</p>
+        <p class="text-gray-600 mt-1">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
+    </footer>
+
+    <!-- Script Firebase e Lógica Administrativa -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDsoyXz4x2BGXHmm-iPb56fn6K07AXOgSY",
@@ -134,6 +185,13 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Carregar dados iniciais do Firebase ao abrir o painel
+        document.addEventListener("DOMContentLoaded", async function() {
+            await loadTestimonials();
+            await loadBioContent();
+            await loadCarouselContent();
+        });
+
         window.switchTab = function(tabName) {
             ['depoimentos', 'carrossel', 'conteudo'].forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
@@ -143,6 +201,126 @@
             document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
         }
 
+        // Gestão de Depoimentos do Firebase
+        async function loadTestimonials() {
+            const pendingList = document.getElementById('pendingList');
+            const approvedList = document.getElementById('approvedList');
+            
+            try {
+                const querySnapshot = await getDocs(collection(db, "testimonials"));
+                pendingList.innerHTML = '';
+                approvedList.innerHTML = '';
+                
+                let pendingCount = 0;
+                let approvedCount = 0;
+
+                querySnapshot.forEach((docSnap) => {
+                    const t = docSnap.data();
+                    const id = docSnap.id;
+                    const isPending = (t.status === 'pendente' || !t.status);
+
+                    const cardHTML = `
+                        <div class="bg-gray-900 border ${isPending ? 'border-amber-500/30' : 'border-emerald-500/20'} p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-white text-base">${t.name}</span>
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">${t.service}</span>
+                                    <span class="${isPending ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'} text-xs px-2.5 py-0.5 rounded-full">${isPending ? 'Pendente' : 'Publicado'}</span>
+                                </div>
+                                <p class="text-gray-300 text-sm italic">"${t.message}"</p>
+                                <span class="text-xs text-gray-500">Enviado em: ${t.date || 'Recente'}</span>
+                            </div>
+                            <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                                ${isPending ? `<button onclick="approveTestimonial('${id}')" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>` : ''}
+                                <button onclick="deleteTestimonial('${id}')" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                            </div>
+                        </div>
+                    `;
+
+                    if (isPending) {
+                        pendingList.innerHTML += cardHTML;
+                        pendingCount++;
+                    } else {
+                        approvedList.innerHTML += cardHTML;
+                        approvedCount++;
+                    }
+                });
+
+                if (pendingCount === 0) pendingList.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhum relato pendente no momento.</p>';
+                if (approvedCount === 0) approvedList.innerHTML = '<p class="text-sm text-gray-500 italic">Nenhum relato publicado no momento.</p>';
+
+                document.getElementById('pendingCount').textContent = pendingCount;
+                document.getElementById('approvedCount').textContent = approvedCount;
+                document.getElementById('totalCount').textContent = pendingCount + approvedCount;
+
+            } catch (err) {
+                console.error("Erro ao carregar depoimentos:", err);
+            }
+        }
+
+        window.approveTestimonial = async function(id) {
+            try {
+                await updateDoc(doc(db, "testimonials", id), { status: 'aprovado' });
+                alert('Depoimento aprovado com sucesso!');
+                loadTestimonials();
+            } catch (err) {
+                alert('Erro ao aprovar: ' + err.message);
+            }
+        }
+
+        window.deleteTestimonial = async function(id) {
+            if (confirm('Tem certeza que deseja excluir este depoimento?')) {
+                try {
+                    await deleteDoc(doc(db, "testimonials", id));
+                    alert('Depoimento excluído com sucesso!');
+                    loadTestimonials();
+                } catch (err) {
+                    alert('Erro ao excluir: ' + err.message);
+                }
+            }
+        }
+
+        // Gestão de Conteúdo (Quem Sou Eu)
+        async function loadBioContent() {
+            try {
+                const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
+                if (bioDoc.exists()) {
+                    const bio = bioDoc.data();
+                    if (bio.p1) document.getElementById('contentP1').value = bio.p1;
+                    if (bio.p2) document.getElementById('contentP2').value = bio.p2;
+                    if (bio.fisiculturismo) document.getElementById('contentFisiculturismo').value = bio.fisiculturismo;
+                    if (bio.peso) document.getElementById('contentPeso').value = bio.peso;
+                    if (bio.citacao) document.getElementById('contentCitacao').value = bio.citacao;
+                } else {
+                    // Valores padrão caso ainda não exista no Firebase
+                    document.getElementById('contentP1').value = "A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.";
+                    document.getElementById('contentP2').value = "Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.";
+                    document.getElementById('contentFisiculturismo').value = "6 Anos";
+                    document.getElementById('contentPeso').value = "94kg → 68kg";
+                    document.getElementById('contentCitacao').value = '"A melhor versão é a que eu vivo hoje, mas sem as versões anteriores eu jamais teria feito as escolhas que me fizeram acreditar que eu podia. E que posso, ser sempre uma versão melhorada de mim mesmo. Isso que levo sempre para meus alunos, que eles podem chegar onde quiserem."';
+                }
+            } catch (err) {
+                console.error("Erro ao carregar conteúdo da bio:", err);
+            }
+        }
+
+        window.handleSaveContent = async function(e) {
+            e.preventDefault();
+            const p1 = document.getElementById('contentP1').value;
+            const p2 = document.getElementById('contentP2').value;
+            const fisiculturismo = document.getElementById('contentFisiculturismo').value;
+            const peso = document.getElementById('contentPeso').value;
+            const citacao = document.getElementById('contentCitacao').value;
+
+            try {
+                await setDoc(doc(db, "siteConfig", "bio"), { p1, p2, fisiculturismo, peso, citacao });
+                alert('Conteúdo da secção "Quem Sou Eu" guardado com sucesso no Firebase!');
+            } catch (error) {
+                alert('Erro ao guardar conteúdo: ' + error.message);
+            }
+        }
+
+        // Gestão de Carrossel
         window.addCarouselRow = function() {
             const container = document.getElementById('batchCarouselRows');
             const rowDiv = document.createElement('div');
@@ -163,6 +341,19 @@
             container.appendChild(rowDiv);
         }
 
+        async function loadCarouselContent() {
+            try {
+                const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
+                if (carouselDoc.exists()) {
+                    const data = carouselDoc.data();
+                    if (data.title) document.getElementById('carouselMainTitle').value = data.title;
+                    if (data.desc) document.getElementById('carouselMainDesc').value = data.desc;
+                }
+            } catch (err) {
+                console.error("Erro ao carregar dados do carrossel:", err);
+            }
+        }
+
         window.handleSaveCarouselData = async function(e) {
             e.preventDefault();
             const mainTitle = document.getElementById('carouselMainTitle').value;
@@ -180,23 +371,21 @@
             }
 
             try {
-                await setDoc(doc(db, "siteConfig", "carousel"), { title: mainTitle, desc: mainDesc, items });
-                alert('Carrossel guardado com sucesso no Firebase!');
-            } catch (error) {
-                alert('Erro ao guardar no Firebase: ' + error.message);
-            }
-        }
+                // Se houver novas imagens, atualiza ou adiciona
+                const docRef = doc(db, "siteConfig", "carousel");
+                const existing = await getDoc(docRef);
+                let finalItems = items;
+                
+                if (existing.exists() && items.length === 0) {
+                    finalItems = existing.data().items || [];
+                } else if (existing.exists() && items.length > 0) {
+                    finalItems = [...(existing.data().items || []), ...items];
+                }
 
-        window.handleSaveContent = async function(e) {
-            e.preventDefault();
-            const p1 = document.getElementById('contentP1').value;
-            const p2 = document.getElementById('contentP2').value;
-
-            try {
-                await setDoc(doc(db, "siteConfig", "bio"), { p1, p2 });
-                alert('Conteúdo guardado com sucesso no Firebase!');
+                await setDoc(docRef, { title: mainTitle, desc: mainDesc, items: finalItems });
+                alert('Carrossel e definições guardados com sucesso no Firebase!');
             } catch (error) {
-                alert('Erro ao guardar: ' + error.message);
+                alert('Erro ao guardar carrossel: ' + error.message);
             }
         }
 
