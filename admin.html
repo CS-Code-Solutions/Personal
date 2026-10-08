@@ -62,7 +62,6 @@
                 <h3 class="text-xl font-bold text-white mb-2">Relatos Pendentes</h3>
                 <p class="text-sm text-gray-400 mb-6">Aprove ou exclua os relatos enviados pelos alunos no site.</p>
                 <div id="pendingList" class="space-y-4">
-                    <!-- Exemplo Falso Inicial -->
                     <div class="bg-gray-900 border border-amber-500/30 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
                         <div class="space-y-1">
                             <div class="flex items-center gap-2">
@@ -74,7 +73,7 @@
                             <span class="text-xs text-gray-500">Enviado em: 07/10/2026</span>
                         </div>
                         <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
-                            <button onclick="approveLocalTestimonial(this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer btn-approve">Aprovar</button>
+                            <button onclick="approveLocalTestimonial(this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>
                             <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                         </div>
                     </div>
@@ -86,7 +85,6 @@
                 <h3 class="text-xl font-bold text-white mb-2">Relatos Postados no Site</h3>
                 <p class="text-sm text-gray-400 mb-6">Depoimentos visíveis publicamente na landing page.</p>
                 <div id="approvedList" class="space-y-4">
-                    <!-- Exemplo Falso Inicial -->
                     <div class="bg-gray-900 border border-emerald-500/20 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
                         <div class="space-y-1">
                             <div class="flex items-center gap-2">
@@ -110,8 +108,8 @@
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-1">Adicionar Imagens ao Carrossel</h3>
-                        <p class="text-sm text-gray-400">Defina o título, descrição geral e envie as imagens otimizadas para o Firebase.</p>
+                        <h3 class="text-xl font-bold text-white mb-1">Adicionar Novas Imagens ao Carrossel</h3>
+                        <p class="text-sm text-gray-400">Adicione novas imagens comprimidas automaticamente para o Firebase.</p>
                     </div>
                     <button type="button" onclick="addCarouselRow()" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-4 py-2.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer">+ Nova Imagem</button>
                 </div>
@@ -132,40 +130,37 @@
                     </div>
 
                     <div id="batchCarouselRows" class="space-y-4">
-                        <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl space-y-4 relative batch-row">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Selecionar Imagem (JPG/PNG)</label>
-                                    <input type="file" accept="image/*" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm row-file">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
-                                    <input type="number" value="6" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm row-time">
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Linha dinâmica vazia para novos uploads -->
                     </div>
 
                     <div class="pt-2">
-                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-sm cursor-pointer">Guardar Carrossel no Firebase</button>
+                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-sm cursor-pointer">Guardar Alterações e Carrossel no Firebase</button>
                     </div>
                 </form>
             </div>
+
+            <!-- Lista de Imagens Ativas no Carrossel (Incluindo _metodo-1.jpg até _metodo-9.jpg e novas) -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Imagens Ativas no Carrossel</h3>
+                <p class="text-sm text-gray-400 mb-6">Gerencie a ordem (▲ / ▼), edite os tempos, substitua ou exclua as imagens ativas.</p>
+                
+                <div id="carouselItemsList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Preenchido dinamicamente via Script com as 9 imagens locais ou do Firebase -->
+                </div>
+            </div>
         </section>
 
-        <!-- ABA 3: CONTEÚDO DO SITE (QUEM SOU EU & OUTROS) -->
+        <!-- ABA 3: CONTEÚDO DO SITE -->
         <section id="section-conteudo" class="hidden space-y-8">
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
                 <h3 class="text-xl font-bold text-white mb-2">Edição Completa da Secção "Quem Sou Eu" e Textos do Site</h3>
-                <p class="text-sm text-gray-400 mb-6">Personalize toda a história, estatísticas e filosofia exibidas na landing page.</p>
-                
                 <form onsubmit="handleSaveContent(event)" class="space-y-6">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 1 (Início da Trajetória)</label>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 1</label>
                         <textarea id="contentP1" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 2 (Superação e Fisiculturismo)</label>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 2</label>
                         <textarea id="contentP2" rows="3" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -190,6 +185,25 @@
         </section>
 
     </main>
+
+    <!-- MODAL DE EDIÇÃO DE ITEM DO CARROSSEL -->
+    <div id="editCarouselModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeEditCarouselModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-white">Editar Item do Carrossel</h3>
+            <form onsubmit="saveEditedCarousel(event)" class="space-y-4 mt-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Substituir Imagem (Opcional)</label>
+                    <input type="file" id="editCarouselImageInput" accept="image/*" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
+                    <input type="number" id="editCarouselTime" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Atualizar Item</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800 py-6 text-center text-xs text-gray-500">
@@ -217,7 +231,6 @@
         document.addEventListener("DOMContentLoaded", async function() {
             await loadBioContent();
             await loadCarouselContent();
-            // Carrega também os do Firebase se houver novos enviados pelos utilizadores
             await loadFirebaseTestimonials();
         });
 
@@ -230,7 +243,7 @@
             document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
         }
 
-        // Funções para gerir depoimentos locais e do Firebase
+        // Gestão de Depoimentos
         async function loadFirebaseTestimonials() {
             try {
                 const querySnapshot = await getDocs(collection(db, "testimonials"));
@@ -256,7 +269,6 @@
                             </div>
                         </div>
                     `;
-
                     if (isPending) {
                         document.getElementById('pendingList').insertAdjacentHTML('beforeend', cardHTML);
                     } else {
@@ -265,7 +277,7 @@
                 });
                 updateCounters();
             } catch (err) {
-                console.error("Erro ao carregar depoimentos do Firebase:", err);
+                console.error("Erro ao carregar depoimentos:", err);
             }
         }
 
@@ -353,7 +365,7 @@
             }
         }
 
-        // Gestão de Carrossel
+        // Gestão de Carrossel e Fila Ativa
         window.addCarouselRow = function() {
             const container = document.getElementById('batchCarouselRows');
             const rowDiv = document.createElement('div');
@@ -375,15 +387,115 @@
         }
 
         async function loadCarouselContent() {
+            const list = document.getElementById('carouselItemsList');
             try {
                 const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
+                let items = [];
+
                 if (carouselDoc.exists()) {
                     const data = carouselDoc.data();
                     if (data.title) document.getElementById('carouselMainTitle').value = data.title;
                     if (data.desc) document.getElementById('carouselMainDesc').value = data.desc;
+                    items = data.items || [];
                 }
+
+                // Se não houver itens no Firebase, carrega por defeito as 9 imagens locais originais
+                if (items.length === 0) {
+                    for (let i = 1; i <= 9; i++) {
+                        items.push({ image: `_metodo-${i}.jpg`, time: 6 });
+                    }
+                }
+
+                renderCarouselItems(items);
             } catch (err) {
                 console.error("Erro ao carregar dados do carrossel:", err);
+            }
+        }
+
+        function renderCarouselItems(items) {
+            const list = document.getElementById('carouselItemsList');
+            list.innerHTML = '';
+            items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card";
+                card.dataset.image = item.image;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Posição: <span class="queue-pos">${index + 1}</span></span>
+                            <div class="flex gap-1">
+                                <button type="button" onclick="moveCarouselItem(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Subir">▲</button>
+                                <button type="button" onclick="moveCarouselItem(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Descer">▼</button>
+                            </div>
+                        </div>
+                        <div class="h-48 bg-black rounded-xl mb-4 flex items-center justify-center overflow-hidden border border-gray-800">
+                            <img src="${item.image}" class="max-h-full max-w-full object-contain carousel-img">
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Tempo: <span class="carousel-time">${item.time || 6}</span> segundos</p>
+                    </div>
+                    <div class="flex gap-2 mt-4 pt-4 border-t border-gray-800">
+                        <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/25 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                        <button type="button" onclick="deleteCarouselCard(this)" class="w-1/2 bg-rose-500/25 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        window.moveCarouselItem = function(btn, direction) {
+            const card = btn.closest('.carousel-item-card');
+            const parent = card.parentNode;
+            if (direction === -1 && card.previousElementSibling) {
+                parent.insertBefore(card, card.previousElementSibling);
+            } else if (direction === 1 && card.nextElementSibling) {
+                parent.insertBefore(card.nextElementSibling, card);
+            }
+            updateQueuePositions();
+        }
+
+        function updateQueuePositions() {
+            const cards = document.querySelectorAll('#carouselItemsList .carousel-item-card');
+            cards.forEach((card, index) => {
+                const posSpan = card.querySelector('.queue-pos');
+                if (posSpan) posSpan.textContent = index + 1;
+            });
+        }
+
+        let currentCarouselCardEditing = null;
+
+        window.openEditCarouselModal = function(btn) {
+            currentCarouselCardEditing = btn.closest('.carousel-item-card');
+            const time = currentCarouselCardEditing.querySelector('.carousel-time').textContent;
+            document.getElementById('editCarouselTime').value = time;
+            document.getElementById('editCarouselImageInput').value = '';
+            document.getElementById('editCarouselModal').classList.remove('hidden');
+        }
+
+        window.closeEditCarouselModal = function() {
+            document.getElementById('editCarouselModal').classList.add('hidden');
+        }
+
+        window.saveEditedCarousel = async function(e) {
+            e.preventDefault();
+            if (currentCarouselCardEditing) {
+                const time = document.getElementById('editCarouselTime').value;
+                currentCarouselCardEditing.querySelector('.carousel-time').textContent = time;
+
+                const fileInput = document.getElementById('editCarouselImageInput');
+                if (fileInput.files && fileInput.files[0]) {
+                    const base64 = await toBase64(fileInput.files[0]);
+                    currentCarouselCardEditing.querySelector('.carousel-img').src = base64;
+                    currentCarouselCardEditing.dataset.image = base64;
+                }
+                closeEditCarouselModal();
+                alert('Item atualizado com sucesso no painel! Clique em "Guardar Alterações" para gravar no Firebase.');
+            }
+        }
+
+        window.deleteCarouselCard = function(btn) {
+            if (confirm('Tem certeza que deseja excluir esta imagem do carrossel?')) {
+                btn.closest('.carousel-item-card').remove();
+                updateQueuePositions();
             }
         }
 
@@ -391,9 +503,18 @@
             e.preventDefault();
             const mainTitle = document.getElementById('carouselMainTitle').value;
             const mainDesc = document.getElementById('carouselMainDesc').value;
-            const rows = document.querySelectorAll('.batch-row');
+            
+            // 1. Recolher itens ativos existentes na lista
+            const cards = document.querySelectorAll('.carousel-item-card');
             let items = [];
+            cards.forEach(card => {
+                const image = card.dataset.image || card.querySelector('.carousel-img').src;
+                const time = parseInt(card.querySelector('.carousel-time').textContent);
+                items.push({ image, time });
+            });
 
+            // 2. Recolher novos itens adicionados pelo botão "+ Nova Imagem"
+            const rows = document.querySelectorAll('.batch-row');
             for (let row of rows) {
                 const fileInput = row.querySelector('.row-file');
                 const time = row.querySelector('.row-time').value;
@@ -404,18 +525,9 @@
             }
 
             try {
-                const docRef = doc(db, "siteConfig", "carousel");
-                const existing = await getDoc(docRef);
-                let finalItems = items;
-                
-                if (existing.exists() && items.length === 0) {
-                    finalItems = existing.data().items || [];
-                } else if (existing.exists() && items.length > 0) {
-                    finalItems = [...(existing.data().items || []), ...items];
-                }
-
-                await setDoc(docRef, { title: mainTitle, desc: mainDesc, items: finalItems });
-                alert('Carrossel e definições guardados com sucesso no Firebase!');
+                await setDoc(doc(db, "siteConfig", "carousel"), { title: mainTitle, desc: mainDesc, items });
+                alert('Carrossel completo guardado com sucesso no Firebase!');
+                location.reload();
             } catch (error) {
                 alert('Erro ao guardar carrossel: ' + error.message);
             }
