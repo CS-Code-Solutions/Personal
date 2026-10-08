@@ -300,6 +300,8 @@
             }
         }
 
+        const carouselStates = {};
+
         async function loadPublicCarousels() {
             const container = document.getElementById('dynamicCarouselsContainer');
             try {
@@ -337,7 +339,7 @@
                     group.items.forEach((item, iIdx) => {
                         itemsHTML += `
                             <div class="carousel-slide-${index} absolute inset-0 transition-opacity duration-1000 flex items-center justify-center ${iIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
-                                <img src="${item.image}" class="max-h-full max-w-full object-contain rounded-2xl shadow-xl">
+                                <img src="${item.image}" class="max-h-full max-w-full object-contain rounded-2xl shadow-xl pointer-events-none">
                             </div>
                         `;
                     });
@@ -349,7 +351,11 @@
                                 <h4 class="text-2xl sm:text-3xl font-bold text-white">${group.title}</h4>
                                 <p class="text-gray-400 text-sm sm:text-base">${group.desc}</p>
                             </div>
-                            <div class="relative h-[380px] sm:h-[500px] bg-black rounded-2xl overflow-hidden border border-gray-800 flex items-center justify-center p-4">
+                            <div id="carousel-frame-${index}" class="relative h-[380px] sm:h-[500px] bg-black rounded-2xl overflow-hidden border border-gray-800 flex items-center justify-center p-4 select-none">
+                                <!-- Botões de Navegação -->
+                                <button type="button" onclick="manualChangeSlide(${index}, -1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-xl z-30 transition border border-gray-700 shadow-xl cursor-pointer">&#10094;</button>
+                                <button type="button" onclick="manualChangeSlide(${index}, 1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-xl z-30 transition border border-gray-700 shadow-xl cursor-pointer">&#10095;</button>
+                                
                                 ${itemsHTML}
                             </div>
                         </div>
@@ -364,18 +370,73 @@
 
         function initCarouselSlider(groupIndex, items) {
             if (!items || items.length <= 1) return;
-            let currentIndex = 0;
-            const slides = document.querySelectorAll(`.carousel-slide-${groupIndex}`);
             
-            setInterval(() => {
-                slides[currentIndex].classList.remove('opacity-100', 'z-10');
-                slides[currentIndex].classList.add('opacity-0', 'z-0');
+            carouselStates[groupIndex] = {
+                currentIndex: 0,
+                items: items,
+                isPaused: false,
+                timer: null
+            };
+
+            startCarouselTimer(groupIndex);
+
+            const frame = document.getElementById(`carousel-frame-${groupIndex}`);
+            if (frame) {
+                // Pausar ao segurar o dedo (mobile) ou rato (desktop)
+                frame.addEventListener('mousedown', () => pauseCarousel(groupIndex));
+                frame.addEventListener('mouseup', () => resumeCarousel(groupIndex));
+                frame.addEventListener('mouseleave', () => resumeCarousel(groupIndex));
                 
-                currentIndex = (currentIndex + 1) % slides.length;
-                
-                slides[currentIndex].classList.remove('opacity-0', 'z-0');
-                slides[currentIndex].classList.add('opacity-100', 'z-10');
-            }, (items[currentIndex].time || 6) * 1000);
+                frame.addEventListener('touchstart', () => pauseCarousel(groupIndex));
+                frame.addEventListener('touchend', () => resumeCarousel(groupIndex));
+            }
+        }
+
+        function startCarouselTimer(groupIndex) {
+            const state = carouselStates[groupIndex];
+            if (!state) return;
+            
+            if (state.timer) clearInterval(state.timer);
+
+            state.timer = setInterval(() => {
+                if (!state.isPaused) {
+                    changeSlide(groupIndex, 1);
+                }
+            }, (state.items[state.currentIndex].time || 6) * 1000);
+        }
+
+        function pauseCarousel(groupIndex) {
+            if (carouselStates[groupIndex]) {
+                carouselStates[groupIndex].isPaused = true;
+            }
+        }
+
+        function resumeCarousel(groupIndex) {
+            if (carouselStates[groupIndex]) {
+                carouselStates[groupIndex].isPaused = false;
+            }
+        }
+
+        function changeSlide(groupIndex, direction) {
+            const state = carouselStates[groupIndex];
+            if (!state) return;
+
+            const slides = document.querySelectorAll(`.carousel-slide-${groupIndex}`);
+            if (!slides.length) return;
+
+            slides[state.currentIndex].classList.remove('opacity-100', 'z-10');
+            slides[state.currentIndex].classList.add('opacity-0', 'z-0');
+
+            state.currentIndex = (state.currentIndex + direction + slides.length) % slides.length;
+
+            slides[state.currentIndex].classList.remove('opacity-0', 'z-0');
+            slides[state.currentIndex].classList.add('opacity-100', 'z-10');
+        }
+
+        window.manualChangeSlide = function(groupIndex, direction) {
+            pauseCarousel(groupIndex);
+            changeSlide(groupIndex, direction);
+            startCarouselTimer(groupIndex);
         }
 
         async function loadPublicSpreadsheets() {
