@@ -55,7 +55,7 @@
         </nav>
     </section>
 
-    <!-- Conteúdo Principal Dinâmico (Espaçamentos reduzidos) -->
+    <!-- Conteúdo Principal Dinâmico -->
     <main id="mainSectionsContainer" class="max-w-7xl mx-auto w-full px-6 py-8 space-y-10 flex-grow">
 
         <!-- SECÇÃO: MINHA HISTÓRIA / QUEM SOU EU -->
@@ -116,7 +116,7 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: MODALIDADES (Selo "Disponível" removido) -->
+        <!-- SECÇÃO: MODALIDADES -->
         <section id="modalidades" data-section-id="modalidades" class="py-8 space-y-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-10 space-y-2">
@@ -156,18 +156,28 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: RELATOS -->
+        <!-- SECÇÃO: RELATOS (Com carrossel para os últimos 30 comentários e botões pular/voltar) -->
         <section id="relatos" data-section-id="relatos" class="py-8 space-y-8">
-            <div class="max-w-5xl mx-auto space-y-6">
-                <div class="text-center space-y-2">
-                    <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Alunos Satisfeitos</span>
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-white">Relatos e Resultados</h3>
-                    <p class="text-sm text-gray-400">Veja o que dizem quem já treinou com a nossa equipa.</p>
+            <div class="max-w-3xl mx-auto space-y-6 text-center">
+                <div class="space-y-2">
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white">Relatos e detalhes</h3>
+                    <p class="text-sm text-gray-400">Veja o que dizem quem já treinou com a nossa equipe.</p>
                 </div>
-                <div id="publicTestimonialsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Preenchido via JavaScript -->
+                
+                <!-- Container do Carrossel de Relatos com Setas -->
+                <div class="relative bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-10 shadow-2xl min-h-[220px] flex flex-col justify-between">
+                    <!-- Botões de Navegação (Pular / Voltar) -->
+                    <button type="button" onclick="changeTestimonialSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10094;</button>
+                    <button type="button" onclick="changeTestimonialSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10095;</button>
+
+                    <div id="testimonialSlideContainer" class="px-8 space-y-4">
+                        <p class="text-xs text-gray-500 italic">A carregar relatos...</p>
+                    </div>
+
+                    <div id="testimonialCounter" class="text-xs text-gray-500 pt-4">0 / 0</div>
                 </div>
-                <div class="text-center pt-2">
+
+                <div class="text-pt-2">
                     <button onclick="openTestimonialModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer shadow-lg">Deixar meu Relato / Depoimento</button>
                 </div>
             </div>
@@ -528,51 +538,64 @@
             document.getElementById('pixModal').classList.add('hidden');
         }
 
+        // Lógica de Depoimentos (Últimos 30 comentários com navegação pular/voltar)
+        let approvedTestimonials = [];
+        let currentTestimonialIndex = 0;
+
         async function loadPublicTestimonials() {
-            const container = document.getElementById('publicTestimonialsContainer');
+            const container = document.getElementById('testimonialSlideContainer');
+            const counterEl = document.getElementById('testimonialCounter');
             try {
                 const querySnapshot = await getDocs(collection(db, "testimonials"));
-                container.innerHTML = '';
-                let hasApproved = false;
+                approvedTestimonials = [];
 
                 querySnapshot.forEach((docSnap) => {
                     const t = docSnap.data();
                     if (t.status === 'aprovado') {
-                        hasApproved = true;
-                        const cardHTML = `
-                            <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-3">
-                                <p class="text-gray-300 italic text-sm">"${t.message}"</p>
-                                <div>
-                                    <span class="font-bold text-amber-400 block">— ${t.name}</span>
-                                    <span class="text-xs text-gray-500">${t.service}</span>
-                                </div>
-                            </div>
-                        `;
-                        container.insertAdjacentHTML('beforeend', cardHTML);
+                        approvedTestimonials.push(t);
                     }
                 });
 
-                if (!hasApproved) {
-                    container.innerHTML = `
-                        <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-3">
-                            <p class="text-gray-300 italic text-sm">"O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"</p>
-                            <div>
-                                <span class="font-bold text-amber-400 block">— Mariana S.</span>
-                                <span class="text-xs text-gray-500">Consultoria Online</span>
-                            </div>
-                        </div>
-                        <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-3">
-                            <p class="text-gray-300 italic text-sm">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, uma dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
-                            <div>
-                                <span class="font-bold text-amber-400 block">— Lucas e Camila</span>
-                                <span class="text-xs text-gray-500">Treinamento Presencial</span>
-                            </div>
-                        </div>
-                    `;
+                // Limitar aos últimos 30 comentários
+                approvedTestimonials = approvedTestimonials.slice(-30);
+
+                if (approvedTestimonials.length === 0) {
+                    approvedTestimonials = [
+                        { message: "O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!", name: "Mariana S.", service: "Consultoria Online" },
+                        { message: "Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, uma dieta de brinde ajudou demais na nossa reeducação alimentar.", name: "Lucas e Camila", service: "Treinamento Presencial" }
+                    ];
                 }
+
+                currentTestimonialIndex = 0;
+                renderTestimonialSlide();
             } catch (err) {
                 console.error("Erro ao carregar depoimentos públicos:", err);
+                container.innerHTML = '<p class="text-xs text-rose-500 italic">Erro ao carregar relatos.</p>';
             }
+        }
+
+        function renderTestimonialSlide() {
+            const container = document.getElementById('testimonialSlideContainer');
+            const counterEl = document.getElementById('testimonialCounter');
+            if (!approvedTestimonials.length) return;
+
+            const t = approvedTestimonials[currentTestimonialIndex];
+            container.innerHTML = `
+                <div class="space-y-3 animate-fadeIn">
+                    <p class="text-gray-200 italic text-base sm:text-lg">"${t.message}"</p>
+                    <div class="pt-2">
+                        <span class="font-bold text-amber-400 block text-base">— ${t.name}</span>
+                        <span class="text-xs text-gray-400">${t.service || 'Aluno(a)'}</span>
+                    </div>
+                </div>
+            `;
+            counterEl.textContent = `${currentTestimonialIndex + 1} / ${approvedTestimonials.length}`;
+        }
+
+        window.changeTestimonialSlide = function(direction) {
+            if (!approvedTestimonials.length) return;
+            currentTestimonialIndex = (currentTestimonialIndex + direction + approvedTestimonials.length) % approvedTestimonials.length;
+            renderTestimonialSlide();
         }
 
         window.openTestimonialModal = function() {
