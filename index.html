@@ -201,18 +201,20 @@
         <p class="text-xs text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
     </footer>
 
-    <!-- Script do Carrossel (Manual) -->
+    <!-- Script do Carrossel (Automático a cada 6 segundos + Manual) -->
     <script>
         let currentSlide = 0;
         const totalSlides = 9;
         const track = document.getElementById('carouselTrack');
         const dotsContainer = document.getElementById('dotsContainer');
+        const container = document.getElementById('carouselContainer');
 
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('button');
             dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
             dot.onclick = () => {
                 goToSlide(i);
+                resetTimer();
             };
             dotsContainer.appendChild(dot);
         }
@@ -233,12 +235,25 @@
         function prevSlide() {
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             updateCarousel();
+            resetTimer();
         }
 
         function goToSlide(index) {
             currentSlide = index;
             updateCarousel();
         }
+
+        // Autoplay a cada 6 segundos
+        let slideInterval = setInterval(nextSlide, 6000);
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 6000);
+        }
+
+        // Pausa ao passar o rato por cima
+        container.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        container.addEventListener('mouseleave', () => resetTimer());
     </script>
 </body>
 </html>
