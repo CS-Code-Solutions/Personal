@@ -174,9 +174,9 @@
                     <span class="text-xs text-gray-500">Treinamento Presencial</span>
                 </div>
             </div>
-            <!-- Botão para envio de Depoimento -->
+            <!-- Botão para abrir o modal de Depoimento -->
             <div class="text-center mt-10">
-                <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20enviar%20o%20meu%20relato/depoimento%20sobre%20os%20treinos!" target="_blank" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm">Deixar meu Relato / Depoimento</a>
+                <button onclick="openModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer">Deixar meu Relato / Depoimento</button>
             </div>
         </div>
     </section>
@@ -201,8 +201,70 @@
         <p class="text-xs text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
     </footer>
 
-    <!-- Script do Carrossel (Automático a cada 6 segundos + Manual) -->
+    <!-- JANELA FLUTUANTE (MODAL) DE DEPOIMENTO -->
+    <div id="testimonialModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+            <!-- Botão Fechar -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            
+            <h3 class="text-2xl font-bold mb-2 text-white">Deixar o seu Relato</h3>
+            <p class="text-gray-400 text-sm mb-6">Partilhe a sua experiência. O depoimento será analisado antes de aparecer no site.</p>
+            
+            <form onsubmit="handleTestimonialSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome Completo</label>
+                    <input type="text" id="tName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm" placeholder="Ex: Ana Silva">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Serviço Contratado</label>
+                    <select id="tService" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm">
+                        <option value="" disabled selected>Selecione a modalidade</option>
+                        <option value="Treinamento Presencial">Treinamento Presencial</option>
+                        <option value="Consultoria Online">Consultoria Online</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Relato</label>
+                    <textarea id="tMessage" required rows="4" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm resize-none" placeholder="Conte como foi a evolução..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2">Enviar Depoimento</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MENSAGEM FLUTUANTE DE SUCESSO (TOAST) -->
+    <div id="toastNotification" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-500 text-gray-950 font-bold px-6 py-3.5 rounded-2xl shadow-2xl z-50 text-center text-sm md:text-base border border-amber-600 transition-all duration-300">
+        Obrigado pelo depoimento, aguardando validação.
+    </div>
+
+    <!-- Script do Carrossel e Modal -->
     <script>
+        // Funções da Janela Flutuante (Modal)
+        function openModal() {
+            document.getElementById('testimonialModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('testimonialModal').classList.add('hidden');
+        }
+
+        function handleTestimonialSubmit(e) {
+            e.preventDefault();
+            closeModal();
+
+            // Exibir mensagem flutuante de sucesso por 6 segundos
+            const toast = document.getElementById('toastNotification');
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 6000);
+
+            // Limpar formulário
+            e.target.reset();
+        }
+
+        // Lógica do Carrossel (Automático a cada 6 segundos + Manual)
         let currentSlide = 0;
         const totalSlides = 9;
         const track = document.getElementById('carouselTrack');
