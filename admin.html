@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style> 
         body { font-family: 'Montserrat', sans-serif; } 
-        /* Barra de rolagem personalizada e elegante (modo escuro) */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #030712; }
         ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 9999px; }
@@ -128,7 +127,6 @@
 
         <!-- ABA 3: PLANILHAS DE TREINO -->
         <section id="section-planilhas" class="hidden space-y-8">
-            <!-- Formulário Adicionar Nova Planilha -->
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
                 <h3 class="text-xl font-bold text-white mb-2">Adicionar Nova Planilha de Treino</h3>
                 <p class="text-sm text-gray-400 mb-6">Registe uma nova planilha pronta para disponibilizar aos alunos.</p>
@@ -154,7 +152,6 @@
                 </form>
             </div>
 
-            <!-- Lista de Planilhas Atuais -->
             <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
                 <h3 class="text-xl font-bold text-white mb-2">Planilhas Atuais Registadas</h3>
                 <p class="text-sm text-gray-400 mb-6">Lista de planilhas disponíveis no sistema.</p>
@@ -167,9 +164,12 @@
 
         <!-- ABA 4: CONTEÚDO DO SITE -->
         <section id="section-conteudo" class="hidden space-y-8">
-            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
-                <h3 class="text-xl font-bold text-white mb-2">Edição Completa da Secção "Quem Sou Eu" e Textos do Site</h3>
-                <p class="text-sm text-gray-400 mb-6">As alterações são guardadas automaticamente ao sair de cada campo.</p>
+            <!-- Textos da Bio -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Textos da Secção "Quem Sou Eu"</h3>
+                    <p class="text-sm text-gray-400">As alterações são guardadas automaticamente ao sair de cada campo.</p>
+                </div>
                 <div class="space-y-6">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 1</label>
@@ -193,6 +193,17 @@
                         <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Filosofia de Treino (Citação)</label>
                         <textarea id="contentCitacao" rows="3" onblur="autoSaveContent()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
                     </div>
+                </div>
+            </div>
+
+            <!-- Ajustar Ordem das Secções do Site -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Ordem de Exibição das Secções no Site</h3>
+                    <p class="text-sm text-gray-400">Ajuste a posição em que cada secção aparece na página principal. A ordem é guardada automaticamente.</p>
+                </div>
+                <div id="sectionsOrderContainer" class="space-y-3">
+                    <!-- Preenchido Dinamicamente -->
                 </div>
             </div>
         </section>
@@ -270,11 +281,21 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        const defaultSections = [
+            { id: 'historia', name: 'Quem Sou Eu (Minha História)' },
+            { id: 'metodo', name: 'O Método (Carrosséis)' },
+            { id: 'modalidades', name: 'Modalidades (Presencial / Online)' },
+            { id: 'planilhas', name: 'Planilhas de Treino' },
+            { id: 'relatos', name: 'Relatos e Resultados' },
+            { id: 'duvidas', name: 'Tirar Dúvidas / FAQ' }
+        ];
+
         document.addEventListener("DOMContentLoaded", async function() {
             await loadBioContent();
             await loadCarouselContent();
             await loadFirebaseTestimonials();
             await loadSpreadsheets();
+            await loadSectionsOrder();
         });
 
         window.switchTab = function(tabName) {
@@ -536,6 +557,81 @@
                 showToast();
             } catch (error) {
                 console.error('Erro ao auto-guardar conteúdo:', error.message);
+            }
+        }
+
+        // Gestão de Ordem das Secções
+        async function loadSectionsOrder() {
+            try {
+                const docSnap = await getDoc(doc(db, "siteConfig", "sectionsOrder"));
+                let order = [];
+                if (docSnap.exists() && docSnap.data().order) {
+                    order = docSnap.data().order;
+                } else {
+                    order = defaultSections.map(s => s.id);
+                }
+                renderSectionsOrderUI(order);
+            } catch (err) {
+                console.error("Erro ao carregar ordem das secções:", err);
+                renderSectionsOrderUI(defaultSections.map(s => s.id));
+            }
+        }
+
+        function renderSectionsOrderUI(orderIds) {
+            const container = document.getElementById('sectionsOrderContainer');
+            container.innerHTML = '';
+
+            orderIds.forEach((id, index) => {
+                const sec = defaultSections.find(s => s.id === id) || { id, name: id };
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex items-center justify-between section-order-item";
+                itemDiv.dataset.id = sec.id;
+                itemDiv.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="bg-amber-500 text-gray-950 font-extrabold w-7 h-7 rounded-xl flex items-center justify-center text-xs section-pos">${index + 1}</span>
+                        <span class="font-bold text-white text-sm">${sec.name}</span>
+                    </div>
+                    <div class="flex gap-1">
+                        <button type="button" onclick="moveSection(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-8 h-8 rounded-xl text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Subir">▲</button>
+                        <button type="button" onclick="moveSection(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-8 h-8 rounded-xl text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Descer">▼</button>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        window.moveSection = async function(btn, direction) {
+            const item = btn.closest('.section-order-item');
+            const parent = item.parentNode;
+            if (direction === -1 && item.previousElementSibling) {
+                parent.insertBefore(item, item.previousElementSibling);
+            } else if (direction === 1 && item.nextElementSibling) {
+                parent.insertBefore(item.nextElementSibling, item);
+            }
+            updateSectionPositions();
+            await triggerAutoSaveSectionsOrder();
+        }
+
+        function updateSectionPositions() {
+            const items = document.querySelectorAll('#sectionsOrderContainer .section-order-item');
+            items.forEach((item, index) => {
+                const pos = item.querySelector('.section-pos');
+                if (pos) pos.textContent = index + 1;
+            });
+        }
+
+        async function triggerAutoSaveSectionsOrder() {
+            const items = document.querySelectorAll('#sectionsOrderContainer .section-order-item');
+            let order = [];
+            items.forEach(item => {
+                order.push(item.dataset.id);
+            });
+
+            try {
+                await setDoc(doc(db, "siteConfig", "sectionsOrder"), { order });
+                showToast();
+            } catch (err) {
+                console.error("Erro ao guardar ordem das secções:", err);
             }
         }
 
