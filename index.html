@@ -155,14 +155,17 @@
         </div>
     </section>
 
-    <!-- Depoimentos (Relatos de Alunos) -->
+    <!-- Depoimentos (Relatos de Alunos) com Paginação/Navegação -->
     <section id="depoimentos" class="py-20 px-6 bg-gray-900">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-extrabold mb-4">Relatos de Alunas e Alunos</h2>
                 <p class="text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos.</p>
             </div>
+
+            <!-- Grelha dinamicamente preenchida -->
             <div id="depoimentosGrid" class="grid md:grid-cols-2 gap-8">
+                <!-- Depoimentos estáticos padrão caso o Firebase demore -->
                 <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800">
                     <p class="text-gray-300 italic mb-4">"O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"</p>
                     <span class="font-bold text-amber-400 block">— Mariana S.</span>
@@ -174,6 +177,14 @@
                     <span class="text-xs text-gray-500">Treinamento Presencial</span>
                 </div>
             </div>
+
+            <!-- Botões de Navegação entre Páginas de Depoimentos -->
+            <div id="testimonialNav" class="flex justify-center items-center gap-4 mt-10 hidden">
+                <button onclick="prevTestimonialPage()" class="bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl border border-amber-500/30 cursor-pointer">&#10094;</button>
+                <span id="testimonialPageIndicator" class="text-sm font-semibold text-gray-400">Página 1 de 1</span>
+                <button onclick="nextTestimonialPage()" class="bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl border border-amber-500/30 cursor-pointer">&#10095;</button>
+            </div>
+
             <!-- Botão para abrir o modal de Depoimento -->
             <div class="text-center mt-10">
                 <button onclick="openModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer">Deixar meu Relato / Depoimento</button>
@@ -237,10 +248,10 @@
         Obrigado pelo depoimento, aguardando validação.
     </div>
 
-    <!-- Script de Integração com Firebase e Gestão do Carrossel -->
+    <!-- Script de Integração com Firebase, Carrossel e Depoimentos Paginados -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, getDocs, addDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDsoyXz4x2BGXHmm-iPb56fn6K07AXOgSY",
@@ -253,6 +264,10 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        let allApprovedTestimonials = [];
+        let currentTestimonialPage = 0;
+        const testimonialsPerPage = 2; // Exibe 2 depoimentos por página (ou pode ajustar)
 
         document.addEventListener("DOMContentLoaded", async function() {
             try {
@@ -291,10 +306,82 @@
                     if (bio.p1) document.getElementById('bioP1').textContent = bio.p1;
                     if (bio.p2) document.getElementById('bioP2').textContent = bio.p2;
                 }
+
+                // 3. Carregar Depoimentos Aprovados (Últimos 30) do Firebase
+                const q = query(collection(db, "testimonials"), where("status", "==", "aprovado"), limit(30));
+                const querySnapshot = await getDocs(q);
+                
+                let fetched = [];
+                querySnapshot.forEach((docSnap) => {
+                    fetched.push(docSnap.data());
+                });
+
+                if (fetched.length > 0) {
+                    allApprovedTestimonials = fetched;
+                    renderTestimonialsPage();
+                }
+
             } catch (err) {
                 console.error("Erro ao carregar dados do Firebase:", err);
             }
         });
+
+        // Função de Paginação dos Depoimentos
+        window.renderTestimonialsPage = function() {
+            const grid = document.getElementById('depoimentosGrid');
+            const nav = document.getElementById('testimonialNav');
+            const indicator = document.getElementById('testimonialPageIndicator');
+            
+            if (allApprovedTestimonials.length === 0) return;
+
+            grid.innerHTML = '';
+            const start = currentTestimonialPage * testimonialsPerPage;
+            const end = start + testimonialsPerPage;
+            const pageItems = allApprovedTestimonials.slice(start, end);
+
+            pageItems.forEach(t => {
+                const card = document.createElement('div');
+                card.className = "bg-gray-950 p-6 rounded-2xl border border-gray-800 flex flex-col justify-between";
+                card.innerHTML = `
+                    <p class="text-gray-300 italic mb-4">"${t.message}"</p>
+                    <div>
+                        <span class="font-bold text-amber-400 block">— ${t.name}</span>
+                        <span class="text-xs text-gray-500">${t.service}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            const totalPages = Math.ceil(allApprovedTestimonials.length / testimonialsPerPage);
+            if (totalPages > 1) {
+                nav.classList.remove('hidden');
+                indicator.textContent = `Página ${currentTestimonialPage + 1} de ${totalPages}`;
+            } else {
+                nav.classList.add('hidden');
+            }
+        }
+
+        window.nextTestimonialPage = function() {
+            const totalPages = Math.ceil(allApprovedTestimonials.length / testimonialsPerPage);
+            if (currentTestimonialPage < totalPages - 1) {
+                currentTestimonialPage++;
+                renderTestimonialsPage();
+            } else {
+                currentTestimonialPage = 0; // Volta ao início (Loop)
+                renderTestimonialsPage();
+            }
+        }
+
+        window.prevTestimonialPage = function() {
+            const totalPages = Math.ceil(allApprovedTestimonials.length / testimonialsPerPage);
+            if (currentTestimonialPage > 0) {
+                currentTestimonialPage--;
+                renderTestimonialsPage();
+            } else {
+                currentTestimonialPage = totalPages - 1; // Vai para o último
+                renderTestimonialsPage();
+            }
+        }
 
         // Funções do Modal de Depoimento
         window.openModal = function() {
