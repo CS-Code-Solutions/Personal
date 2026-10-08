@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <!-- Hero Section Original com Logo Bem Maior -->
+    <!-- Hero Section com Logo Bem Maior -->
     <section class="relative bg-gradient-to-b from-gray-950 to-gray-900 py-16 px-6 border-b border-gray-800 text-center">
         <div class="max-w-4xl mx-auto space-y-6">
             <div class="flex justify-center">
@@ -43,15 +43,15 @@
         </div>
     </section>
 
-    <!-- Menu de Navegação Original em Abas -->
-    <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-md border-b border-gray-800 px-6 py-3">
-        <div class="max-w-7xl mx-auto flex justify-center gap-4 sm:gap-8 overflow-x-auto text-xs sm:text-sm font-bold text-gray-300">
-            <a href="#historia" class="hover:text-amber-400 transition whitespace-nowrap">Minha História</a>
-            <a href="#metodo" class="hover:text-amber-400 transition whitespace-nowrap">O Método</a>
-            <a href="#modalidades" class="hover:text-amber-400 transition whitespace-nowrap">Modalidades</a>
-            <a href="#planilhas" class="hover:text-amber-400 transition whitespace-nowrap">Planilhas</a>
-            <a href="#relatos" class="hover:text-amber-400 transition whitespace-nowrap">Relatos</a>
-            <a href="#duvidas" class="hover:text-amber-400 transition whitespace-nowrap">Tirar Dúvidas</a>
+    <!-- Menu de Navegação Estético e Responsivo -->
+    <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-md border-b border-gray-800 px-4 py-3 shadow-xl">
+        <div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-xs sm:text-sm font-bold">
+            <a href="#historia" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Minha História</a>
+            <a href="#metodo" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">O Método</a>
+            <a href="#modalidades" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Modalidades</a>
+            <a href="#planilhas" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Planilhas</a>
+            <a href="#relatos" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Relatos</a>
+            <a href="#duvidas" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Tirar Dúvidas</a>
         </div>
     </div>
 
@@ -66,9 +66,9 @@
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
                 <div class="lg:col-span-2 space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                    <p id="siteBioP1">A carregar história...</p>
-                    <p id="siteBioP2"></p>
-                    <blockquote class="border-l-4 border-amber-400 pl-4 italic text-gray-200 text-sm pt-2" id="siteBioCitacao"></blockquote>
+                    <p id="siteBioP1">A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.</p>
+                    <p id="siteBioP2">Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.</p>
+                    <blockquote class="border-l-4 border-amber-400 pl-4 italic text-gray-200 text-sm pt-2" id="siteBioCitacao">"A melhor versão é a que eu vivo hoje, mas sem as versões anteriores eu jamais teria feito as escolhas que me fizeram acreditar que eu podia. E que posso, ser sempre uma versão melhorada de mim mesmo. Isso que levo sempre para meus alunos, que eles podem chegar onde quiserem."</blockquote>
                 </div>
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl space-y-6 text-center shadow-inner">
                     <div class="space-y-1">
@@ -266,11 +266,11 @@
                 const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
                 if (bioDoc.exists()) {
                     const bio = bioDoc.data();
-                    document.getElementById('siteBioP1').textContent = bio.p1 || "";
-                    document.getElementById('siteBioP2').textContent = bio.p2 || "";
-                    document.getElementById('siteBioFisiculturismo').textContent = bio.fisiculturismo || "6 Anos";
-                    document.getElementById('siteBioPeso').textContent = bio.peso || "94kg → 68kg";
-                    document.getElementById('siteBioCitacao').textContent = bio.citacao || "";
+                    if (bio.p1) document.getElementById('siteBioP1').textContent = bio.p1;
+                    if (bio.p2) document.getElementById('siteBioP2').textContent = bio.p2;
+                    if (bio.fisiculturismo) document.getElementById('siteBioFisiculturismo').textContent = bio.fisiculturismo;
+                    if (bio.peso) document.getElementById('siteBioPeso').textContent = bio.peso;
+                    if (bio.citacao) document.getElementById('siteBioCitacao').textContent = bio.citacao;
                 }
             } catch (err) {
                 console.error("Erro ao carregar bio:", err);
