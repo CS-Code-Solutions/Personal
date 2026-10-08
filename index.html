@@ -1,220 +1,237 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Vasconcelos | Personal Trainer & Consultoria</title>
+    <title>Team Vasconcelos | Personal Trainer & Consultoria</title>
     <!-- Ícone da Aba do Navegador -->
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Montserrat', sans-serif; }
-        .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('');
-            background-size: cover;
-            background-position: center;
-        }
+    <style> 
+        body { font-family: 'Montserrat', sans-serif; } 
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #374151; }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100">
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-gray-950">
 
-    <!-- Hero Section com a Logo Grande e Menu Logo Abaixo -->
-    <section class="hero-bg min-h-screen flex flex-col justify-between pt-6 pb-10 px-6 text-center">
-        <!-- Topo com botão WhatsApp -->
-        <div class="max-w-6xl mx-auto w-full flex justify-end items-center">
-            <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20dúvida%20sobre%20os%20treinos!" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-5 py-2 rounded-full transition shadow-lg text-sm">Falar no WhatsApp</a>
-        </div>
-
-        <!-- Conteúdo Principal do Hero com a Logo Grande -->
-        <div class="max-w-3xl mx-auto my-auto">
-            <img src="logo.png" alt="Diego Vasconcelos Team Vasconcelos" class="w-72 md:w-96 mx-auto mb-6 object-contain drop-shadow-2xl">
-            <span class="text-amber-400 font-semibold tracking-widest uppercase text-sm bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Transformação & Performance</span>
-            <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">Supere Seus Limites com Acompanhamento Profissional</h1>
-            <p class="text-base md:text-lg text-gray-300 mb-8 leading-relaxed">Treinamento presencial e consultoria online personalizados para otimizar os seus resultados, seja individualmente ou em casal.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#modalidades" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-base">Conhecer Modalidades</a>
-                <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20alguma%20dúvida%20e%20gostaria%20de%20conversar!" target="_blank" class="border-2 border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-bold px-8 py-3.5 rounded-xl transition text-base">Tirar Dúvidas</a>
+    <!-- Header / Navbar Principal -->
+    <header class="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-gray-800 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="Logo Team Vasconcelos" class="w-11 h-11 object-contain">
+                <div>
+                    <h1 class="font-extrabold text-white text-base tracking-wide">TEAM VASCONCELOS</h1>
+                    <span class="text-[10px] uppercase tracking-widest text-amber-400 font-semibold">Personal Trainer & Consultoria</span>
+                </div>
             </div>
-        </div>
-
-        <!-- Menu de Navegação Abaixo do Hero -->
-        <nav class="max-w-4xl mx-auto w-full bg-gray-950/80 backdrop-blur border border-gray-800 rounded-2xl p-4 mt-8 flex flex-wrap justify-center gap-6 text-sm font-semibold text-gray-300">
-            <a href="#sobre" class="hover:text-amber-400 transition">Minha História</a>
-            <a href="#metodo" class="hover:text-amber-400 transition">O Método</a>
-            <a href="#modalidades" class="hover:text-amber-400 transition">Modalidades</a>
-            <a href="#depoimentos" class="hover:text-amber-400 transition">Relatos</a>
-            <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20uma%20dúvida%20geral%20sobre%20os%20serviços." target="_blank" class="text-amber-400 hover:underline">Tirar Dúvidas</a>
-        </nav>
-    </section>
-
-    <!-- Sobre Mim / Quem Sou Eu (História Real) -->
-    <section id="sobre" class="py-20 px-6 bg-gray-950">
-        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <!-- Menu de Navegação -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
+                <a href="#historia" class="hover:text-amber-400 transition">Minha História</a>
+                <a href="#metodo" class="hover:text-amber-400 transition">O Método</a>
+                <a href="#modalidades" class="hover:text-amber-400 transition">Modalidades</a>
+                <a href="#planilhas" class="hover:text-amber-400 transition">Planilhas</a>
+                <a href="#relatos" class="hover:text-amber-400 transition">Relatos</a>
+                <a href="#duvidas" class="hover:text-amber-400 transition">Tirar Dúvidas</a>
+            </nav>
             <div>
-                <span class="text-amber-400 font-semibold tracking-widest uppercase text-sm bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Minha Trajetória</span>
-                <h2 class="text-3xl font-bold mb-6 text-amber-400">Quem Sou Eu</h2>
-                <p id="bioP1" class="text-gray-300 mb-4 leading-relaxed">A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.</p>
-                <p id="bioP2" class="text-gray-300 mb-6 leading-relaxed">Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.</p>
-                <div class="flex gap-6 border-t border-gray-800 pt-6">
-                    <div>
-                        <span id="statFisiculturismo" class="block text-2xl font-bold text-amber-400">6 Anos</span>
-                        <span class="text-sm text-gray-400">No Fisiculturismo</span>
+                <a href="admin.html" class="text-xs bg-gray-900 hover:bg-gray-800 border border-gray-700 text-amber-400 px-4 py-2 rounded-xl transition font-bold shadow-md">Painel Admin</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-gray-950 to-gray-900 py-20 px-6 border-b border-gray-800">
+        <div class="max-w-5xl mx-auto text-center space-y-6">
+            <span class="bg-amber-400/10 text-amber-400 border border-amber-400/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Evolução e Performance</span>
+            <h2 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight">Transforme o seu Corpo com Acompanhamento <span class="text-amber-400">Profissional</span></h2>
+            <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">Treinamento presencial e consultoria online personalizados para otimizar resultados, seja individualmente ou em casal.</p>
+            <div class="flex justify-center gap-4 pt-4 flex-wrap">
+                <a href="#modalidades" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-2xl transition shadow-xl text-sm">Conhecer Modalidades</a>
+                <a href="#duvidas" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-white font-bold px-8 py-3.5 rounded-2xl transition text-sm">Tirar Dúvidas</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-7xl mx-auto w-full px-6 py-12 space-y-24 flex-grow">
+
+        <!-- SECÇÃO: MINHA HISTÓRIA -->
+        <section id="historia" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
+            <div class="border-b border-gray-800 pb-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Trajetória Real</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Quem Sou Eu</h3>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <div class="lg:col-span-2 space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed" id="bioContainer">
+                    <p id="siteBioP1">A carregar história...</p>
+                    <p id="siteBioP2"></p>
+                    <blockquote class="border-l-4 border-amber-400 pl-4 italic text-gray-200 text-sm pt-2" id="siteBioCitacao"></blockquote>
+                </div>
+                <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-6 text-center shadow-inner">
+                    <div class="space-y-1">
+                        <span class="text-xs uppercase text-gray-400 font-semibold">Experiência</span>
+                        <h4 class="text-3xl font-extrabold text-amber-400" id="siteBioFisiculturismo">6 Anos</h4>
+                        <p class="text-xs text-gray-500">no Fisiculturismo</p>
                     </div>
-                    <div>
-                        <span id="statPeso" class="block text-2xl font-bold text-amber-400">94kg → 68kg</span>
-                        <span class="text-sm text-gray-400">Minha Superação</span>
+                    <div class="border-t border-gray-800 pt-6 space-y-1">
+                        <span class="text-xs uppercase text-gray-400 font-semibold">Evolução Pessoal</span>
+                        <h4 class="text-3xl font-extrabold text-emerald-400" id="siteBioPeso">94kg → 68kg</h4>
+                        <p class="text-xs text-gray-500">Superação e Foco</p>
                     </div>
                 </div>
             </div>
-            <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-xl">
-                <h3 class="text-xl font-bold mb-4 text-white">Filosofia de Treino</h3>
-                <p id="bioCitacao" class="text-gray-300 mb-6 leading-relaxed italic">"A melhor versão é a que eu vivo hoje, mas sem as versões anteriores eu jamais teria feito as escolhas que me fizeram acreditar que eu podia. E que posso, ser sempre uma versão melhorada de mim mesmo. Isso que levo sempre para meus alunos, que eles podem chegar onde quiserem."</p>
-                <ul class="space-y-3 text-gray-300">
-                    <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Empatia real com quem quer transformar o corpo</span></li>
-                    <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Planos adaptados para individuais e casais</span></li>
-                    <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Dieta de brinde nos planos presenciais intensivos</span></li>
-                    <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Suporte constante via WhatsApp</span></li>
-                </ul>
+        </section>
+
+        <!-- SECÇÃO: O MÉTODO (CARROSSÉIS DINÂMICOS DO FIREBASE) -->
+        <section id="metodo" class="space-y-12">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Passo a Passo</span>
+                <h3 class="text-3xl font-extrabold text-white">O Método Team Vasconcelos</h3>
+                <p class="text-sm text-gray-400">Conheça os nossos conjuntos de carrosséis explicativos e resultados.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- SEÇÃO: Múltiplos Carrosséis Dinâmicos -->
-    <section id="metodo" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-4xl mx-auto text-center mb-12">
-            <span class="text-amber-400 font-semibold tracking-widest uppercase text-sm bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Metodologia Exclusiva</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">Conheça o Método Transformação de Elite</h2>
-            <p class="text-gray-400 max-w-xl mx-auto">Acompanhe os carrosséis abaixo para entender como funciona o nosso método de acompanhamento e evoluções.</p>
-        </div>
-
-        <!-- Container onde todos os carrosséis serão injetados dinamicamente -->
-        <div id="carouselsWrapper" class="space-y-20 max-w-4xl mx-auto">
-            <!-- Renderizado dinamicamente via script -->
-        </div>
-    </section>
-
-    <!-- Modalidades -->
-    <section id="modalidades" class="py-20 px-6 bg-gray-950">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Escolha Como Quer Treinar</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Opções flexíveis para se encaixar perfeitamente no seu estilo de vida e objetivos.</p>
+            <!-- Contentor Dinâmico dos Carrosséis -->
+            <div id="dynamicCarouselsContainer" class="space-y-16">
+                <!-- Preenchido via JavaScript -->
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Card 1: Consultoria Online -->
-                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
-                    <div>
-                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Online</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Consultoria Online</h3>
-                        <p class="text-gray-400 mb-6">Treine de onde estiver, com planilhas e orientações detalhadas sob medida para você ou em dupla (condição especial para casal).</p>
-                        <ul class="space-y-2 text-sm text-gray-300 mb-8">
-                            <li>• Treinos estruturados para a sua evolução</li>
-                            <li>• Opção individual e para casal</li>
-                            <li>• Flexibilidade de horários e locais</li>
-                        </ul>
+        </section>
+
+        <!-- SECÇÃO: MODALIDADES -->
+        <section id="modalidades" class="space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Planos Disponíveis</span>
+                <h3 class="text-3xl font-extrabold text-white">Escolha a sua Modalidade</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-950 border border-gray-800 p-8 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-400/20">Presencial</span>
+                        <h4 class="text-2xl font-bold text-white">Treinamento Presencial</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">Acompanhamento direto no ginásio, correção postural em tempo real, ajuste de cargas e máxima exigência para garantir o seu rendimento absoluto.</p>
                     </div>
-                    <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20dúvida%20sobre%20a%20Consultoria%20Online." target="_blank" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3 rounded-xl text-center transition block">Tirar Dúvidas - Consultoria Online</a>
+                    <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20o%20Treinamento%20Presencial!" target="_blank" class="block text-center bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-2xl transition shadow-lg text-sm">Quero Treinar Presencial</a>
                 </div>
-                <!-- Card 2: Treinamento Presencial -->
-                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
-                    <div>
-                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Presencial</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-2">Treinamento Presencial</h3>
-                        <p class="text-gray-400 mb-6">Acompanhamento hora/aula individual ou em casal, com foco total na intensidade, segurança e cobrança mensal antecipada.</p>
-                        <ul class="space-y-2 text-sm text-gray-300 mb-8">
-                            <li>• Aulas individuais ou em casal</li>
-                            <li>• <strong class="text-amber-400">Bônus:</strong> Fechando acima de 4 aulas na semana, a dieta é cortesia!</li>
-                            <li>• Pagamento facilitado via Pix ou Cartão</li>
-                        </ul>
+                <div class="bg-gray-950 border border-gray-800 p-8 rounded-3xl space-y-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-400/20">Online</span>
+                        <h4 class="text-2xl font-bold text-white">Consultoria Online</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed">Treino periodizado adaptado à sua rotina, verificação de execução por vídeo, orientações nutricionais e suporte contínuo independentemente de onde estiver.</p>
                     </div>
-                    <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20dúvida%20sobre%20o%20Treinamento%20Presencial." target="_blank" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3 rounded-xl text-center transition block">Tirar Dúvidas - Treinamento Presencial</a>
+                    <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20a%20Consultoria%20Online!" target="_blank" class="block text-center bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-2xl transition shadow-lg text-sm">Quero Consultoria Online</a>
                 </div>
             </div>
+        </section>
+
+        <!-- SECÇÃO: PLANILHAS DE TREINO (NOVA) -->
+        <section id="planilhas" class="space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Materiais Prontos</span>
+                <h3 class="text-3xl font-extrabold text-white">Planilhas de Treino</h3>
+                <p class="text-sm text-gray-400">Adquira planilhas especializadas desenvolvidas para acelerar os seus ganhos.</p>
+            </div>
+
+            <!-- Contentor Dinâmico das Planilhas -->
+            <div id="publicSpreadsheetsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Preenchido via JavaScript -->
+                <p class="text-xs text-gray-500 italic col-span-full text-center py-6">A carregar planilhas disponíveis...</p>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: RELATOS (DEPOIMENTOS) -->
+        <section id="relatos" class="space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Alunos Satisfeitos</span>
+                <h3 class="text-3xl font-extrabold text-white">Relatos e Resultados</h3>
+                <p class="text-sm text-gray-400">Veja o que dizem quem já treinou com a nossa equipa.</p>
+            </div>
+
+            <!-- Lista de Depoimentos Aprovados -->
+            <div id="publicTestimonialsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Preenchido via JavaScript -->
+            </div>
+
+            <!-- Botão para Enviar Relato -->
+            <div class="text-center pt-4">
+                <button onclick="openTestimonialModal()" class="bg-gray-900 hover:bg-gray-800 border border-amber-500/30 text-amber-400 font-bold px-6 py-3 rounded-2xl transition text-sm cursor-pointer shadow-lg">+ Enviar Meu Relato</button>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: TIRAR DÚVIDAS (FAQ & CONTACTO) -->
+        <section id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
+            <div class="border-b border-gray-800 pb-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Suporte Direto</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Tirar Dúvidas</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
+                    <p>Ficou com alguma dúvida sobre qual modalidade escolher, valores ou funcionamento da consultoria?</p>
+                    <p>Entre em contacto diretamente através do WhatsApp para um atendimento rápido e personalizado.</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20tirar%20algumas%20dúvidas%20sobre%20os%20treinos." target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-extrabold px-8 py-4 rounded-2xl transition shadow-xl text-base">Falar no WhatsApp 📱</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL SOBRE PLANILHA -->
+    <div id="spreadsheetModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl space-y-6">
+            <button onclick="closeSpreadsheetModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
+            <div>
+                <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Detalhes da Planilha</span>
+                <h3 class="text-2xl font-bold text-white mt-2" id="modalSpreadsheetTitle">Nome da Planilha</h3>
+            </div>
+            <p class="text-gray-300 text-sm leading-relaxed" id="modalSpreadsheetDesc">Descrição detalhada da planilha.</p>
+            <div class="pt-4 border-t border-gray-800 flex gap-3">
+                <button type="button" onclick="alert('Funcionalidade de compra em breve!')" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-lg text-sm cursor-pointer">Comprar Planilha</button>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Depoimentos com Paginação e 2 Falsos Iniciais -->
-    <section id="depoimentos" class="py-20 px-6 bg-gray-900">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold mb-4">Relatos de Alunas e Alunos</h2>
-                <p class="text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos.</p>
-            </div>
-
-            <div id="depoimentosGrid" class="grid md:grid-cols-2 gap-8">
-                <!-- Preenchido via Script -->
-            </div>
-
-            <div id="testimonialNav" class="flex justify-center items-center gap-4 mt-10 hidden">
-                <button onclick="prevTestimonialPage()" class="bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl border border-amber-500/30 cursor-pointer">&#10094;</button>
-                <span id="testimonialPageIndicator" class="text-sm font-semibold text-gray-400">Página 1 de 1</span>
-                <button onclick="nextTestimonialPage()" class="bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl border border-amber-500/30 cursor-pointer">&#10095;</button>
-            </div>
-
-            <div class="text-center mt-10">
-                <button onclick="openModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer">Deixar meu Relato / Depoimento</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section class="py-20 px-6 bg-gradient-to-t from-gray-950 to-gray-900 text-center">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Pronto para dar o próximo passo?</h2>
-            <p class="text-gray-300 mb-8">Entre em contacto agora mesmo pelo WhatsApp para tirar dúvidas, verificar disponibilidade de horários e garantir a sua vaga.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20quero%20começar%20meus%20treinos%20agora!" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-base">Chamar no WhatsApp</a>
-                <a href="https://www.instagram.com/personal_diego_vasconcelos?stkn=b2VkeHFjajF3cXZv" target="_blank" class="bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-90 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-base flex items-center justify-center gap-2">
-                    <span>Instagram Oficial</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-sm text-gray-500 space-y-2">
-        <p>&copy; 2026 Diego Vasconcelos Personal Trainer. Todos os direitos reservados.</p>
-        <p class="text-xs text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
-    </footer>
-
-    <!-- MODAL DE DEPOIMENTO -->
+    <!-- MODAL DE ENVIO DE DEPOIMENTO -->
     <div id="testimonialModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
-            <h3 class="text-2xl font-bold mb-2 text-white">Deixar o seu Relato</h3>
-            <p class="text-gray-400 text-sm mb-6">Partilhe a sua experiência. O depoimento será analisado antes de aparecer no site.</p>
-            <form onsubmit="handleTestimonialSubmit(event)" class="space-y-4">
+            <button onclick="closeTestimonialModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-white">Enviar Meu Relato</h3>
+            <p class="text-xs text-gray-400 mb-6">O seu relato passará por moderação antes de aparecer no site.</p>
+            <form onsubmit="submitTestimonial(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome Completo</label>
-                    <input type="text" id="tName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm" placeholder="Ex: Ana Silva">
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Nome</label>
+                    <input type="text" id="clientName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500" placeholder="Ex: João Silva">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Serviço Contratado</label>
-                    <select id="tService" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm">
-                        <option value="" disabled selected>Selecione a modalidade</option>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Modalidade</label>
+                    <select id="clientService" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
                         <option value="Treinamento Presencial">Treinamento Presencial</option>
                         <option value="Consultoria Online">Consultoria Online</option>
+                        <option value="Planilha de Treino">Planilha de Treino</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Relato</label>
-                    <textarea id="tMessage" required rows="4" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm resize-none" placeholder="Conte como foi a evolução..."></textarea>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Relato / Resultado</label>
+                    <textarea id="clientMessage" rows="3" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500" placeholder="Conte como foi a sua evolução..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2">Enviar Depoimento</button>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Enviar Relato</button>
             </form>
         </div>
     </div>
 
-    <!-- TOAST -->
-    <div id="toastNotification" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-500 text-gray-950 font-bold px-6 py-3.5 rounded-2xl shadow-2xl z-50 text-center text-sm md:text-base border border-amber-600 transition-all duration-300">
-        Obrigado pelo depoimento, aguardando validação.
-    </div>
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-xs text-gray-500 space-y-2">
+        <p>&copy; 2026 Team Vasconcelos - Todos os direitos reservados.</p>
+        <p class="text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
+    </footer>
 
-    <!-- Script de Integração com Firebase e Carrosséis Dinâmicos Múltiplos -->
+    <!-- Script Firebase e Lógica Pública -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, getDocs, addDoc, query, where, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDsoyXz4x2BGXHmm-iPb56fn6K07AXOgSY",
@@ -228,25 +245,34 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let allApprovedTestimonials = [
-            {
-                name: "Mariana S.",
-                service: "Consultoria Online",
-                message: "O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"
-            },
-            {
-                name: "Lucas & Camila",
-                service: "Treinamento Presencial",
-                message: "Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."
-            }
-        ];
-
-        let currentTestimonialPage = 0;
-        const testimonialsPerPage = 2;
-
         document.addEventListener("DOMContentLoaded", async function() {
+            await loadPublicBio();
+            await loadPublicCarousels();
+            await loadPublicTestimonials();
+            await loadPublicSpreadsheets();
+        });
+
+        // Carregar Bio
+        async function loadPublicBio() {
             try {
-                // 1. Carregar Conjuntos de Carrosséis do Firebase
+                const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
+                if (bioDoc.exists()) {
+                    const bio = bioDoc.data();
+                    document.getElementById('siteBioP1').textContent = bio.p1 || "";
+                    document.getElementById('siteBioP2').textContent = bio.p2 || "";
+                    document.getElementById('siteBioFisiculturismo').textContent = bio.fisiculturismo || "6 Anos";
+                    document.getElementById('siteBioPeso').textContent = bio.peso || "94kg → 68kg";
+                    document.getElementById('siteBioCitacao').textContent = bio.citacao || "";
+                }
+            } catch (err) {
+                console.error("Erro ao carregar bio:", err);
+            }
+        }
+
+        // Carregar Carrosséis Dinâmicos do Firebase
+        async function loadPublicCarousels() {
+            const container = document.getElementById('dynamicCarouselsContainer');
+            try {
                 const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
                 let groups = [];
 
@@ -275,205 +301,170 @@
                     });
                 }
 
-                renderAllCarrosselsOnSite(groups);
+                container.innerHTML = '';
+                groups.forEach((group, index) => {
+                    let itemsHTML = '';
+                    group.items.forEach((item, iIdx) => {
+                        itemsHTML += `
+                            <div class="carousel-slide-${index} absolute inset-0 transition-opacity duration-1000 flex items-center justify-center ${iIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
+                                <img src="${item.image}" class="max-h-full max-w-full object-contain rounded-2xl shadow-xl">
+                            </div>
+                        `;
+                    });
 
-                // 2. Carregar Bio
-                const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
-                if (bioDoc.exists()) {
-                    const bio = bioDoc.data();
-                    if (bio.p1) document.getElementById('bioP1').textContent = bio.p1;
-                    if (bio.p2) document.getElementById('bioP2').textContent = bio.p2;
+                    const groupHTML = `
+                        <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-10 space-y-6">
+                            <div class="max-w-3xl space-y-2">
+                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Conjunto ${index + 1}</span>
+                                <h4 class="text-2xl sm:text-3xl font-bold text-white">${group.title}</h4>
+                                <p class="text-gray-400 text-sm sm:text-base">${group.desc}</p>
+                            </div>
+                            <div class="relative h-[380px] sm:h-[500px] bg-black rounded-2xl overflow-hidden border border-gray-800 flex items-center justify-center p-4">
+                                ${itemsHTML}
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', groupHTML);
+                    initCarouselSlider(index, group.items);
+                });
+            } catch (err) {
+                console.error("Erro ao carregar carrosséis públicos:", err);
+            }
+        }
+
+        function initCarouselSlider(groupIndex, items) {
+            if (!items || items.length <= 1) return;
+            let currentIndex = 0;
+            const slides = document.querySelectorAll(`.carousel-slide-${groupIndex}`);
+            
+            setInterval(() => {
+                slides[currentIndex].classList.remove('opacity-100', 'z-10');
+                slides[currentIndex].classList.add('opacity-0', 'z-0');
+                
+                currentIndex = (currentIndex + 1) % slides.length;
+                
+                slides[currentIndex].classList.remove('opacity-0', 'z-0');
+                slides[currentIndex].classList.add('opacity-100', 'z-10');
+            }, (items[currentIndex].time || 6) * 1000);
+        }
+
+        // Carregar Planilhas Públicas
+        async function loadPublicSpreadsheets() {
+            const container = document.getElementById('publicSpreadsheetsContainer');
+            try {
+                const querySnapshot = await getDocs(collection(db, "spreadsheets"));
+                container.innerHTML = '';
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p class="text-xs text-gray-500 italic col-span-full text-center py-6">Nenhuma planilha disponível no momento.</p>';
+                    return;
                 }
-
-                // 3. Carregar Depoimentos Aprovados do Firebase
-                const q = query(collection(db, "testimonials"), where("status", "==", "aprovado"), limit(30));
-                const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((docSnap) => {
-                    allApprovedTestimonials.push(docSnap.data());
+                    const s = docSnap.data();
+                    const cardHTML = `
+                        <div class="bg-gray-950 border border-gray-800 p-6 rounded-3xl flex flex-col justify-between space-y-6">
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-start gap-2">
+                                    <h4 class="font-bold text-white text-lg">${s.name}</h4>
+                                    <span class="bg-amber-400/10 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">PDF</span>
+                                </div>
+                                <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${s.description}</p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800">
+                                <button type="button" onclick="openSpreadsheetModal('${encodeURIComponent(s.name)}', '${encodeURIComponent(s.description)}')" class="w-full bg-gray-900 hover:bg-gray-800 border border-amber-500/30 text-amber-400 font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-md">Sobre a Planilha</button>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            } catch (err) {
+                console.error("Erro ao carregar planilhas públicas:", err);
+                container.innerHTML = '<p class="text-xs text-rose-500 italic col-span-full text-center py-6">Erro ao carregar planilhas.</p>';
+            }
+        }
+
+        // Modal de Planilhas
+        window.openSpreadsheetModal = function(name, desc) {
+            document.getElementById('modalSpreadsheetTitle').textContent = decodeURIComponent(name);
+            document.getElementById('modalSpreadsheetDesc').textContent = decodeURIComponent(desc);
+            document.getElementById('spreadsheetModal').classList.remove('hidden');
+        }
+
+        window.closeSpreadsheetModal = function() {
+            document.getElementById('spreadsheetModal').classList.add('hidden');
+        }
+
+        // Carregar Depoimentos Aprovados
+        async function loadPublicTestimonials() {
+            const container = document.getElementById('publicTestimonialsContainer');
+            try {
+                const querySnapshot = await getDocs(collection(db, "testimonials"));
+                container.innerHTML = '';
+                let hasApproved = false;
+
+                querySnapshot.forEach((docSnap) => {
+                    const t = docSnap.data();
+                    if (t.status === 'aprovado') {
+                        hasApproved = true;
+                        const cardHTML = `
+                            <div class="bg-gray-950 border border-gray-800 p-6 rounded-3xl space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-white text-base">${t.name}</span>
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">${t.service}</span>
+                                </div>
+                                <p class="text-gray-300 text-sm italic">"${t.message}"</p>
+                                <span class="text-[10px] text-gray-500">Avaliação verificada</span>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', cardHTML);
+                    }
                 });
 
-            } catch (err) {
-                console.error("Erro ao carregar dados do Firebase:", err);
-                // Renderizar padrão se falhar
-                let defaultItems = [];
-                for (let i = 1; i <= 9; i++) { defaultItems.push({ image: `_metodo-${i}.jpg`, time: 6 }); }
-                renderAllCarrosselsOnSite([{
-                    title: "Conheça o Método Transformação de Elite",
-                    desc: "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
-                    items: defaultItems
-                }]);
-            } finally {
-                renderTestimonialsPage();
-            }
-        });
-
-        // Renderização Dinâmica de Múltiplos Carrosséis no Site
-        function renderAllCarrosselsOnSite(groups) {
-            const wrapper = document.getElementById('carouselsWrapper');
-            wrapper.innerHTML = '';
-
-            groups.forEach((group, index) => {
-                const blockId = `carouselBlock_${index}`;
-                const trackId = `track_${index}`;
-                const dotsId = `dots_${index}`;
-
-                let slidesHTML = '';
-                let dotsHTML = '';
-
-                if (group.items && group.items.length > 0) {
-                    group.items.forEach((item, i) => {
-                        slidesHTML += `<div class="min-w-full h-[450px] sm:h-[500px] flex items-center justify-center"><img src="${item.image}" alt="Slide ${i+1}" class="max-h-full max-w-full object-contain"></div>`;
-                        dotsHTML += `<button class="w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-6' : 'bg-gray-750'}" onclick="goToSpecificSlide(${index}, ${i})"></button>`;
-                    });
-                }
-
-                const groupContainer = document.createElement('div');
-                groupContainer.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-10 shadow-xl space-y-6";
-                groupContainer.innerHTML = `
-                    <div class="text-center max-w-xl mx-auto">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">${group.title || ''}</h3>
-                        <p class="text-sm text-gray-400">${group.desc || ''}</p>
-                    </div>
-
-                    <div id="${blockId}" class="relative max-w-sm mx-auto overflow-hidden rounded-3xl shadow-2xl border border-gray-800 bg-black carousel-widget" data-current="0" data-total="${group.items.length}">
-                        <div id="${trackId}" class="flex transition-transform duration-500 ease-in-out">
-                            ${slidesHTML}
+                if (!hasApproved) {
+                    container.innerHTML = `
+                        <div class="bg-gray-950 border border-gray-800 p-6 rounded-3xl space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-white text-base">Lucas & Camila</span>
+                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Consultoria Online</span>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
+                            <span class="text-[10px] text-gray-500">Avaliação verificada</span>
                         </div>
-                        <button onclick="changeSlide(${index}, -1)" class="absolute left-4 bottom-6 bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl z-25 border border-amber-500/30 cursor-pointer">&#10094;</button>
-                        <button onclick="changeSlide(${index}, 1)" class="absolute right-4 bottom-6 bg-black/80 hover:bg-amber-500 hover:text-gray-950 text-amber-400 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg transition shadow-xl z-25 border border-amber-500/30 cursor-pointer">&#10095;</button>
-                    </div>
-
-                    <div id="${dotsId}" class="flex justify-center gap-2 mt-4">
-                        ${dotsHTML}
-                    </div>
-                `;
-                wrapper.appendChild(groupContainer);
-
-                // Iniciar temporizador automático para cada carrossel
-                initAutoSlide(index, group.items.length);
-            });
-        }
-
-        // Lógica Global de Controlo dos Múltiplos Carrosséis
-        window.carouselStates = {};
-
-        function initAutoSlide(index, total) {
-            window.carouselStates[index] = { current: 0, total: total };
-            setInterval(() => {
-                changeSlide(index, 1, false);
-            }, 6000);
-        }
-
-        window.changeSlide = function(index, direction, resetTimer = true) {
-            const state = window.carouselStates[index];
-            if (!state || state.total === 0) return;
-
-            state.current = (state.current + direction + state.total) % state.total;
-            updateCarouselView(index);
-        }
-
-        window.goToSpecificSlide = function(index, slideIndex) {
-            const state = window.carouselStates[index];
-            if (!state) return;
-            state.current = slideIndex;
-            updateCarouselView(index);
-        }
-
-        function updateCarouselView(index) {
-            const state = window.carouselStates[index];
-            const track = document.getElementById(`track_${index}`);
-            const dotsContainer = document.getElementById(`dots_${index}`);
-            if (!track) return;
-
-            track.style.transform = `translateX(-${state.current * 100}%)`;
-
-            if (dotsContainer) {
-                const dots = dotsContainer.children;
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === state.current ? 'bg-amber-400 w-6' : 'bg-gray-700'}`;
+                    `;
                 }
+            } catch (err) {
+                console.error("Erro ao carregar depoimentos públicos:", err);
             }
         }
 
-        // Paginação de Depoimentos
-        window.renderTestimonialsPage = function() {
-            const grid = document.getElementById('depoimentosGrid');
-            const nav = document.getElementById('testimonialNav');
-            const indicator = document.getElementById('testimonialPageIndicator');
-            
-            if (allApprovedTestimonials.length === 0) return;
-
-            grid.innerHTML = '';
-            const start = currentTestimonialPage * testimonialsPerPage;
-            const end = start + testimonialsPerPage;
-            const pageItems = allApprovedTestimonials.slice(start, end);
-
-            pageItems.forEach(t => {
-                const card = document.createElement('div');
-                card.className = "bg-gray-950 p-6 rounded-2xl border border-gray-800 flex flex-col justify-between";
-                card.innerHTML = `
-                    <p class="text-gray-300 italic mb-4">"${t.message}"</p>
-                    <div>
-                        <span class="font-bold text-amber-400 block">— ${t.name}</span>
-                        <span class="text-xs text-gray-500">${t.service}</span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            const totalPages = Math.ceil(allApprovedTestimonials.length / testimonialsPerPage);
-            if (totalPages > 1) {
-                nav.classList.remove('hidden');
-                indicator.textContent = `Página ${currentTestimonialPage + 1} de ${totalPages}`;
-            } else {
-                nav.classList.add('hidden');
-            }
+        // Modais de Envio de Relato
+        window.openTestimonialModal = function() {
+            document.getElementById('testimonialModal').classList.remove('hidden');
         }
 
-        window.nextTestimonialPage = function() {
-            const totalPages = Math.ceil(allApprovedTestimonials.length / testimonialsPerPage);
-            if (currentTestimonialPage < totalPages - 1) {
-                currentTestimonialPage++;
-                renderTestimonialsPage();
-            } else {
-                currentTestimonialPage = 0;
-                renderTestimonialsPage();
-            }
+        window.closeTestimonialModal = function() {
+            document.getElementById('testimonialModal').classList.add('hidden');
         }
 
-        window.prevTestimonialPage = function() {
-            const totalPages = Math.ceil(allApprovedTestimonials.length / testimonialsPerPage);
-            if (currentTestimonialPage > 0) {
-                currentTestimonialPage--;
-                renderTestimonialsPage();
-            } else {
-                currentTestimonialPage = totalPages - 1;
-                renderTestimonialsPage();
-            }
-        }
-
-        window.openModal = function() { document.getElementById('testimonialModal').classList.remove('hidden'); }
-        window.closeModal = function() { document.getElementById('testimonialModal').classList.add('hidden'); }
-
-        window.handleTestimonialSubmit = async function(e) {
+        window.submitTestimonial = async function(e) {
             e.preventDefault();
-            const name = document.getElementById('tName').value;
-            const service = document.getElementById('tService').value;
-            const message = document.getElementById('tMessage').value;
+            const name = document.getElementById('clientName').value;
+            const service = document.getElementById('clientService').value;
+            const message = document.getElementById('clientMessage').value;
 
             try {
                 await addDoc(collection(db, "testimonials"), {
-                    name, service, message,
+                    name,
+                    service,
+                    message,
                     status: 'pendente',
-                    date: new Date().toLocaleDateString()
+                    date: new Date().toLocaleDateString('pt-PT')
                 });
-                closeModal();
-                const toast = document.getElementById('toastNotification');
-                toast.classList.remove('hidden');
-                setTimeout(() => { toast.classList.add('hidden'); }, 6000);
-                e.target.reset();
-            } catch (error) {
-                alert('Erro ao enviar depoimento: ' + error.message);
+                closeTestimonialModal();
+                alert('Relato enviado com sucesso! Aguardando aprovação no painel administrativo.');
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientMessage').value = '';
+            } catch (err) {
+                alert('Erro ao enviar relato: ' + err.message);
             }
         }
     </script>
