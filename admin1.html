@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Team Vasconcelos</title>
+    <!-- Ícone da Aba do Navegador -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Montserrat', sans-serif; } </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Header do Painel -->
+    <header class="bg-gray-950 border-b border-gray-800 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain">
+                <div>
+                    <h1 class="font-bold text-lg text-white">Painel Administrativo</h1>
+                    <span class="text-xs text-amber-400">Team Vasconcelos</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" target="_blank" class="text-sm bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-xl transition">Ver Site Principal</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação por Abas -->
+    <div class="bg-gray-950/50 px-6">
+        <div class="max-w-7xl mx-auto flex gap-4 overflow-x-auto border-b border-gray-800">
+            <button onclick="switchTab('depoimentos')" id="tabBtn-depoimentos" class="py-4 px-4 font-bold text-sm border-b-2 -mb-[1px] border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer">Depoimentos</button>
+            <button onclick="switchTab('carrossel')" id="tabBtn-carrossel" class="py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Gestão de Carrossel</button>
+            <button onclick="switchTab('planilhas')" id="tabBtn-planilhas" class="py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Planilhas de Treino</button>
+            <button onclick="switchTab('conteudo')" id="tabBtn-conteudo" class="py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer">Conteúdo do Site (Quem Sou Eu)</button>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-7xl mx-auto w-full px-6 py-10 flex-grow">
+
+        <!-- ABA 1: DEPOIMENTOS -->
+        <section id="section-depoimentos" class="space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
+                    <span class="text-xs uppercase text-gray-400 font-semibold">Pendentes de Validação</span>
+                    <h2 class="text-3xl font-extrabold text-amber-400 mt-2" id="pendingCount">1</h2>
+                </div>
+                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
+                    <span class="text-xs uppercase text-gray-400 font-semibold">Postados no Site</span>
+                    <h2 class="text-3xl font-extrabold text-emerald-400 mt-2" id="approvedCount">1</h2>
+                </div>
+                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
+                    <span class="text-xs uppercase text-gray-400 font-semibold">Total Registados</span>
+                    <h2 class="text-3xl font-extrabold text-blue-400 mt-2" id="totalCount">2</h2>
+                </div>
+            </div>
+
+            <!-- Bloco Pendentes -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Relatos Pendentes</h3>
+                <p class="text-sm text-gray-400 mb-6">Aprove ou exclua os relatos enviados pelos alunos no site.</p>
+                <div id="pendingList" class="space-y-4">
+                    <div class="bg-gray-900 border border-amber-500/30 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base">Carlos Alberto</span>
+                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Treinamento Presencial</span>
+                                <span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-0.5 rounded-full status-badge">Pendente</span>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"O Diego puxa mesmo nos treinos presenciais! A minha postura e força mudaram 100% em poucas semanas."</p>
+                            <span class="text-xs text-gray-500">Enviado em: 07/10/2026</span>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                            <button onclick="approveLocalTestimonial(this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>
+                            <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloco Postados -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Relatos Postados no Site</h3>
+                <p class="text-sm text-gray-400 mb-6">Depoimentos visíveis publicamente na landing page.</p>
+                <div id="approvedList" class="space-y-4">
+                    <div class="bg-gray-900 border border-emerald-500/20 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white text-base">Lucas & Camila</span>
+                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Consultoria Online</span>
+                                <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full status-badge">Publicado</span>
+                            </div>
+                            <p class="text-gray-300 text-sm italic">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
+                            <span class="text-xs text-gray-500">Enviado em: 06/10/2026</span>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                            <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 2: GESTÃO DE CARROSSEL -->
+        <section id="section-carrossel" class="hidden space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-950 border border-gray-800 p-6 sm:p-8 rounded-3xl">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-1">Conjuntos de Carrosséis do Site</h3>
+                    <p class="text-sm text-gray-400">Gerencie os blocos de carrosséis. As alterações são guardadas automaticamente no Firebase.</p>
+                </div>
+                <button type="button" onclick="addNewCarouselGroup()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-5 py-3 rounded-xl text-sm transition shadow-lg cursor-pointer whitespace-nowrap">+ Novo Conjunto de Carrossel</button>
+            </div>
+
+            <div id="carouselGroupsContainer" class="space-y-6">
+                <!-- Preenchido Dinamicamente -->
+            </div>
+        </section>
+
+        <!-- ABA 3: PLANILHAS DE TREINO -->
+        <section id="section-planilhas" class="hidden space-y-8">
+            <!-- Formulário Adicionar Nova Planilha -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Adicionar Nova Planilha de Treino</h3>
+                <p class="text-sm text-gray-400 mb-6">Registe uma nova planilha pronta para disponibilizar aos alunos.</p>
+                
+                <form onsubmit="addNewSpreadsheet(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome da Planilha</label>
+                            <input type="text" id="newSpreadsheetName" placeholder="Ex: Guia de Hipertrofia Avançada" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Ficheiro PDF da Planilha</label>
+                            <input type="file" id="newSpreadsheetFile" accept=".pdf" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-gray-950 hover:file:bg-amber-600 cursor-pointer">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição</label>
+                        <textarea id="newSpreadsheetDesc" rows="3" placeholder="Descreva brevemente o conteúdo da planilha..." required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-sm cursor-pointer">+ Guardar e Adicionar Planilha</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Lista de Planilhas Atuais -->
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Planilhas Atuais Registadas</h3>
+                <p class="text-sm text-gray-400 mb-6">Lista de planilhas disponíveis no sistema.</p>
+                
+                <div id="spreadsheetsListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Preenchido Dinamicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 4: CONTEÚDO DO SITE -->
+        <section id="section-conteudo" class="hidden space-y-8">
+            <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8">
+                <h3 class="text-xl font-bold text-white mb-2">Edição Completa da Secção "Quem Sou Eu" e Textos do Site</h3>
+                <p class="text-sm text-gray-400 mb-6">As alterações são guardadas automaticamente ao sair de cada campo.</p>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 1</label>
+                        <textarea id="contentP1" rows="3" onblur="autoSaveContent()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Parágrafo 2</label>
+                        <textarea id="contentP2" rows="3" onblur="autoSaveContent()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Anos no Fisiculturismo</label>
+                            <input type="text" id="contentFisiculturismo" onblur="autoSaveContent()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Evolução de Peso</label>
+                            <input type="text" id="contentPeso" onblur="autoSaveContent()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Filosofia de Treino (Citação)</label>
+                        <textarea id="contentCitacao" rows="3" onblur="autoSaveContent()" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE EDIÇÃO DE ITEM DO CARROSSEL -->
+    <div id="editCarouselModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeEditCarouselModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-white">Editar Imagem do Carrossel</h3>
+            <form onsubmit="saveEditedCarouselItem(event)" class="space-y-4 mt-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Substituir Imagem (Opcional)</label>
+                    <input type="file" id="editCarouselImageInput" accept="image/*" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Tempo de Exibição (Segundos)</label>
+                    <input type="number" id="editCarouselTime" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Atualizar Imagem</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE PLANILHA -->
+    <div id="editSpreadsheetModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl">
+            <button onclick="closeEditSpreadsheetModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-white">Editar Planilha de Treino</h3>
+            <form onsubmit="saveEditedSpreadsheet(event)" class="space-y-4 mt-4">
+                <input type="hidden" id="editSpreadsheetId">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome da Planilha</label>
+                    <input type="text" id="editSpreadsheetName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Substituir PDF (Opcional)</label>
+                    <input type="file" id="editSpreadsheetFile" accept=".pdf" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-2 text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição</label>
+                    <textarea id="editSpreadsheetDesc" rows="3" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Atualizar Planilha</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST DE SALVAMENTO AUTOMÁTICO -->
+    <div id="autoSaveToast" class="hidden fixed bottom-6 right-6 bg-emerald-500 text-gray-950 font-bold px-4 py-2 rounded-xl shadow-2xl z-50 text-xs transition-all duration-300">
+        Alterações salvas automaticamente ✓
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+        <p>&copy; 2026 Team Vasconcelos - Painel Administrativo</p>
+        <p class="text-gray-600 mt-1">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
+    </footer>
+
+    <!-- Script Firebase e Lógica Administrativa -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDsoyXz4x2BGXHmm-iPb56fn6K07AXOgSY",
+            authDomain: "diegopersonal-9be2f.firebaseapp.com",
+            projectId: "diegopersonal-9be2f",
+            storageBucket: "diegopersonal-9be2f.firebasestorage.app",
+            messagingSenderId: "263464241505",
+            appId: "1:263464241505:web:a8eabb265936626f905d20"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener("DOMContentLoaded", async function() {
+            await loadBioContent();
+            await loadCarouselContent();
+            await loadFirebaseTestimonials();
+            await loadSpreadsheets();
+        });
+
+        window.switchTab = function(tabName) {
+            ['depoimentos', 'carrossel', 'planilhas', 'conteudo'].forEach(t => {
+                document.getElementById(`section-${t}`).classList.add('hidden');
+                document.getElementById(`tabBtn-${t}`).className = "py-4 px-4 font-semibold text-sm border-b-2 -mb-[1px] border-transparent text-gray-400 hover:text-white transition whitespace-nowrap cursor-pointer";
+            });
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tabBtn-${tabName}`).className = "py-4 px-4 font-bold text-sm border-b-2 -mb-[1px] border-amber-400 text-amber-400 transition whitespace-nowrap cursor-pointer";
+        }
+
+        function showToast() {
+            const toast = document.getElementById('autoSaveToast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        // Depoimentos
+        async function loadFirebaseTestimonials() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "testimonials"));
+                querySnapshot.forEach((docSnap) => {
+                    const t = docSnap.data();
+                    const id = docSnap.id;
+                    const isPending = (t.status === 'pendente' || !t.status);
+
+                    const cardHTML = `
+                        <div class="bg-gray-900 border ${isPending ? 'border-amber-500/30' : 'border-emerald-500/20'} p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-white text-base">${t.name}</span>
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">${t.service}</span>
+                                    <span class="${isPending ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'} text-xs px-2.5 py-0.5 rounded-full status-badge">${isPending ? 'Pendente' : 'Publicado'}</span>
+                                </div>
+                                <p class="text-gray-300 text-sm italic">"${t.message}"</p>
+                                <span class="text-xs text-gray-500">Enviado em: ${t.date || 'Recente'}</span>
+                            </div>
+                            <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+                                ${isPending ? `<button onclick="approveFirebaseTestimonial('${id}', this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>` : ''}
+                                <button onclick="deleteFirebaseTestimonial('${id}', this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                            </div>
+                        </div>
+                    `;
+                    if (isPending) {
+                        document.getElementById('pendingList').insertAdjacentHTML('beforeend', cardHTML);
+                    } else {
+                        document.getElementById('approvedList').insertAdjacentHTML('beforeend', cardHTML);
+                    }
+                });
+                updateCounters();
+            } catch (err) {
+                console.error("Erro ao carregar depoimentos:", err);
+            }
+        }
+
+        window.approveLocalTestimonial = function(btn) {
+            const card = btn.closest('.testimonial-card');
+            card.querySelector('.status-badge').className = "bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full status-badge";
+            card.querySelector('.status-badge').textContent = "Publicado";
+            document.getElementById('approvedList').appendChild(card);
+            btn.remove();
+            updateCounters();
+        }
+
+        window.approveFirebaseTestimonial = async function(id, btn) {
+            try {
+                await setDoc(doc(db, "testimonials", id), { status: 'aprovado' }, { merge: true });
+                approveLocalTestimonial(btn);
+                showToast();
+            } catch (err) {
+                alert('Erro ao aprovar: ' + err.message);
+            }
+        }
+
+        window.deleteLocalItem = function(btn) {
+            if (confirm('Tem certeza que deseja excluir este depoimento?')) {
+                btn.closest('.testimonial-card').remove();
+                updateCounters();
+            }
+        }
+
+        window.deleteFirebaseTestimonial = async function(id, btn) {
+            if (confirm('Tem certeza que deseja excluir este depoimento?')) {
+                try {
+                    await deleteDoc(doc(db, "testimonials", id));
+                    btn.closest('.testimonial-card').remove();
+                    updateCounters();
+                    showToast();
+                } catch (err) {
+                    alert('Erro ao excluir: ' + err.message);
+                }
+            }
+        }
+
+        function updateCounters() {
+            const pending = document.querySelectorAll('#pendingList .testimonial-card').length;
+            const approved = document.querySelectorAll('#approvedList .testimonial-card').length;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('approvedCount').textContent = approved;
+            document.getElementById('totalCount').textContent = pending + approved;
+        }
+
+        // Planilhas de Treino
+        async function loadSpreadsheets() {
+            const container = document.getElementById('spreadsheetsListContainer');
+            container.innerHTML = '<p class="text-xs text-gray-500 italic col-span-full">A carregar planilhas...</p>';
+            try {
+                const querySnapshot = await getDocs(collection(db, "spreadsheets"));
+                container.innerHTML = '';
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p class="text-xs text-gray-500 italic col-span-full">Nenhuma planilha registada atualmente.</p>';
+                    return;
+                }
+                querySnapshot.forEach((docSnap) => {
+                    const s = docSnap.data();
+                    const id = docSnap.id;
+                    const cardHTML = `
+                        <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl flex flex-col justify-between space-y-4 spreadsheet-card" data-id="${id}">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-2">
+                                    <h4 class="font-bold text-white text-base spreadsheet-name">${s.name}</h4>
+                                    <span class="bg-amber-400/10 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">PDF</span>
+                                </div>
+                                <p class="text-gray-300 text-xs spreadsheet-desc leading-relaxed">${s.description}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-gray-800">
+                                <a href="${s.fileUrl}" target="_blank" class="text-xs text-amber-400 hover:underline font-semibold flex items-center gap-1">Ver PDF 📄</a>
+                                <div class="flex gap-2">
+                                    <button type="button" onclick="openEditSpreadsheetModal('${id}', '${encodeURIComponent(s.name)}', '${encodeURIComponent(s.description)}', '${encodeURIComponent(s.fileUrl)}')" class="bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                                    <button type="button" onclick="deleteSpreadsheet('${id}', this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            } catch (err) {
+                console.error("Erro ao carregar planilhas:", err);
+                container.innerHTML = '<p class="text-xs text-rose-500 italic col-span-full">Erro ao carregar planilhas.</p>';
+            }
+        }
+
+        window.addNewSpreadsheet = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('newSpreadsheetName').value;
+            const description = document.getElementById('newSpreadsheetDesc').value;
+            const fileInput = document.getElementById('newSpreadsheetFile');
+
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('Por favor, selecione um ficheiro PDF.');
+                return;
+            }
+
+            try {
+                const fileUrl = await toBase64(fileInput.files[0]);
+                await addDoc(collection(db, "spreadsheets"), {
+                    name,
+                    description,
+                    fileUrl,
+                    createdAt: new Date().toISOString()
+                });
+
+                document.getElementById('newSpreadsheetName').value = '';
+                document.getElementById('newSpreadsheetDesc').value = '';
+                fileInput.value = '';
+
+                await loadSpreadsheets();
+                showToast();
+                alert('Planilha adicionada com sucesso!');
+            } catch (err) {
+                alert('Erro ao adicionar planilha: ' + err.message);
+            }
+        }
+
+        window.deleteSpreadsheet = async function(id, btn) {
+            if (confirm('Tem certeza que deseja excluir esta planilha de treino?')) {
+                try {
+                    await deleteDoc(doc(db, "spreadsheets", id));
+                    btn.closest('.spreadsheet-card').remove();
+                    showToast();
+                } catch (err) {
+                    alert('Erro ao excluir: ' + err.message);
+                }
+            }
+        }
+
+        window.openEditSpreadsheetModal = function(id, name, desc, url) {
+            document.getElementById('editSpreadsheetId').value = id;
+            document.getElementById('editSpreadsheetName').value = decodeURIComponent(name);
+            document.getElementById('editSpreadsheetDesc').value = decodeURIComponent(desc);
+            document.getElementById('editSpreadsheetFile').value = '';
+            document.getElementById('editSpreadsheetModal').classList.remove('hidden');
+        }
+
+        window.closeEditSpreadsheetModal = function() {
+            document.getElementById('editSpreadsheetModal').classList.add('hidden');
+        }
+
+        window.saveEditedSpreadsheet = async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editSpreadsheetId').value;
+            const name = document.getElementById('editSpreadsheetName').value;
+            const description = document.getElementById('editSpreadsheetDesc').value;
+            const fileInput = document.getElementById('editSpreadsheetFile');
+
+            try {
+                const docRef = doc(db, "spreadsheets", id);
+                const docSnap = await getDoc(docRef);
+                let fileUrl = docSnap.exists() ? docSnap.data().fileUrl : '';
+
+                if (fileInput.files && fileInput.files[0]) {
+                    fileUrl = await toBase64(fileInput.files[0]);
+                }
+
+                await setDoc(docRef, { name, description, fileUrl }, { merge: true });
+                closeEditSpreadsheetModal();
+                await loadSpreadsheets();
+                showToast();
+                alert('Planilha atualizada com sucesso!');
+            } catch (err) {
+                alert('Erro ao atualizar planilha: ' + err.message);
+            }
+        }
+
+        // Auto-Save Bio / Conteúdo
+        async function loadBioContent() {
+            try {
+                const bioDoc = await getDoc(doc(db, "siteConfig", "bio"));
+                if (bioDoc.exists()) {
+                    const bio = bioDoc.data();
+                    document.getElementById('contentP1').value = bio.p1 || "";
+                    document.getElementById('contentP2').value = bio.p2 || "";
+                    document.getElementById('contentFisiculturismo').value = bio.fisiculturismo || "6 Anos";
+                    document.getElementById('contentPeso').value = bio.peso || "94kg → 68kg";
+                    document.getElementById('contentCitacao').value = bio.citacao || "";
+                } else {
+                    document.getElementById('contentP1').value = "A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.";
+                    document.getElementById('contentP2').value = "Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.";
+                    document.getElementById('contentFisiculturismo').value = "6 Anos";
+                    document.getElementById('contentPeso').value = "94kg → 68kg";
+                    document.getElementById('contentCitacao').value = '"A melhor versão é a que eu vivo hoje, mas sem as versões anteriores eu jamais teria feito as escolhas que me fizeram acreditar que eu podia. E que posso, ser sempre uma versão melhorada de mim mesmo. Isso que levo sempre para meus alunos, que eles podem chegar onde quiserem."';
+                }
+            } catch (err) {
+                console.error("Erro ao carregar conteúdo da bio:", err);
+            }
+        }
+
+        window.autoSaveContent = async function() {
+            const p1 = document.getElementById('contentP1').value;
+            const p2 = document.getElementById('contentP2').value;
+            const fisiculturismo = document.getElementById('contentFisiculturismo').value;
+            const peso = document.getElementById('contentPeso').value;
+            const citacao = document.getElementById('contentCitacao').value;
+
+            try {
+                await setDoc(doc(db, "siteConfig", "bio"), { p1, p2, fisiculturismo, peso, citacao });
+                showToast();
+            } catch (error) {
+                console.error('Erro ao auto-guardar conteúdo:', error.message);
+            }
+        }
+
+        // Auto-Save Gestão de Carrosséis
+        async function loadCarouselContent() {
+            try {
+                const carouselDoc = await getDoc(doc(db, "siteConfig", "carousel"));
+                let groups = [];
+
+                if (carouselDoc.exists()) {
+                    const data = carouselDoc.data();
+                    if (data.groups && Array.isArray(data.groups)) {
+                        groups = data.groups;
+                    } else if (data.items) {
+                        groups = [{
+                            title: data.title || "Conheça o Método Transformação de Elite",
+                            desc: data.desc || "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
+                            items: data.items
+                        }];
+                    }
+                }
+
+                if (groups.length === 0) {
+                    let defaultItems = [];
+                    for (let i = 1; i <= 9; i++) {
+                        defaultItems.push({ image: `_metodo-${i}.jpg`, time: 6 });
+                    }
+                    groups.push({
+                        title: "Conheça o Método Transformação de Elite",
+                        desc: "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
+                        items: defaultItems
+                    });
+                }
+
+                renderCarouselGroups(groups);
+            } catch (err) {
+                console.error("Erro ao carregar carrosséis:", err);
+            }
+        }
+
+        function renderCarouselGroups(groups) {
+            const container = document.getElementById('carouselGroupsContainer');
+            container.innerHTML = '';
+
+            groups.forEach((group, gIndex) => {
+                const card = appendGroupCard(group, gIndex, false);
+                container.appendChild(card);
+            });
+            updateAllGroupBadges();
+        }
+
+        function appendGroupCard(group = { title: '', desc: '', items: [] }, gIndex = 0, startOpen = false) {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = "bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 space-y-6 carousel-group-card";
+            
+            const firstImg = (group.items && group.items.length > 0) ? group.items[0].image : 'logo.png';
+
+            let itemsHTML = '';
+            if (group.items && group.items.length > 0) {
+                group.items.forEach((item, iIndex) => {
+                    itemsHTML += `
+                        <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card" data-image="${item.image}">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">${iIndex + 1}</span></span>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
+                                        <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
+                                    </div>
+                                </div>
+                                <div class="h-44 bg-black rounded-xl mb-3 flex items-center justify-center overflow-hidden border border-gray-800">
+                                    <img src="${item.image}" class="max-h-full max-w-full object-contain item-img">
+                                </div>
+                                <p class="text-xs text-gray-400">Tempo: <span class="item-time">${item.time || 6}</span> seg</p>
+                            </div>
+                            <div class="flex gap-2 mt-4 pt-3 border-t border-gray-800">
+                                <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                                <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard); updateGroupCover(gCard); triggerAutoSaveCarousels();" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                itemsHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
+            }
+
+            groupDiv.innerHTML = `
+                <!-- CABEÇALHO MINIMIZADO (CAPA) -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <span class="bg-amber-500 text-gray-950 font-extrabold w-8 h-8 rounded-xl flex items-center justify-center text-sm group-index-badge">1</span>
+                        <div class="w-16 h-16 bg-black rounded-xl overflow-hidden border border-gray-800 flex items-center justify-center flex-shrink-0">
+                            <img src="${firstImg}" class="max-h-full max-w-full object-contain group-cover-img">
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white group-title-display">${group.title || 'Conjunto de Carrossel'}</h4>
+                            <p class="text-xs text-gray-400 group-desc-display">${group.desc || 'Clique em Editar para configurar as imagens'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="toggleEditGroup(this)" class="bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold px-4 py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
+                        <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Acima">▲</button>
+                        <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Abaixo">▼</button>
+                        <button type="button" onclick="deleteCarouselGroup(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                    </div>
+                </div>
+
+                <!-- CORPO DE EDIÇÃO EXPANSÍVEL -->
+                <div class="group-editor-body ${startOpen ? '' : 'hidden'} space-y-6 pt-6 border-t border-gray-800">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Título do Conjunto</label>
+                            <input type="text" value="${group.title || ''}" oninput="updateGroupHeaderPreview(this)" onblur="triggerAutoSaveCarousels()" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-title-input">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Descrição / Subtítulo do Conjunto</label>
+                            <input type="text" value="${group.desc || ''}" oninput="updateGroupHeaderPreview(this)" onblur="triggerAutoSaveCarousels()" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 group-desc-input">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs uppercase font-bold text-gray-400 tracking-wider">Imagens deste Conjunto</span>
+                            <button type="button" onclick="addNewImageRowToGroup(this)" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer">+ Adicionar Imagem</button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 group-items-grid">
+                            ${itemsHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return groupDiv;
+        }
+
+        window.toggleEditGroup = function(btn) {
+            const card = btn.closest('.carousel-group-card');
+            const body = card.querySelector('.group-editor-body');
+            body.classList.toggle('hidden');
+        }
+
+        window.updateGroupHeaderPreview = function(input) {
+            const card = input.closest('.carousel-group-card');
+            const titleVal = card.querySelector('.group-title-input').value;
+            const descVal = card.querySelector('.group-desc-input').value;
+            card.querySelector('.group-title-display').textContent = titleVal || 'Conjunto de Carrossel';
+            card.querySelector('.group-desc-display').textContent = descVal || 'Sem descrição';
+        }
+
+        window.addNewCarouselGroup = function() {
+            const container = document.getElementById('carouselGroupsContainer');
+            const newCard = appendGroupCard({ title: '', desc: '', items: [] }, 0, true);
+            container.prepend(newCard);
+            updateAllGroupBadges();
+            triggerAutoSaveCarousels();
+        }
+
+        window.deleteCarouselGroup = function(btn) {
+            if (confirm('Tem certeza que deseja excluir este conjunto de carrossel inteiro?')) {
+                btn.closest('.carousel-group-card').remove();
+                updateAllGroupBadges();
+                triggerAutoSaveCarousels();
+            }
+        }
+
+        window.moveCarouselGroup = function(btn, direction) {
+            const card = btn.closest('.carousel-group-card');
+            const parent = card.parentNode;
+            if (direction === -1 && card.previousElementSibling) {
+                parent.insertBefore(card, card.previousElementSibling);
+            } else if (direction === 1 && card.nextElementSibling) {
+                parent.insertBefore(card.nextElementSibling, card);
+            }
+            updateAllGroupBadges();
+            triggerAutoSaveCarousels();
+        }
+
+        function updateAllGroupBadges() {
+            const cards = document.querySelectorAll('#carouselGroupsContainer .carousel-group-card');
+            cards.forEach((card, index) => {
+                const badge = card.querySelector('.group-index-badge');
+                if (badge) badge.textContent = index + 1;
+            });
+        }
+
+        window.addNewImageRowToGroup = function(btn) {
+            const groupCard = btn.closest('.carousel-group-card');
+            const grid = groupCard.querySelector('.group-items-grid');
+            
+            const emptyMsg = grid.querySelector('.empty-msg');
+            if (emptyMsg) emptyMsg.remove();
+
+            const tempDiv = document.createElement('div');
+            tempDiv.className = "bg-gray-900 border border-gray-800 p-4 rounded-2xl flex flex-col justify-between carousel-item-card";
+            tempDiv.innerHTML = `
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">1</span></span>
+                        <div class="flex gap-1">
+                            <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
+                            <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-3">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-amber-400 mb-1">Selecionar Ficheiro</label>
+                            <input type="file" accept="image/*" required onchange="triggerAutoSaveCarousels()" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-white text-xs new-file-input">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-amber-400 mb-1">Tempo (segundos)</label>
+                            <input type="number" value="6" min="2" max="30" required onblur="triggerAutoSaveCarousels()" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-white text-xs item-time-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-2 pt-2 border-t border-gray-800">
+                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard); updateGroupCover(gCard); triggerAutoSaveCarousels();" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Remover</button>
+                </div>
+            `;
+            grid.appendChild(tempDiv);
+            updateGroupPositions(groupCard);
+        }
+
+        window.moveCarouselItemWithinGroup = function(btn, direction) {
+            const card = btn.closest('.carousel-item-card');
+            const parent = card.parentNode;
+            if (direction === -1 && card.previousElementSibling) {
+                parent.insertBefore(card, card.previousElementSibling);
+            } else if (direction === 1 && card.nextElementSibling) {
+                parent.insertBefore(card.nextElementSibling, card);
+            }
+            const groupCard = card.closest('.carousel-group-card');
+            updateGroupPositions(groupCard);
+            updateGroupCover(groupCard);
+            triggerAutoSaveCarousels();
+        }
+
+        function updateGroupPositions(groupCard) {
+            if (!groupCard) return;
+            const cards = groupCard.querySelectorAll('.carousel-item-card');
+            cards.forEach((card, index) => {
+                const pos = card.querySelector('.item-pos');
+                if (pos) pos.textContent = index + 1;
+            });
+        }
+
+        function updateGroupCover(groupCard) {
+            const firstCardImg = groupCard.querySelector('.carousel-item-card .item-img');
+            const coverImg = groupCard.querySelector('.group-cover-img');
+            if (firstImg && coverImg) {
+                coverImg.src = firstImg.src;
+            } else if (coverImg) {
+                coverImg.src = 'logo.png';
+            }
+        }
+
+        window.checkEmptyGroup = function(groupCard) {
+            const grid = groupCard.querySelector('.group-items-grid');
+            const cards = grid.querySelectorAll('.carousel-item-card');
+            if (cards.length === 0) {
+                grid.innerHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
+            }
+        }
+
+        let currentItemEditing = null;
+        window.openEditCarouselModal = function(btn) {
+            currentItemEditing = btn.closest('.carousel-item-card');
+            const timeEl = currentItemEditing.querySelector('.item-time');
+            const time = timeEl ? timeEl.textContent : 6;
+            document.getElementById('editCarouselTime').value = time;
+            document.getElementById('editCarouselImageInput').value = '';
+            document.getElementById('editCarouselModal').classList.remove('hidden');
+        }
+
+        window.closeEditCarouselModal = function() {
+            document.getElementById('editCarouselModal').classList.add('hidden');
+        }
+
+        window.saveEditedCarouselItem = async function(e) {
+            e.preventDefault();
+            if (currentItemEditing) {
+                const time = document.getElementById('editCarouselTime').value;
+                const timeSpan = currentItemEditing.querySelector('.item-time');
+                if (timeSpan) timeSpan.textContent = time;
+
+                const fileInput = document.getElementById('editCarouselImageInput');
+                if (fileInput.files && fileInput.files[0]) {
+                    const base64 = await toBase64(fileInput.files[0]);
+                    const img = currentItemEditing.querySelector('.item-img');
+                    if (img) img.src = base64;
+                    currentItemEditing.dataset.image = base64;
+                    updateGroupCover(currentItemEditing.closest('.carousel-group-card'));
+                }
+                closeEditCarouselModal();
+                await triggerAutoSaveCarousels();
+                alert('Imagem atualizada e salva automaticamente!');
+            }
+        }
+
+        window.triggerAutoSaveCarousels = async function() {
+            const groupCards = document.querySelectorAll('.carousel-group-card');
+            let groups = [];
+
+            for (let gCard of groupCards) {
+                const titleInput = gCard.querySelector('.group-title-input');
+                const descInput = gCard.querySelector('.group-desc-input');
+                const title = titleInput ? titleInput.value : '';
+                const desc = descInput ? descInput.value : '';
+                
+                const itemCards = gCard.querySelectorAll('.carousel-item-card');
+                let items = [];
+
+                for (let iCard of itemCards) {
+                    const fileInput = iCard.querySelector('.new-file-input');
+                    const timeInput = iCard.querySelector('.item-time-input') || iCard.querySelector('.item-time');
+                    const time = timeInput ? parseInt(timeInput.value || timeInput.textContent || 6) : 6;
+
+                    if (fileInput && fileInput.files && fileInput.files[0]) {
+                        const base64 = await toBase64(fileInput.files[0]);
+                        items.push({ image: base64, time });
+                    } else {
+                        const img = iCard.querySelector('.item-img');
+                        const image = iCard.dataset.image || (img ? img.src : '');
+                        if (image) {
+                            items.push({ image, time });
+                        }
+                    }
+                }
+
+                if (items.length > 0) {
+                    groups.push({ title, desc, items });
+                }
+            }
+
+            try {
+                await setDoc(doc(db, "siteConfig", "carousel"), { groups });
+                showToast();
+            } catch (error) {
+                console.error('Erro ao auto-guardar carrosséis:', error.message);
+            }
+        }
+
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+    </script>
+</body>
+</html>
