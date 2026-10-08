@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Vasconcelos | Personal Trainer & Consultoria</title>
+    <title>Diego Vasconcelos | Personal Trainer & Consultoria</title>
     <!-- Ícone da Aba do Navegador -->
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,120 +14,101 @@
         ::-webkit-scrollbar-track { background: #030712; }
         ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 9999px; }
         ::-webkit-scrollbar-thumb:hover { background: #374151; }
+        .hero-bg {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('');
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-gray-950">
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-gray-950">
 
-    <!-- Top Bar com WhatsApp -->
-    <div class="bg-gray-900 border-b border-gray-800 px-6 py-2.5 text-right">
-        <div class="max-w-7xl mx-auto">
-            <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20os%20treinos!" target="_blank" class="inline-block bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-4 py-1.5 rounded-xl text-xs transition shadow-md">Falar no WhatsApp</a>
+    <!-- Hero Section com a Logo Grande e Menu Logo Abaixo -->
+    <section class="hero-bg min-h-screen flex flex-col justify-between pt-6 pb-10 px-6 text-center border-b border-gray-800">
+        <!-- Topo com botão WhatsApp -->
+        <div class="max-w-6xl mx-auto w-full flex justify-end items-center">
+            <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20os%20treinos!" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-5 py-2 rounded-full transition shadow-lg text-sm">Falar no WhatsApp</a>
         </div>
-    </div>
 
-    <!-- Hero Section com Logo Bem Maior -->
-    <section class="relative bg-gradient-to-b from-gray-950 to-gray-900 py-16 px-6 border-b border-gray-800 text-center">
-        <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Conteúdo Principal do Hero com a Logo Grande -->
+        <div class="max-w-3xl mx-auto my-auto space-y-6">
             <div class="flex justify-center">
-                <img src="logo.png" alt="Logo Team Vasconcelos" class="w-72 h-72 sm:w-[32rem] sm:h-[32rem] object-contain drop-shadow-2xl">
+                <img src="logo.png" alt="Diego Vasconcelos Team Vasconcelos" class="w-72 h-72 sm:w-[32rem] sm:h-[32rem] object-contain drop-shadow-2xl">
             </div>
-            <div class="space-y-2">
-                <span class="bg-amber-400/10 text-amber-400 border border-amber-400/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Transformação & Performance</span>
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Supere Seus Limites com Acompanhamento Profissional</h2>
-                <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto">Treinamento presencial e consultoria online personalizados para otimizar os seus resultados, seja individualmente ou em casal.</p>
-            </div>
-            <div class="flex justify-center gap-4 pt-2 flex-wrap">
-                <a href="#modalidades" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-6 py-3 rounded-xl transition shadow-lg text-sm">Conhecer Modalidades</a>
-                <a href="#duvidas" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-white font-bold px-6 py-3 rounded-xl transition text-sm">Tirar Dúvidas</a>
+            <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Transformação & Performance</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight text-white tracking-tight">Supere Seus Limites com Acompanhamento Profissional</h1>
+            <p class="text-base md:text-lg text-gray-300 mb-8 max-w-xl mx-auto leading-relaxed">Treinamento presencial e consultoria online personalizados para otimizar os seus resultados, seja individualmente ou em casal.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#modalidades" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-base">Conhecer Modalidades</a>
+                <a href="#duvidas" class="border-2 border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-bold px-8 py-3.5 rounded-xl transition text-base">Tirar Dúvidas</a>
             </div>
         </div>
+
+        <!-- Menu de Navegação Abaixo do Hero (Em Pílula) -->
+        <nav class="max-w-4xl mx-auto w-full bg-gray-950/80 backdrop-blur border border-gray-800 rounded-2xl p-4 mt-8 flex flex-wrap justify-center gap-6 text-sm font-semibold text-gray-300">
+            <a href="#historia" class="hover:text-amber-400 transition">Minha História</a>
+            <a href="#metodo" class="hover:text-amber-400 transition">O Método</a>
+            <a href="#planilhas" class="hover:text-amber-400 transition">Planilhas</a>
+            <a href="#modalidades" class="hover:text-amber-400 transition">Modalidades</a>
+            <a href="#relatos" class="hover:text-amber-400 transition">Relatos</a>
+            <a href="#duvidas" class="text-amber-400 hover:underline">Tirar Dúvidas</a>
+        </nav>
     </section>
 
-    <!-- Menu de Navegação Estético e Responsivo -->
-    <div class="sticky top-0 z-50 bg-gray-950/95 backdrop-blur-md border-b border-gray-800 px-4 py-3 shadow-xl">
-        <div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-xs sm:text-sm font-bold">
-            <a href="#historia" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Minha História</a>
-            <a href="#metodo" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">O Método</a>
-            <a href="#modalidades" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Modalidades</a>
-            <a href="#planilhas" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Planilhas</a>
-            <a href="#relatos" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Relatos</a>
-            <a href="#duvidas" class="bg-gray-900 hover:bg-amber-500 hover:text-gray-950 text-gray-300 border border-gray-800 px-3 py-1.5 rounded-xl transition">Tirar Dúvidas</a>
-        </div>
-    </div>
-
-    <!-- Conteúdo Principal -->
+    <!-- Conteúdo Principal Dinâmico (Ordenação Gerida pelo Painel Admin) -->
     <main id="mainSectionsContainer" class="max-w-7xl mx-auto w-full px-6 py-12 space-y-20 flex-grow">
 
-        <!-- SECÇÃO: MINHA HISTÓRIA -->
-        <section id="historia" data-section-id="historia" class="bg-gray-900 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
-            <div class="border-b border-gray-800 pb-6">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Trajetória Real</span>
-                <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Quem Sou Eu</h3>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                <div class="lg:col-span-2 space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                    <p id="siteBioP1">A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.</p>
-                    <p id="siteBioP2">Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.</p>
-                    <blockquote class="border-l-4 border-amber-400 pl-4 italic text-gray-200 text-sm pt-2" id="siteBioCitacao">"A melhor versão é a que eu vivo hoje, mas sem as versões anteriores eu jamais teria feito as escolhas que me fizeram acreditar que eu podia. E que posso, ser sempre uma versão melhorada de mim mesmo. Isso que levo sempre para meus alunos, que eles podem chegar onde quiserem."</blockquote>
+        <!-- SECÇÃO: MINHA HISTÓRIA / QUEM SOU EU -->
+        <section id="historia" data-section-id="historia" class="py-10 bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12">
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Minha Trajetória</span>
+                    <h2 class="text-3xl font-bold mb-6 text-amber-400">Quem Sou Eu</h2>
+                    <p class="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base" id="siteBioP1">A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.</p>
+                    <p class="text-gray-300 mb-6 leading-relaxed text-sm sm:text-base" id="siteBioP2">Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.</p>
+                    <div class="flex gap-6 border-t border-gray-800 pt-6">
+                        <div>
+                            <span class="block text-2xl font-bold text-amber-400" id="siteBioFisiculturismo">6 Anos</span>
+                            <span class="text-xs text-gray-400">No Fisiculturismo</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-emerald-400" id="siteBioPeso">94kg → 68kg</span>
+                            <span class="text-xs text-gray-400">Minha Superação</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl space-y-6 text-center shadow-inner">
-                    <div class="space-y-1">
-                        <span class="text-xs uppercase text-gray-400 font-semibold">Experiência</span>
-                        <h4 class="text-3xl font-extrabold text-amber-400" id="siteBioFisiculturismo">6 Anos</h4>
-                        <p class="text-xs text-gray-500">no Fisiculturismo</p>
-                    </div>
-                    <div class="border-t border-gray-800 pt-6 space-y-1">
-                        <span class="text-xs uppercase text-gray-400 font-semibold">Evolução Pessoal</span>
-                        <h4 class="text-3xl font-extrabold text-emerald-400" id="siteBioPeso">94kg → 68kg</h4>
-                        <p class="text-xs text-gray-500">Superação e Foco</p>
-                    </div>
+                <!-- Filosofia de Treino Estilizada -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-xl space-y-6">
+                    <h3 class="text-xl font-bold mb-4 text-white">Filosofia de Treino</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed italic text-sm" id="siteBioCitacao">"A melhor versão é a que eu vivo hoje, mas sem as versões anteriores eu jamais tive feito as escolhas que me fizeram acreditar que eu poderia. E que posso, ser sempre uma versão melhorada de mim mesmo. Isso que levo sempre para meus alunos, que eles podem chegar onde quiserem."</p>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Empatia real com quem quer transformar o corpo</span></li>
+                        <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Planos adaptados para indivíduos e casais</span></li>
+                        <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Dieta de brinde nos planos presenciais intensivos</span></li>
+                        <li class="flex items-center gap-3 text-amber-400">✓ <span class="text-gray-300">Suporte constante via WhatsApp</span></li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- SECÇÃO: O MÉTODO -->
-        <section id="metodo" data-section-id="metodo" class="space-y-12">
-            <div class="text-center space-y-2">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Passo a Passo</span>
-                <h3 class="text-3xl font-extrabold text-white">O Método Team Vasconcelos</h3>
-                <p class="text-sm text-gray-400">Conheça os nossos conjuntos de carrosséis explicativos e resultados.</p>
+        <!-- SECÇÃO: O MÉTODO (Carrosséis dinâmicos com setas e hold-to-pause) -->
+        <section id="metodo" data-section-id="metodo" class="py-10 space-y-12">
+            <div class="max-w-4xl mx-auto text-center space-y-3">
+                <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Metodologia Exclusiva</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white">O Método Transformação de Elite</h2>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm">Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.</p>
             </div>
+            
             <div id="dynamicCarouselsContainer" class="space-y-16">
                 <!-- Preenchido via JavaScript -->
             </div>
         </section>
 
-        <!-- SECÇÃO: MODALIDADES -->
-        <section id="modalidades" data-section-id="modalidades" class="space-y-8">
+        <!-- SECÇÃO: PLANILHAS DE TREINO (Posicionada logo abaixo do Método) -->
+        <section id="planilhas" data-section-id="planilhas" class="py-10 space-y-8 bg-gray-950/50 border border-gray-800/60 rounded-3xl p-8 sm:p-12">
             <div class="text-center space-y-2">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Planos Disponíveis</span>
-                <h3 class="text-3xl font-extrabold text-white">Escolha a sua Modalidade</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl space-y-6 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-400/20">Presencial</span>
-                        <h4 class="text-2xl font-bold text-white">Treinamento Presencial</h4>
-                        <p class="text-gray-300 text-sm leading-relaxed">Acompanhamento direto no ginásio, correção postural em tempo real, ajuste de cargas e máxima exigência para garantir o seu rendimento absoluto.</p>
-                    </div>
-                    <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20o%20Treinamento%20Presencial!" target="_blank" class="block text-center bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-2xl transition shadow-lg text-sm">Quero Treinar Presencial</a>
-                </div>
-                <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl space-y-6 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-400/20">Online</span>
-                        <h4 class="text-2xl font-bold text-white">Consultoria Online</h4>
-                        <p class="text-gray-300 text-sm leading-relaxed">Treino periodizado adaptado à sua rotina, verificação de execução por vídeo, orientações nutricionais e suporte contínuo independentemente de onde estiver.</p>
-                    </div>
-                    <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20a%20Consultoria%20Online!" target="_blank" class="block text-center bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-2xl transition shadow-lg text-sm">Quero Consultoria Online</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECÇÃO: PLANILHAS DE TREINO -->
-        <section id="planilhas" data-section-id="planilhas" class="space-y-8">
-            <div class="text-center space-y-2">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Materiais Prontos</span>
-                <h3 class="text-3xl font-extrabold text-white">Planilhas de Treino</h3>
+                <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Materiais Prontos</span>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-white">Planilhas de Treino</h3>
                 <p class="text-sm text-gray-400">Adquira planilhas especializadas desenvolvidas para acelerar os seus ganhos.</p>
             </div>
             <div id="publicSpreadsheetsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -135,23 +116,66 @@
             </div>
         </section>
 
+        <!-- SECÇÃO: MODALIDADES -->
+        <section id="modalidades" data-section-id="modalidades" class="py-10 space-y-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 space-y-2">
+                    <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Planos Disponíveis</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white">Escolha Como Quer Treinar</h2>
+                    <p class="text-gray-400 max-w-xl mx-auto text-sm">Opções flexíveis para se encaixar perfeitamente no seu estilo de vida e objetivos.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1: Consultoria Online -->
+                    <div class="bg-gray-950 p-8 rounded-3xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
+                        <div>
+                            <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-400/20">ON-LINE</span>
+                            <h3 class="text-2xl font-bold mt-4 mb-2 text-white">Consultoria Online</h3>
+                            <p class="text-gray-400 mb-6 text-sm leading-relaxed">Treine de onde estiver, com planilhas e orientações elaboradas sob medida para você ou em dupla (condição especial para casal).</p>
+                            <ul class="space-y-2 text-sm text-gray-300 mb-8">
+                                <li>• Treinos estruturados para sua evolução</li>
+                                <li>• Opção individual e para casal</li>
+                                <li>• Flexibilidade de horários e locais</li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20a%20Consultoria%20Online." target="_blank" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl text-center transition block shadow-lg text-sm">Tirar Dúvidas - Consultoria Online</a>
+                    </div>
+                    <!-- Card 2: Treinamento Presencial -->
+                    <div class="bg-gray-950 p-8 rounded-3xl border border-gray-800 flex flex-col justify-between hover:border-amber-500/50 transition">
+                        <div>
+                            <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-400/20">PRESENCIAL</span>
+                            <h3 class="text-2xl font-bold mt-4 mb-2 text-white">Treinamento Presencial</h3>
+                            <p class="text-gray-400 mb-6 text-sm leading-relaxed">Acompanhamento hora/aula individual ou em casal, com foco total na intensidade, segurança e cobrança mensal antecipada.</p>
+                            <ul class="space-y-2 text-sm text-gray-300 mb-8">
+                                <li>• Aulas individuais ou em casal</li>
+                                <li>• <strong class="text-amber-400">Bônus:</strong> Fechando acima de 4 aulas por semana, a dieta é cortesia!</li>
+                                <li>• Pagamento facilitado via Pix ou Cartão</li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20saber%20mais%20sobre%20o%20Treinamento%20Presencial." target="_blank" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl text-center transition block shadow-lg text-sm">Tirar Dúvidas - Treinamento Presencial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECÇÃO: RELATOS -->
-        <section id="relatos" data-section-id="relatos" class="space-y-8">
-            <div class="text-center space-y-2">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Alunos Satisfeitos</span>
-                <h3 class="text-3xl font-extrabold text-white">Relatos e Resultados</h3>
-                <p class="text-sm text-gray-400">Veja o que dizem quem já treinou com a nossa equipa.</p>
-            </div>
-            <div id="publicTestimonialsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Preenchido via JavaScript -->
-            </div>
-            <div class="text-center pt-4">
-                <button onclick="openTestimonialModal()" class="bg-gray-900 hover:bg-gray-800 border border-amber-500/30 text-amber-400 font-bold px-6 py-3 rounded-2xl transition text-sm cursor-pointer shadow-lg">+ Enviar Meu Relato</button>
+        <section id="relatos" data-section-id="relatos" class="py-10 space-y-8">
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="text-center space-y-2">
+                    <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Alunos Satisfeitos</span>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-white">Relatos e Resultados</h3>
+                    <p class="text-sm text-gray-400">Veja o que dizem quem já treinou com a nossa equipa.</p>
+                </div>
+                <div id="publicTestimonialsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+                <div class="text-center pt-4">
+                    <button onclick="openTestimonialModal()" class="inline-block border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-gray-950 font-semibold px-6 py-3 rounded-xl transition text-sm cursor-pointer shadow-lg">Deixar meu Relato / Depoimento</button>
+                </div>
             </div>
         </section>
 
         <!-- SECÇÃO: TIRAR DÚVIDAS -->
-        <section id="duvidas" data-section-id="duvidas" class="bg-gray-900 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
+        <section id="duvidas" data-section-id="duvidas" class="bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 space-y-8">
             <div class="border-b border-gray-800 pb-6">
                 <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Suporte Direto</span>
                 <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Tirar Dúvidas</h3>
@@ -162,7 +186,7 @@
                     <p>Entre em contacto diretamente através do WhatsApp para um atendimento rápido e personalizado.</p>
                 </div>
                 <div class="text-center md:text-right">
-                    <a href="https://wa.me/?text=Olá%20Diego,%20gostaria%20de%20tirar%20algumas%20dúvidas%20sobre%20os%20treinos." target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-extrabold px-8 py-4 rounded-2xl transition shadow-xl text-base">Falar no WhatsApp 📱</a>
+                    <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20gostaria%20de%20tirar%20algumas%20dúvidas%20sobre%20os%20treinos." target="_blank" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-extrabold px-8 py-4 rounded-2xl transition shadow-xl text-base">Falar no WhatsApp 📱</a>
                 </div>
             </div>
         </section>
@@ -171,11 +195,12 @@
 
     <!-- MODAL SOBRE PLANILHA -->
     <div id="spreadsheetModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl space-y-6">
+        <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl space-y-6">
             <button onclick="closeSpreadsheetModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
             <div>
                 <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Detalhes da Planilha</span>
                 <h3 class="text-2xl font-bold text-white mt-2" id="modalSpreadsheetTitle">Nome da Planilha</h3>
+                <p class="text-amber-400 font-extrabold text-xl mt-1" id="modalSpreadsheetPrice">R$ 29,90</p>
             </div>
             <p class="text-gray-300 text-sm leading-relaxed" id="modalSpreadsheetDesc">Descrição detalhada da planilha.</p>
             <div class="pt-4 border-t border-gray-800 flex gap-3">
@@ -186,12 +211,12 @@
 
     <!-- SEGUNDA MODAL: QR CODE PIX E COMPROVANTE VIA WHATSAPP -->
     <div id="pixModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl space-y-5 text-center">
+        <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl space-y-5 text-center">
             <button onclick="closePixModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
             <div>
                 <span class="bg-emerald-500/15 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-emerald-500/30">Pagamento Pix</span>
                 <h3 class="text-xl font-bold text-white mt-2" id="pixModalTitle">Nome da Planilha</h3>
-                <p class="text-amber-400 font-extrabold text-2xl mt-1">R$ 29,90</p>
+                <p class="text-amber-400 font-extrabold text-2xl mt-1" id="pixModalPrice">R$ 29,90</p>
             </div>
             <div class="bg-white p-3 rounded-2xl inline-block shadow-inner">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=TeamVasconcelosPixPlanilha" alt="QR Code Pix" class="w-40 h-40 mx-auto object-contain">
@@ -209,35 +234,35 @@
 
     <!-- MODAL DE DEPOIMENTO -->
     <div id="testimonialModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
+        <div class="bg-gray-950 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-md w-full relative shadow-2xl">
             <button onclick="closeTestimonialModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold cursor-pointer">&times;</button>
-            <h3 class="text-2xl font-bold mb-2 text-white">Enviar Meu Relato</h3>
-            <p class="text-xs text-gray-400 mb-6">O seu relato passará por moderação antes de aparecer no site.</p>
+            <h3 class="text-2xl font-bold mb-2 text-white">Deixar o seu Relato</h3>
+            <p class="text-gray-400 text-sm mb-6">Partilhe a sua experiência. O depoimento será analisado antes de aparecer no site.</p>
             <form onsubmit="submitTestimonial(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Nome</label>
-                    <input type="text" id="clientName" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500" placeholder="Ex: João Silva">
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Nome Completo</label>
+                    <input type="text" id="clientName" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm" placeholder="Ex: Ana Silva">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Modalidade</label>
-                    <select id="clientService" class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500">
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">Serviço Contratado</label>
+                    <select id="clientService" required class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm">
                         <option value="Treinamento Presencial">Treinamento Presencial</option>
                         <option value="Consultoria Online">Consultoria Online</option>
                         <option value="Planilha de Treino">Planilha de Treino</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Relato / Resultado</label>
-                    <textarea id="clientMessage" rows="3" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-500" placeholder="Conte como foi a sua evolução..."></textarea>
+                    <label class="block text-xs font-semibold uppercase text-amber-400 mb-1">O seu Relato</label>
+                    <textarea id="clientMessage" required rows="4" class="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 text-sm resize-none" placeholder="Conte como foi a evolução..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Enviar Relato</button>
+                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold py-3.5 rounded-xl transition shadow-xl text-base mt-2 cursor-pointer">Enviar Depoimento</button>
             </form>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800 py-8 text-center text-xs text-gray-500 space-y-2">
-        <p>&copy; 2026 Team Vasconcelos - Todos os direitos reservados.</p>
+        <p>&copy; 2026 Diego Vasconcelos Personal Trainer. Todos os direitos reservados.</p>
         <p class="text-gray-600">Powered by <a href="https://www.instagram.com/cs_code_solutions?stkn=Ym1mNDMzYTYxa3d6" target="_blank" class="text-gray-400 hover:text-amber-400 transition">CS code Solutions</a></p>
     </footer>
 
@@ -339,24 +364,27 @@
                     group.items.forEach((item, iIdx) => {
                         itemsHTML += `
                             <div class="carousel-slide-${index} absolute inset-0 transition-opacity duration-1000 flex items-center justify-center ${iIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
-                                <img src="${item.image}" class="max-h-full max-w-full object-contain rounded-2xl shadow-xl pointer-events-none">
+                                <img src="${item.image}" class="max-h-full max-w-full object-contain pointer-events-none">
                             </div>
                         `;
                     });
 
                     const groupHTML = `
-                        <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-10 space-y-6">
-                            <div class="max-w-3xl space-y-2">
-                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Método Exclusivo</span>
+                        <div class="max-w-sm mx-auto space-y-6">
+                            <div class="text-center space-y-2">
+                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Metodologia Exclusiva</span>
                                 <h4 class="text-2xl sm:text-3xl font-bold text-white">${group.title}</h4>
-                                <p class="text-gray-400 text-sm sm:text-base">${group.desc}</p>
+                                <p class="text-gray-400 text-sm">${group.desc}</p>
                             </div>
-                            <div id="carousel-frame-${index}" class="relative h-[380px] sm:h-[500px] bg-black rounded-2xl overflow-hidden border border-gray-800 flex items-center justify-center p-4 select-none">
-                                <!-- Botões de Navegação -->
-                                <button type="button" onclick="manualChangeSlide(${index}, -1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-xl z-30 transition border border-gray-700 shadow-xl cursor-pointer">&#10094;</button>
-                                <button type="button" onclick="manualChangeSlide(${index}, 1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-extrabold text-xl z-30 transition border border-gray-700 shadow-xl cursor-pointer">&#10095;</button>
+                            <div id="carousel-frame-${index}" class="relative max-w-sm mx-auto h-[450px] sm:h-[500px] bg-black rounded-3xl overflow-hidden border border-gray-800 flex items-center justify-center p-4 shadow-2xl select-none">
+                                <!-- Botões de Navegação (Setas) -->
+                                <button type="button" onclick="manualChangeSlide(${index}, -1)" class="absolute left-4 bottom-6 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10094;</button>
+                                <button type="button" onclick="manualChangeSlide(${index}, 1)" class="absolute right-4 bottom-6 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-11 h-11 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10095;</button>
                                 
                                 ${itemsHTML}
+                            </div>
+                            <div class="text-center pt-2">
+                                <a href="https://wa.me/5551980161186?text=Olá%20Diego,%20tenho%20dúvida%20sobre%20o%20Método%20Transformação%20de%20Elite!" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold px-8 py-3.5 rounded-xl transition shadow-xl text-base inline-block">Tirar Dúvidas sobre o Método</a>
                             </div>
                         </div>
                     `;
@@ -382,7 +410,6 @@
 
             const frame = document.getElementById(`carousel-frame-${groupIndex}`);
             if (frame) {
-                // Pausar ao segurar o dedo (mobile) ou rato (desktop)
                 frame.addEventListener('mousedown', () => pauseCarousel(groupIndex));
                 frame.addEventListener('mouseup', () => resumeCarousel(groupIndex));
                 frame.addEventListener('mouseleave', () => resumeCarousel(groupIndex));
@@ -450,17 +477,18 @@
                 }
                 querySnapshot.forEach((docSnap) => {
                     const s = docSnap.data();
+                    const price = s.price || "R$ 29,90";
                     const cardHTML = `
                         <div class="bg-gray-900 border border-gray-800 p-6 rounded-3xl flex flex-col justify-between space-y-6">
                             <div class="space-y-3">
                                 <div class="flex justify-between items-start gap-2">
                                     <h4 class="font-bold text-white text-lg">${s.name}</h4>
-                                    <span class="bg-amber-400/10 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">PDF</span>
+                                    <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">${price}</span>
                                 </div>
                                 <p class="text-gray-300 text-xs sm:text-sm line-clamp-3 leading-relaxed">${s.description}</p>
                             </div>
                             <div class="pt-4 border-t border-gray-800">
-                                <button type="button" onclick="openSpreadsheetModal('${encodeURIComponent(s.name)}', '${encodeURIComponent(s.description)}')" class="w-full bg-gray-950 hover:bg-gray-900 border border-amber-500/30 text-amber-400 font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-md">Sobre a Planilha</button>
+                                <button type="button" onclick="openSpreadsheetModal('${encodeURIComponent(s.name)}', '${encodeURIComponent(s.description)}', '${encodeURIComponent(price)}')" class="w-full bg-gray-950 hover:bg-gray-900 border border-amber-500/30 text-amber-400 font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-md">Sobre a Planilha</button>
                             </div>
                         </div>
                     `;
@@ -473,10 +501,13 @@
         }
 
         let selectedSpreadsheetName = '';
+        let selectedSpreadsheetPrice = '';
 
-        window.openSpreadsheetModal = function(name, desc) {
+        window.openSpreadsheetModal = function(name, desc, price) {
             selectedSpreadsheetName = decodeURIComponent(name);
+            selectedSpreadsheetPrice = decodeURIComponent(price || "R$ 29,90");
             document.getElementById('modalSpreadsheetTitle').textContent = selectedSpreadsheetName;
+            document.getElementById('modalSpreadsheetPrice').textContent = selectedSpreadsheetPrice;
             document.getElementById('modalSpreadsheetDesc').textContent = decodeURIComponent(desc);
             document.getElementById('spreadsheetModal').classList.remove('hidden');
         }
@@ -488,8 +519,9 @@
         window.openPixModal = function() {
             closeSpreadsheetModal();
             document.getElementById('pixModalTitle').textContent = selectedSpreadsheetName;
-            const message = encodeURIComponent(`Olá Diego, acabei de efetuar o pagamento Pix da planilha "${selectedSpreadsheetName}" no valor de R$ 29,90 e envio aqui o comprovante pix!`);
-            document.getElementById('whatsappPixLink').href = `https://wa.me/?text=${message}`;
+            document.getElementById('pixModalPrice').textContent = selectedSpreadsheetPrice;
+            const message = encodeURIComponent(`Olá Diego, acabei de efetuar o pagamento Pix da planilha "${selectedSpreadsheetName}" no valor de ${selectedSpreadsheetPrice} e envio aqui o comprovante pix!`);
+            document.getElementById('whatsappPixLink').href = `https://wa.me/5551980161186?text=${message}`;
             document.getElementById('pixModal').classList.remove('hidden');
         }
 
@@ -509,13 +541,12 @@
                     if (t.status === 'aprovado') {
                         hasApproved = true;
                         const cardHTML = `
-                            <div class="bg-gray-900 border border-gray-800 p-6 rounded-3xl space-y-3">
-                                <div class="flex justify-between items-center">
-                                    <span class="font-bold text-white text-base">${t.name}</span>
-                                    <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">${t.service}</span>
+                            <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-3">
+                                <p class="text-gray-300 italic text-sm">"${t.message}"</p>
+                                <div>
+                                    <span class="font-bold text-amber-400 block">— ${t.name}</span>
+                                    <span class="text-xs text-gray-500">${t.service}</span>
                                 </div>
-                                <p class="text-gray-300 text-sm italic">"${t.message}"</p>
-                                <span class="text-[10px] text-gray-500">Avaliação verificada</span>
                             </div>
                         `;
                         container.insertAdjacentHTML('beforeend', cardHTML);
@@ -524,13 +555,19 @@
 
                 if (!hasApproved) {
                     container.innerHTML = `
-                        <div class="bg-gray-900 border border-gray-800 p-6 rounded-3xl space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="font-bold text-white text-base">Lucas & Camila</span>
-                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Consultoria Online</span>
+                        <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-3">
+                            <p class="text-gray-300 italic text-sm">"O acompanhamento do Diego mudou completamente a minha forma de treinar. A atenção aos detalhes na execução e a consultoria online funcionam super bem para a minha rotina!"</p>
+                            <div>
+                                <span class="font-bold text-amber-400 block">— Mariana S.</span>
+                                <span class="text-xs text-gray-500">Consultoria Online</span>
                             </div>
-                            <p class="text-gray-300 text-sm italic">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
-                            <span class="text-[10px] text-gray-500">Avaliação verificada</span>
+                        </div>
+                        <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 space-y-3">
+                            <p class="text-gray-300 italic text-sm">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, uma dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
+                            <div>
+                                <span class="font-bold text-amber-400 block">— Lucas e Camila</span>
+                                <span class="text-xs text-gray-500">Treinamento Presencial</span>
+                            </div>
                         </div>
                     `;
                 }
