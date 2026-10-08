@@ -52,15 +52,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
                     <span class="text-xs uppercase text-gray-400 font-semibold">Pendentes de Validação</span>
-                    <h2 class="text-3xl font-extrabold text-amber-400 mt-2" id="pendingCount">1</h2>
+                    <h2 class="text-3xl font-extrabold text-amber-400 mt-2" id="pendingCount">0</h2>
                 </div>
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
                     <span class="text-xs uppercase text-gray-400 font-semibold">Postados no Site</span>
-                    <h2 class="text-3xl font-extrabold text-emerald-400 mt-2" id="approvedCount">1</h2>
+                    <h2 class="text-3xl font-extrabold text-emerald-400 mt-2" id="approvedCount">0</h2>
                 </div>
                 <div class="bg-gray-950 border border-gray-800 p-6 rounded-2xl">
                     <span class="text-xs uppercase text-gray-400 font-semibold">Total Registados</span>
-                    <h2 class="text-3xl font-extrabold text-blue-400 mt-2" id="totalCount">2</h2>
+                    <h2 class="text-3xl font-extrabold text-blue-400 mt-2" id="totalCount">0</h2>
                 </div>
             </div>
 
@@ -69,21 +69,7 @@
                 <h3 class="text-xl font-bold text-white mb-2">Relatos Pendentes</h3>
                 <p class="text-sm text-gray-400 mb-6">Aprove ou exclua os relatos enviados pelos alunos no site.</p>
                 <div id="pendingList" class="space-y-4">
-                    <div class="bg-gray-900 border border-amber-500/30 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
-                        <div class="space-y-1">
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-white text-base">Carlos Alberto</span>
-                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Treinamento Presencial</span>
-                                <span class="bg-amber-500/20 text-amber-300 text-xs px-2.5 py-0.5 rounded-full status-badge">Pendente</span>
-                            </div>
-                            <p class="text-gray-300 text-sm italic">"O Diego puxa mesmo nos treinos presenciais! A minha postura e força mudaram 100% em poucas semanas."</p>
-                            <span class="text-xs text-gray-500">Enviado em: 07/10/2026</span>
-                        </div>
-                        <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
-                            <button onclick="approveLocalTestimonial(this)" class="bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-emerald-500/30 cursor-pointer">Aprovar</button>
-                            <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
-                        </div>
-                    </div>
+                    <!-- Preenchido Dinamicamente via Firebase -->
                 </div>
             </div>
 
@@ -92,20 +78,7 @@
                 <h3 class="text-xl font-bold text-white mb-2">Relatos Postados no Site</h3>
                 <p class="text-sm text-gray-400 mb-6">Depoimentos visíveis publicamente na landing page.</p>
                 <div id="approvedList" class="space-y-4">
-                    <div class="bg-gray-900 border border-emerald-500/20 p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
-                        <div class="space-y-1">
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-white text-base">Lucas & Camila</span>
-                                <span class="bg-amber-400/10 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-400/20">Consultoria Online</span>
-                                <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full status-badge">Publicado</span>
-                            </div>
-                            <p class="text-gray-300 text-sm italic">"Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar."</p>
-                            <span class="text-xs text-gray-500">Enviado em: 06/10/2026</span>
-                        </div>
-                        <div class="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
-                            <button onclick="deleteLocalItem(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
-                        </div>
-                    </div>
+                    <!-- Preenchido Dinamicamente via Firebase -->
                 </div>
             </div>
         </section>
@@ -315,17 +288,41 @@
             }, 2500);
         }
 
-        // Depoimentos
+        // Depoimentos Dinâmicos com Firebase
         async function loadFirebaseTestimonials() {
             try {
                 const querySnapshot = await getDocs(collection(db, "testimonials"));
+                const pendingList = document.getElementById('pendingList');
+                const approvedList = document.getElementById('approvedList');
+                pendingList.innerHTML = '';
+                approvedList.innerHTML = '';
+
+                if (querySnapshot.empty) {
+                    // Se estiver vazio, popula com os depoimentos iniciais no Firebase para teste
+                    await addDoc(collection(db, "testimonials"), {
+                        name: "Carlos Alberto",
+                        service: "Treinamento Presencial",
+                        message: "O Diego puxa mesmo nos treinos presenciais! A minha postura e força mudaram 100% em poucas semanas.",
+                        status: "pendente",
+                        date: "07/10/2026"
+                    });
+                    await addDoc(collection(db, "testimonials"), {
+                        name: "Lucas & Camila",
+                        service: "Consultoria Online",
+                        message: "Treinamos em casal com o Diego e a energia é fantástica! Além de focar na nossa evolução, a dieta de brinde ajudou demais na nossa reeducação alimentar.",
+                        status: "aprovado",
+                        date: "06/10/2026"
+                    });
+                    return loadFirebaseTestimonials();
+                }
+
                 querySnapshot.forEach((docSnap) => {
                     const t = docSnap.data();
                     const id = docSnap.id;
                     const isPending = (t.status === 'pendente' || !t.status);
 
                     const cardHTML = `
-                        <div class="bg-gray-900 border ${isPending ? 'border-amber-500/30' : 'border-emerald-500/20'} p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card">
+                        <div class="bg-gray-900 border ${isPending ? 'border-amber-500/30' : 'border-emerald-500/20'} p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 testimonial-card" data-id="${id}">
                             <div class="space-y-1">
                                 <div class="flex items-center gap-2">
                                     <span class="font-bold text-white text-base">${t.name}</span>
@@ -342,9 +339,9 @@
                         </div>
                     `;
                     if (isPending) {
-                        document.getElementById('pendingList').insertAdjacentHTML('beforeend', cardHTML);
+                        pendingList.insertAdjacentHTML('beforeend', cardHTML);
                     } else {
-                        document.getElementById('approvedList').insertAdjacentHTML('beforeend', cardHTML);
+                        approvedList.insertAdjacentHTML('beforeend', cardHTML);
                     }
                 });
                 updateCounters();
@@ -353,29 +350,13 @@
             }
         }
 
-        window.approveLocalTestimonial = function(btn) {
-            const card = btn.closest('.testimonial-card');
-            card.querySelector('.status-badge').className = "bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-0.5 rounded-full status-badge";
-            card.querySelector('.status-badge').textContent = "Publicado";
-            document.getElementById('approvedList').appendChild(card);
-            btn.remove();
-            updateCounters();
-        }
-
         window.approveFirebaseTestimonial = async function(id, btn) {
             try {
                 await setDoc(doc(db, "testimonials", id), { status: 'aprovado' }, { merge: true });
-                approveLocalTestimonial(btn);
                 showToast();
+                await loadFirebaseTestimonials();
             } catch (err) {
                 alert('Erro ao aprovar: ' + err.message);
-            }
-        }
-
-        window.deleteLocalItem = function(btn) {
-            if (confirm('Tem certeza que deseja excluir este depoimento?')) {
-                btn.closest('.testimonial-card').remove();
-                updateCounters();
             }
         }
 
@@ -383,9 +364,8 @@
             if (confirm('Tem certeza que deseja excluir este depoimento?')) {
                 try {
                     await deleteDoc(doc(db, "testimonials", id));
-                    btn.closest('.testimonial-card').remove();
-                    updateCounters();
                     showToast();
+                    await loadFirebaseTestimonials();
                 } catch (err) {
                     alert('Erro ao excluir: ' + err.message);
                 }
