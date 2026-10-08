@@ -150,15 +150,15 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: RELATOS (Alinhada com o estilo de cartões escuros e nomes em laranja) -->
+        <!-- SECÇÃO: RELATOS -->
         <section id="relatos" data-section-id="relatos" class="py-8 space-y-8">
             <div class="max-w-3xl mx-auto space-y-8 text-center">
                 <div class="space-y-2">
                     <h3 class="text-3xl md:text-4xl font-extrabold text-white leading-tight">Relatos de Alunas e<br>Alunos</h3>
-                    <p class="text-sm text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span).</p>
+                    <p class="text-sm text-gray-400">Veja o que dizem quem já transformou o treino com o Team Vasconcelos.</p>
                 </div>
                 
-                <!-- Container do Carrossel de Relatos (Estilo Cartão Escuro com Borda e Detalhes Laranja) -->
+                <!-- Container do Carrossel de Relatos -->
                 <div class="relative bg-gray-950 border border-gray-800 rounded-3xl p-8 sm:p-12 shadow-2xl min-h-[240px] flex flex-col justify-between text-left">
                     <!-- Botões de Navegação (Pular / Voltar) -->
                     <button type="button" onclick="changeTestimonialSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-amber-500 text-amber-400 hover:text-gray-950 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg z-30 transition border border-amber-500/30 shadow-xl cursor-pointer">&#10094;</button>
@@ -223,7 +223,7 @@
                 <p class="text-amber-400 font-extrabold text-2xl mt-1" id="pixModalPrice">R$ 29,90</p>
             </div>
             <div class="bg-white p-3 rounded-2xl inline-block shadow-inner">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=TeamVasconcelosPixPlanilha" alt="QR Code Pix" class="w-40 h-40 mx-auto object-contain">
+                <img id="pixQrCodeImg" src="" alt="QR Code Pix" class="w-40 h-40 mx-auto object-contain">
             </div>
             <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
                 Escaneie o QR Code acima com o aplicativo do seu banco para efetuar o pagamento.
@@ -524,6 +524,14 @@
             closeSpreadsheetModal();
             document.getElementById('pixModalTitle').textContent = selectedSpreadsheetName;
             document.getElementById('pixModalPrice').textContent = selectedSpreadsheetPrice;
+
+            // Gera e atualiza o QR Code dinamicamente com base no nome e valor selecionado
+            const qrData = encodeURIComponent(`Planilha: ${selectedSpreadsheetName} | Valor: ${selectedSpreadsheetPrice}`);
+            const qrImg = document.getElementById('pixQrCodeImg');
+            if (qrImg) {
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=${qrData}`;
+            }
+
             const message = encodeURIComponent(`Olá Diego, acabei de efetuar o pagamento Pix da planilha "${selectedSpreadsheetName}" no valor de ${selectedSpreadsheetPrice} e envio aqui o comprovante pix!`);
             document.getElementById('whatsappPixLink').href = `https://wa.me/5551980161186?text=${message}`;
             document.getElementById('pixModal').classList.remove('hidden');
