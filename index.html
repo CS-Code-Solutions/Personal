@@ -91,16 +91,10 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: O MÉTODO -->
+        <!-- SECÇÃO: O MÉTODO (Gerida via JS sem duplicações) -->
         <section id="metodo" data-section-id="metodo" class="py-8 space-y-8">
-            <div class="max-w-4xl mx-auto text-center space-y-3">
-                <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Metodologia Exclusiva</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white">O Método Transformação de Elite</h2>
-                <p class="text-gray-400 max-w-xl mx-auto text-sm">Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.</p>
-            </div>
-            
             <div id="dynamicCarouselsContainer" class="space-y-10">
-                <!-- Preenchido via JavaScript -->
+                <!-- Preenchido via JavaScript com o crachá contornado correto -->
             </div>
         </section>
 
@@ -349,7 +343,7 @@
                         groups = data.groups;
                     } else if (data.items) {
                         groups = [{
-                            title: data.title || "Conheça o Método Transformação de Elite",
+                            title: data.title || "O Método Transformação de Elite",
                             desc: data.desc || "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
                             items: data.items
                         }];
@@ -362,7 +356,7 @@
                         defaultItems.push({ image: `_metodo-${i}.jpg`, time: 6 });
                     }
                     groups.push({
-                        title: "Conheça o Método Transformação de Elite",
+                        title: "O Método Transformação de Elite",
                         desc: "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
                         items: defaultItems
                     });
@@ -381,9 +375,9 @@
 
                     const groupHTML = `
                         <div class="max-w-sm mx-auto space-y-6">
-                            <div class="text-center space-y-2">
-                                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Metodologia Exclusiva</span>
-                                <h4 class="text-2xl sm:text-3xl font-bold text-white">${group.title}</h4>
+                            <div class="text-center space-y-3">
+                                <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Metodologia Exclusiva</span>
+                                <h4 class="text-2xl sm:text-3xl font-extrabold text-white">${group.title}</h4>
                                 <p class="text-gray-400 text-sm">${group.desc}</p>
                             </div>
                             <div id="carousel-frame-${index}" class="relative max-w-sm mx-auto h-[450px] sm:h-[500px] bg-black rounded-3xl overflow-hidden border border-gray-800 flex items-center justify-center p-4 shadow-2xl select-none">
