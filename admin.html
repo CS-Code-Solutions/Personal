@@ -350,7 +350,6 @@
                     if (data.groups && Array.isArray(data.groups)) {
                         groups = data.groups;
                     } else if (data.items) {
-                        // Compatibilidade com formato antigo único
                         groups = [{
                             title: data.title || "Conheça o Método Transformação de Elite",
                             desc: data.desc || "Acompanhe as imagens abaixo para entender como funciona o nosso método de acompanhamento.",
@@ -359,7 +358,6 @@
                     }
                 }
 
-                // Se não existir nenhum grupo, cria o padrão com as 9 imagens locais originais
                 if (groups.length === 0) {
                     let defaultItems = [];
                     for (let i = 1; i <= 9; i++) {
@@ -395,8 +393,8 @@
                                     <div class="flex justify-between items-center mb-3">
                                         <span class="bg-amber-400/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-400/20">Imagem <span class="item-pos">${iIndex + 1}</span></span>
                                         <div class="flex gap-1">
-                                            <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover para Esquerda/Cima">▲</button>
-                                            <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover para Direita/Baixo">▼</button>
+                                            <button type="button" onclick="moveCarouselItemWithinGroup(this, -1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▲</button>
+                                            <button type="button" onclick="moveCarouselItemWithinGroup(this, 1)" class="bg-gray-800 hover:bg-gray-700 text-white w-7 h-7 rounded-lg text-xs font-bold transition flex items-center justify-center cursor-pointer" title="Mover">▼</button>
                                         </div>
                                     </div>
                                     <div class="h-44 bg-black rounded-xl mb-3 flex items-center justify-center overflow-hidden border border-gray-800">
@@ -406,11 +404,13 @@
                                 </div>
                                 <div class="flex gap-2 mt-4 pt-3 border-t border-gray-800">
                                     <button type="button" onclick="openEditCarouselModal(this)" class="w-1/2 bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-blue-500/30 cursor-pointer">Editar</button>
-                                    <button type="button" onclick="this.closest('.carousel-item-card').remove(); updateGroupPositions(this);" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
+                                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard);" class="w-1/2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir</button>
                                 </div>
                             </div>
                         `;
                     });
+                } else {
+                    itemsHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
                 }
 
                 groupDiv.innerHTML = `
@@ -420,8 +420,8 @@
                             <h4 class="text-lg font-bold text-white">Conjunto de Carrossel</h4>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
-                            <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Acima">▲ Posicionar Acima</button>
-                            <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer" title="Posicionar Abaixo">▼ Posicionar Abaixo</button>
+                            <button type="button" onclick="moveCarouselGroup(this, -1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">▲ Posicionar Acima</button>
+                            <button type="button" onclick="moveCarouselGroup(this, 1)" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition cursor-pointer">▼ Posicionar Abaixo</button>
                             <button type="button" onclick="deleteCarouselGroup(this)" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold px-3 py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Excluir Conjunto</button>
                         </div>
                     </div>
@@ -486,7 +486,7 @@
                         <button type="button" onclick="addNewImageRowToGroup(this)" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-gray-950 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-amber-500/30 cursor-pointer">+ Adicionar Imagem</button>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 group-items-grid">
-                        <p class="text-xs text-gray-500 italic col-span-full">Nenhuma imagem adicionada ainda neste conjunto.</p>
+                        <p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>
                     </div>
                 </div>
             `;
@@ -524,8 +524,7 @@
             const groupCard = btn.closest('.carousel-group-card');
             const grid = groupCard.querySelector('.group-items-grid');
             
-            // Remove mensagem de aviso vazia se houver
-            const emptyMsg = grid.querySelector('p');
+            const emptyMsg = grid.querySelector('.empty-msg');
             if (emptyMsg) emptyMsg.remove();
 
             const tempDiv = document.createElement('div');
@@ -546,16 +545,16 @@
                         </div>
                         <div>
                             <label class="block text-[10px] uppercase font-bold text-amber-400 mb-1">Tempo (segundos)</label>
-                            <input type="number" value="6" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-white text-xs item-time">
+                            <input type="number" value="6" min="2" max="30" required class="w-full bg-gray-950 border border-gray-800 rounded-xl px-3 py-2 text-white text-xs item-time-input">
                         </div>
                     </div>
                 </div>
                 <div class="flex gap-2 mt-2 pt-2 border-t border-gray-800">
-                    <button type="button" onclick="this.closest('.carousel-item-card').remove(); updateGroupPositions(this);" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Remover</button>
+                    <button type="button" onclick="const gCard = this.closest('.carousel-group-card'); this.closest('.carousel-item-card').remove(); checkEmptyGroup(gCard);" class="w-full bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-gray-950 font-bold py-2 rounded-xl text-xs transition border border-rose-500/30 cursor-pointer">Remover</button>
                 </div>
             `;
             grid.appendChild(tempDiv);
-            updateGroupPositions(btn);
+            updateGroupPositions(groupCard);
         }
 
         window.moveCarouselItemWithinGroup = function(btn, direction) {
@@ -566,11 +565,10 @@
             } else if (direction === 1 && card.nextElementSibling) {
                 parent.insertBefore(card.nextElementSibling, card);
             }
-            updateGroupPositions(btn);
+            updateGroupPositions(card.closest('.carousel-group-card'));
         }
 
-        function updateGroupPositions(el) {
-            const groupCard = el.closest('.carousel-group-card');
+        function updateGroupPositions(groupCard) {
             if (!groupCard) return;
             const cards = groupCard.querySelectorAll('.carousel-item-card');
             cards.forEach((card, index) => {
@@ -579,10 +577,19 @@
             });
         }
 
+        window.checkEmptyGroup = function(groupCard) {
+            const grid = groupCard.querySelector('.group-items-grid');
+            const cards = grid.querySelectorAll('.carousel-item-card');
+            if (cards.length === 0) {
+                grid.innerHTML = `<p class="text-xs text-gray-500 italic col-span-full empty-msg">Nenhuma imagem adicionada ainda neste conjunto.</p>`;
+            }
+        }
+
         let currentItemEditing = null;
         window.openEditCarouselModal = function(btn) {
             currentItemEditing = btn.closest('.carousel-item-card');
-            const time = currentItemEditing.querySelector('.item-time').textContent;
+            const timeEl = currentItemEditing.querySelector('.item-time');
+            const time = timeEl ? timeEl.textContent : 6;
             document.getElementById('editCarouselTime').value = time;
             document.getElementById('editCarouselImageInput').value = '';
             document.getElementById('editCarouselModal').classList.remove('hidden');
@@ -596,12 +603,14 @@
             e.preventDefault();
             if (currentItemEditing) {
                 const time = document.getElementById('editCarouselTime').value;
-                currentItemEditing.querySelector('.item-time').textContent = time;
+                const timeSpan = currentItemEditing.querySelector('.item-time');
+                if (timeSpan) timeSpan.textContent = time;
 
                 const fileInput = document.getElementById('editCarouselImageInput');
                 if (fileInput.files && fileInput.files[0]) {
                     const base64 = await toBase64(fileInput.files[0]);
-                    currentItemEditing.querySelector('.item-img').src = base64;
+                    const img = currentItemEditing.querySelector('.item-img');
+                    if (img) img.src = base64;
                     currentItemEditing.dataset.image = base64;
                 }
                 closeEditCarouselModal();
@@ -616,14 +625,18 @@
             let groups = [];
 
             for (let gCard of groupCards) {
-                const title = gCard.querySelector('.group-title-input').value;
-                const desc = gCard.querySelector('.group-desc-input').value;
+                const titleInput = gCard.querySelector('.group-title-input');
+                const descInput = gCard.querySelector('.group-desc-input');
+                const title = titleInput ? titleInput.value : '';
+                const desc = descInput ? descInput.value : '';
+                
                 const itemCards = gCard.querySelectorAll('.carousel-item-card');
                 let items = [];
 
                 for (let iCard of itemCards) {
                     const fileInput = iCard.querySelector('.new-file-input');
-                    const time = parseInt(iCard.querySelector('.item-time').textContent);
+                    const timeInput = iCard.querySelector('.item-time-input') || iCard.querySelector('.item-time');
+                    const time = timeInput ? parseInt(timeInput.value || timeInput.textContent || 6) : 6;
 
                     if (fileInput && fileInput.files && fileInput.files[0]) {
                         const base64 = await toBase64(fileInput.files[0]);
