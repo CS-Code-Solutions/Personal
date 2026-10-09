@@ -25,7 +25,7 @@
 
     <!-- Hero Section com a Logo Grande e Menu Logo Abaixo -->
     <section class="hero-bg min-h-screen flex flex-col justify-between pt-10 pb-10 px-6 text-center border-b border-gray-800">
-        <!-- Espaçador superior (botão do WhatsApp do topo removido) -->
+        <!-- Espaçador superior -->
         <div></div>
 
         <!-- Conteúdo Principal do Hero com a Logo Grande -->
@@ -61,7 +61,8 @@
             <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
                 <div>
                     <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block mb-4">Minha Trajetória</span>
-                    <h2 class="text-3xl font-bold mb-6 text-amber-400">Quem Sou Eu</h2>
+                    <h2 class="text-3xl font-bold mb-1 text-amber-400">Quem Sou Eu</h2>
+                    <p class="text-xs font-bold text-gray-400 tracking-wider mb-6">CREF 042785-G/RS</p>
                     <p class="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base" id="siteBioP1">A minha história começou aos 31 anos, trabalhando 10 horas sentado num escritório e tendo apenas o futebol como atividade física. Decidi mudar quando o peso na balança chegou aos 94kg e percebi que já não me reconhecia no espelho.</p>
                     <p class="text-gray-300 mb-6 leading-relaxed text-sm sm:text-base" id="siteBioP2">Com muita persistência — porque quem passa por isso sabe o quão difícil é começar a alimentar-se de forma saudável —, consegui chegar aos 68kg. Foi nessa fase de emagrecimento que conheci o fisiculturismo, um esporte que me deu disciplina, foco e o desejo genuíno de ajudar outras pessoas a alcançarem os seus objetivos.</p>
                     <div class="flex gap-6 border-t border-gray-800 pt-6">
@@ -89,8 +90,11 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: O MÉTODO -->
+        <!-- SECÇÃO: O MÉTODO (Metodologia Exclusiva única no topo) -->
         <section id="metodo" data-section-id="metodo" class="py-8 space-y-8">
+            <div class="text-center">
+                <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Metodologia Exclusiva</span>
+            </div>
             <div id="dynamicCarouselsContainer" class="space-y-10">
                 <!-- Preenchido via JavaScript -->
             </div>
@@ -136,7 +140,7 @@
             </div>
         </section>
 
-        <!-- SECÇÃO: PLANILHAS DE TREINO (Padronizada com o mesmo estilo dos cards de modalidade) -->
+        <!-- SECÇÃO: PLANILHAS DE TREINO -->
         <section id="planilhas" data-section-id="planilhas" class="py-8 space-y-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-10 space-y-2">
@@ -376,7 +380,6 @@
                     const groupHTML = `
                         <div class="max-w-sm mx-auto space-y-6">
                             <div class="text-center space-y-3">
-                                <span class="text-amber-400 font-semibold tracking-widest uppercase text-xs bg-amber-400/10 px-4 py-1.5 rounded-full border border-amber-400/20 inline-block">Metodologia Exclusiva</span>
                                 <h4 class="text-2xl sm:text-3xl font-extrabold text-white">${group.title}</h4>
                                 <p class="text-gray-400 text-sm">${group.desc}</p>
                             </div>
